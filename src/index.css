@@ -8,44 +8,40 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Rocket Craft Design System - Modern, Minimalist */
-    --background: 40 8% 87%;
-    --foreground: 210 54% 11%;
+    /* Rocket Craft Design System - Strict & Minimalist (Notion-style) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 54% 11%;
+    --card-foreground: 0 0% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 54% 11%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 210 54% 11%;
-    --primary-foreground: 40 8% 87%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 211 29% 36%;
-    --secondary-foreground: 40 8% 87%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 210 22% 57%;
-    --muted-foreground: 215 34% 17%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 215 34% 17%;
-    --accent-foreground: 40 8% 87%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 40 8% 87%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 22% 57% / 0.2;
-    --input: 210 22% 57% / 0.3;
-    --ring: 210 54% 11%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 9%;
 
-    --radius: 0.75rem;
-
-    /* Custom gradient tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(210 54% 11%), hsl(215 34% 17%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(40 8% 87%));
+    --radius: 0.5rem;
     
     /* Animation tokens */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 

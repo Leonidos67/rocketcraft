@@ -78,36 +78,36 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-card overflow-y-auto">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary">Наши услуги</h2>
+    <div className="fixed top-[80px] left-0 right-0 bottom-0 z-40 bg-background overflow-y-auto border-t border-border">
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-semibold text-foreground">Все услуги</h2>
           <button
             onClick={onClose}
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            <X className="w-8 h-8" />
+            <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
               <div
                 key={index}
-                className="group p-6 bg-background rounded-xl border border-border hover:border-primary transition-all duration-300 hover-lift"
+                className="group p-6 bg-card rounded-lg border border-border hover:shadow-sm transition-all"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                    <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center group-hover:bg-primary transition-colors">
+                    <Icon className="w-5 h-5 text-foreground group-hover:text-primary-foreground transition-colors" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">{service.name}</h3>
+                  <h3 className="text-lg font-semibold text-foreground">{service.name}</h3>
                 </div>
                 <ul className="space-y-2">
                   {service.services.map((item, i) => (
-                    <li key={i} className="text-muted-foreground flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
+                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="text-foreground mt-1">•</span>
                       <span>{item}</span>
                     </li>
                   ))}
