@@ -1,46 +1,14 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageActions from '@/components/PageActions';
+import PageLoader from '@/components/PageLoader';
 import { Badge } from '@/components/ui/badge';
-
-const cases = [
-  {
-    title: 'Сеть барбершопов "БрадоБрей"',
-    industry: 'Beauty & Barbers',
-    problem: 'Терялись заявки из Instagram, мастера забивали записи в блокноте, постоянные накладки.',
-    solution: 'Внедрили Telegram-бота с записью по мастерам, интегрировали CRM, добавили авто-напоминания.',
-    results: [
-      '+40% записей через бота',
-      '-80% ручного труда администратора',
-      '15% рост повторных визитов',
-    ],
-  },
-  {
-    title: 'Кофейня "Зерно"',
-    industry: 'Café & Restaurants',
-    problem: 'Низкая вовлечённость гостей, отсутствие программы лояльности.',
-    solution: 'Разработали бот с программой лояльности, автоматические рассылки акций, сбор отзывов.',
-    results: [
-      '300+ подписчиков за месяц',
-      '25% гостей вернулись по акции',
-      '4.8★ средняя оценка',
-    ],
-  },
-  {
-    title: 'Студия йоги "Намасте"',
-    industry: 'Fitness & Sports',
-    problem: 'Запись на занятия через телефон, путаница с абонементами.',
-    solution: 'Создали бот записи на занятия, CRM для абонементов, автоматические напоминания.',
-    results: [
-      '90% записей через бота',
-      'Нулевые пропуски занятий',
-      '+50% продаж абонементов',
-    ],
-  },
-];
+import { cases } from '@/data/cases';
 
 const Cases = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
+      <PageLoader />
       <Header />
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
@@ -99,6 +67,7 @@ const Cases = () => {
         </div>
       </main>
       <Footer />
+      <PageActions title="Кейсы" />
     </div>
   );
 };

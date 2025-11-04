@@ -1,10 +1,13 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageActions from '@/components/PageActions';
+import PageLoader from '@/components/PageLoader';
 import ContactSection from '@/components/ContactSection';
 
 const Contacts = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
+      <PageLoader />
       <Header />
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
@@ -21,6 +24,7 @@ const Contacts = () => {
         </div>
       </main>
       <Footer />
+      <PageActions title="Контакты" />
     </div>
   );
 };

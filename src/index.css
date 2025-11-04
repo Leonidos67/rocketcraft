@@ -2,61 +2,157 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Скрытие скроллбара */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Rocket Craft Design System - Strict & Minimalist (Notion-style) */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
+    /* Rocket Craft Design System - Strict & Minimalist (Notion-style) - Light Theme */
+    /* Основной текст: #1a1a1a = hsl(0, 0%, 10.2%) */
+    /* Второстепенный текст: #555 = hsl(0, 0%, 33.3%) */
+    --background: 0 0% 99%;
+    --foreground: 0 0% 10.2%; /* #1a1a1a - основной текст */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 0 0% 10.2%; /* #1a1a1a */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 0 0% 10.2%; /* #1a1a1a */
 
-    --primary: 0 0% 9%;
+    --primary: 0 0% 10.2%; /* #1a1a1a */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary-foreground: 0 0% 10.2%; /* #1a1a1a */
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 33.3%; /* #555 - второстепенный текст */
 
     --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 9%;
+    --accent-foreground: 0 0% 10.2%; /* #1a1a1a */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 0% 9%;
+    --ring: 0 0% 10.2%; /* #1a1a1a */
 
     --radius: 0.5rem;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 10.2%; /* #1a1a1a */
+    --sidebar-primary: 0 0% 10.2%; /* #1a1a1a */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10.2%; /* #1a1a1a */
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 10.2%; /* #1a1a1a */
     
     /* Animation tokens */
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Background tokens */
+    --page-background: #f9fafb;
+    --page-background-pattern: url("https://www.transparenttextures.com/patterns/little-triangles.png");
   }
+
+  .dark {
+    /* Dark Mode - Rocket Craft Design System */
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 98%;
+
+    --sidebar-background: 0 0% 12%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 0 0% 98%;
+  }
+
 }
 
 @layer base {
+  html, body {
+    overflow-y: auto;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background: linear-gradient(135deg, #f9fafb 0%, #eff2f6 100%);
+    min-height: 100vh;
+    cursor: none !important;
+  }
+
+  input,
+  textarea,
+  select {
+    cursor: text !important;
+  }
+
+  a,
+  button {
+    cursor: none !important;
+  }
+
+  /* Плавный переход между темами для основных элементов */
+  header, nav, footer, main, section, div, button, a, input, textarea {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
+    color: hsl(0, 0%, 0%) !important; /* Черный цвет */
+  }
+
+  footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+    color: hsl(0, 0%, 100%) !important; /* Белый цвет */
   }
 
   h1 {
@@ -69,6 +165,147 @@ All colors MUST be HSL.
 
   h3 {
     @apply text-2xl md:text-3xl;
+  }
+}
+
+@layer components {
+  /* Hero Section Styles */
+  .text-hero-base {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-hero-typewriter {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-hero-description {
+    @apply text-lg md:text-xl leading-relaxed;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-hero-section-label {
+    @apply text-sm md:text-base font-semibold;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  /* Carousel Styles */
+  .text-carousel-title {
+    @apply text-2xl font-bold mb-2;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-carousel-description {
+    @apply leading-relaxed;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-carousel-metric {
+    @apply text-4xl font-bold;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-carousel-metric-label {
+    @apply text-sm;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  /* Section Styles */
+  .text-section-title {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-section-subtitle {
+    @apply text-xl;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-section-card-title {
+    @apply text-2xl font-semibold;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-section-card-description {
+    @apply mb-4 leading-relaxed;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-section-highlight {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  /* Enterprise Features Styles */
+  .text-feature-title-large {
+    @apply text-3xl font-bold mb-4;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-title-medium {
+    @apply text-2xl font-bold mb-4;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-title-small {
+    @apply text-xl font-bold mb-3;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-title-compact {
+    @apply text-lg font-bold;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-description {
+    @apply leading-relaxed;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-description-large {
+    @apply leading-relaxed text-lg;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-feature-description-small {
+    @apply leading-relaxed text-sm;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  /* CTA Section Styles */
+  .text-cta-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  .text-cta-description {
+    @apply text-xl mb-8 max-w-2xl mx-auto;
+    color: hsl(0, 0%, 0%); /* Черный цвет */
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-outline {
+    @apply border-border hover:bg-accent;
+  }
+
+  /* Background utility classes */
+  .bg-page {
+    background-color: var(--page-background);
+  }
+
+  .bg-page-pattern {
+    background-image: var(--page-background-pattern);
+  }
+
+  .bg-page-full {
+    background-color: var(--page-background);
+    background-image: var(--page-background-pattern);
   }
 }
 
@@ -104,14 +341,90 @@ All colors MUST be HSL.
       transform: translateY(-20px);
     }
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+  /* Анимация пульсации (3 раза) */
+  .animate-pulse-scale {
+    animation: pulse-scale 0.8s ease-in-out 2;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  @keyframes pulse-scale {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  /* Анимация прогресс-бара */
+  .animate-progress {
+    animation: progressBar 8s linear forwards;
+  }
+
+  @keyframes progressBar {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* Простой marquee влево */
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee-left {
+    animation: marquee-left 20s linear infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer-slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+
+  .animate-shimmer-slide {
+    animation: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate;
+  }
+
+  .animate-spin-around {
+    animation: spin-around calc(var(--speed, 3s) * 2) infinite linear;
   }
 }

@@ -1,124 +1,272 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Rocket } from 'lucide-react';
+import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import FullscreenServicesMenu from './FullscreenServicesMenu';
+import { Rocket } from '@/components/ui/motion/Rocket';
+import { SparklesText } from '@/components/ui/sparkles-text';
 
 const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    // Установить темную тему по умолчанию
+    document.documentElement.classList.add('dark');
+  }, []);
+
+  // Переключение глобального класса для белого курсора при открытом окне услуг
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isServicesOpen) {
+      root.classList.add('services-open');
+    } else {
+      root.classList.remove('services-open');
+    }
+    return () => {
+      root.classList.remove('services-open');
+    };
+  }, [isServicesOpen]);
+
+  // На всякий случай: при смене маршрута всегда снимаем любые блокировки скролла страницы
+  useEffect(() => {
+    document.body.style.overflow = '';
+  }, [location.pathname]);
+
+  // Блокируем скролл страницы, когда открыто окно услуг (но оставляем скролл внутри модалки)
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    if (isServicesOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = previousOverflow || '';
+    }
+    return () => {
+      document.body.style.overflow = previousOverflow || '';
+    };
+  }, [isServicesOpen]);
+
+  // Отслеживание прокрутки
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isActive = (path: string) => location.pathname === path;
+  const isHomePage = location.pathname === '/';
+  const shouldBeTransparent = isHomePage && !isScrolled && !isServicesOpen;
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <Link to="/" className="flex items-center gap-2">
-              <Rocket className="w-7 h-7 text-primary" />
-              <span className="text-xl font-semibold text-foreground">Rocket Craft</span>
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          shouldBeTransparent 
+            ? 'bg-transparent border-b border-transparent' 
+            : isServicesOpen
+            ? 'bg-background border-b border-border'
+            : 'bg-white/20 backdrop-blur-sm border-b border-transparent'
+        }`}
+      >
+        <div className="px-6">
+          <div className="relative flex items-center justify-between h-20">
+            <div className="hidden lg:flex items-center">
+              <Link to="/" className={`flex items-center gap-2 ${isServicesOpen ? 'text-white' : 'text-black'}`}>
+                <div className={`${isServicesOpen ? 'text-white' : 'text-black'}`}>
+                  <Rocket 
+                    width={28} 
+                    height={28} 
+                    stroke="currentColor"
+                  />
+                </div>
+                <SparklesText className="text-xl" sparklesCount={5}>
+                  Rocket Craft
+                </SparklesText>
+              </Link>
+            </div>
+
+            <Link to="/" className={`lg:hidden flex items-center gap-2 ${isServicesOpen ? 'text-white' : 'text-black'}`}>
+              <div className={`${isServicesOpen ? 'text-white' : 'text-black'}`}>
+                <Rocket 
+                  width={28} 
+                  height={28} 
+                  stroke="currentColor"
+                />
+              </div>
+              <span className="text-xl font-semibold transition-colors">
+                Rocket Craft
+              </span>
             </Link>
 
             {/* Desktop Menu */}
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
               <button
-                onClick={() => setIsServicesOpen(true)}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsServicesOpen(!isServicesOpen)}
+                className={`flex items-center gap-1 text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isServicesOpen
+                    ? 'bg-white bg-opacity-10 text-white font-medium'
+                    : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
               >
                 Услуги
+                <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
               </button>
               <Link
+                to="/team"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/team')
+                    ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                    : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
+              >
+                Команда
+              </Link>
+              <Link
                 to="/cases"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/cases')
+                    ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                    : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
               >
                 Кейсы
               </Link>
               <Link
                 to="/pricing"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/pricing')
+                    ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                    : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
               >
                 Тарифы
               </Link>
               <Link
                 to="/process"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/process')
+                    ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                    : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
               >
                 Процесс
               </Link>
-              <Link
+              {/* <Link
                 to="/contacts"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/contacts')
+                    ? 'bg-black bg-opacity-10 text-black font-medium'
+                    : 'text-black hover:bg-black hover:bg-opacity-10'
+                }`}
               >
                 Контакты
-              </Link>
+              </Link> */}
             </nav>
 
-            <div className="flex items-center gap-4">
-              <Button
-                asChild
-                size="sm"
-                className="hidden lg:inline-flex bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                <Link to="/contacts">Оставить заявку</Link>
-              </Button>
-
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-foreground"
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+            <div className="hidden lg:flex items-center">
+              <Link to="/contacts">
+                <InteractiveHoverButton className={`${isServicesOpen ? 'border-white' : 'border-black'} text-sm px-3 py-1.5 pr-6 pl-6 h-auto`}>
+                  Оставить заявку
+                </InteractiveHoverButton>
+              </Link>
             </div>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden transition-colors text-foreground"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
 
           {/* Mobile Menu */}
-          {isMobileMenuOpen && (
+            {isMobileMenuOpen && (
             <div className="lg:hidden py-4 border-t border-border">
               <nav className="flex flex-col gap-3">
                 <button
                   onClick={() => {
-                    setIsServicesOpen(true);
+                    setIsServicesOpen(!isServicesOpen);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className={`flex items-center gap-1 text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                      isServicesOpen
+                        ? 'bg-white bg-opacity-10 text-white font-medium'
+                        : 'text-black hover:bg-black hover:bg-opacity-10'
+                    }`}
                 >
                   Услуги
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
                 </button>
+                <Link
+                  to="/team"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                      isActive('/team')
+                        ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                        : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                    }`}
+                >
+                  Команда
+                </Link>
                 <Link
                   to="/cases"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                      isActive('/cases')
+                        ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                        : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                    }`}
                 >
                   Кейсы
                 </Link>
                 <Link
                   to="/pricing"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                      isActive('/pricing')
+                        ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                        : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                    }`}
                 >
                   Тарифы
                 </Link>
                 <Link
                   to="/process"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                      isActive('/process')
+                        ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                        : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
+                    }`}
                 >
                   Процесс
                 </Link>
-                <Link
+                {/* <Link
                   to="/contacts"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
+                    isActive('/contacts')
+                      ? 'bg-white bg-opacity-10 text-black font-medium'
+                      : 'text-black hover:bg-white hover:bg-opacity-10'
+                  }`}
                 >
                   Контакты
+                </Link> */}
+                <Link to="/contacts" className="w-full mt-2">
+                  <InteractiveHoverButton className="border-black w-full ">
+                    Оставить заявку
+                  </InteractiveHoverButton>
                 </Link>
-                <Button
-                  asChild
-                  size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 w-full mt-2"
-                >
-                  <Link to="/contacts">Оставить заявку</Link>
-                </Button>
               </nav>
             </div>
           )}

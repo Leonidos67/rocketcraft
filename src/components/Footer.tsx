@@ -1,75 +1,98 @@
-import { Rocket, Send, Instagram, Linkedin } from 'lucide-react';
+import { Send, Instagram, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Rocket } from '@/components/ui/motion/Rocket';
+import { Globe } from '@/components/ui/globe';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer className="border-t border-border pt-12 pb-0 bg-black">
+      <div className="px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Rocket className="w-8 h-8" />
-              <span className="text-2xl font-bold">Rocket Craft</span>
+              <Rocket width={32} height={32} stroke="currentColor" className="text-foreground" />
+              <span className="text-2xl font-bold text-foreground">Rocket Craft</span>
             </div>
-            <p className="text-primary-foreground/80">
+            <p className="text-muted-foreground mb-4">
               Автоматизация бизнеса через no-code решения
             </p>
-          </div>
-
-          <div>
-            <h4 className="font-bold mb-4">Услуги</h4>
-            <ul className="space-y-2 text-primary-foreground/80">
-              <li>Telegram-боты</li>
-              <li>CRM-системы</li>
-              <li>Автоматизация</li>
-              <li>Интеграции</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-bold mb-4">Компания</h4>
-            <ul className="space-y-2 text-primary-foreground/80">
-              <li><a href="#cases" className="hover:text-primary-foreground transition-colors">Кейсы</a></li>
-              <li><a href="#pricing" className="hover:text-primary-foreground transition-colors">Тарифы</a></li>
-              <li><a href="#process" className="hover:text-primary-foreground transition-colors">Процесс</a></li>
-              <li><a href="#contacts" className="hover:text-primary-foreground transition-colors">Контакты</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-bold mb-4">Контакты</h4>
-            <p className="text-primary-foreground/80 mb-2">hello@rocket-craft.ru</p>
-            <p className="text-primary-foreground/80 mb-4">+7 (999) 123-45-67</p>
             <div className="flex gap-4">
               <a
                 href="https://t.me/rocketcraft"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+                className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors"
+                aria-label="Telegram"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-5 h-5 text-foreground" />
               </a>
               <a
                 href="https://instagram.com/rocketcraft"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+                className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors"
+                aria-label="Instagram"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5 text-foreground" />
               </a>
               <a
                 href="https://linkedin.com/company/rocketcraft"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+                className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors"
+                aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5 text-foreground" />
               </a>
             </div>
           </div>
-        </div>
 
-        <div className="border-t border-primary-foreground/20 pt-8 text-center text-primary-foreground/60">
-          <p>© 2025 Rocket Craft. Все права защищены.</p>
+          <div>
+            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Услуги</h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li className="hover:text-foreground transition-colors cursor-pointer">Telegram-боты</li>
+              <li className="hover:text-foreground transition-colors cursor-pointer">CRM-системы</li>
+              <li className="hover:text-foreground transition-colors cursor-pointer">Автоматизация</li>
+              <li className="hover:text-foreground transition-colors cursor-pointer">Интеграции</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Компания</h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link to="/cases" className="hover:text-foreground transition-colors">
+                  Кейсы
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" className="hover:text-foreground transition-colors">
+                  Тарифы
+                </Link>
+              </li>
+              <li>
+                <Link to="/process" className="hover:text-foreground transition-colors">
+                  Процесс
+                </Link>
+              </li>
+              {/* <li>
+                <Link to="/contacts" className="hover:text-foreground transition-colors">
+                  Контакты
+                </Link>
+              </li> */}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Контакты</h4>
+            <p className="text-muted-foreground">+7 (999) 123-45-67</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-6 -mt-4">
+        <div className="relative flex size-full max-w-2xl mx-auto items-center justify-center overflow-hidden min-h-[500px]">
+          <Globe className="top-16" />
         </div>
       </div>
     </footer>
