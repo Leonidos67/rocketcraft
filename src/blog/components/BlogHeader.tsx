@@ -101,7 +101,7 @@ const BlogHeader = () => {
                 </motion.div>
                 <div>
                   <span className="text-xl font-bold bg-white bg-clip-text text-transparent">
-                    Smart AI | Blog
+                    Agyra | Blog
                   </span>
                 </div>
               </Link>
@@ -125,12 +125,12 @@ const BlogHeader = () => {
             </div>
             
             <a 
-              href="https://smartai.io" 
+              href="https://Agyra.io" 
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors cursor-pointer"
             >
-              Перейти на SmartAi.io
+              Перейти на Agyra.io
             </a>
           </div>
         </div>

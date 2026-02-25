@@ -20,7 +20,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Smart AI Design System - Strict & Minimalist (Notion-style) - Light Theme */
+    /* Agyra Design System - Strict & Minimalist (Notion-style) - Light Theme */
     /* Основной текст: #1a1a1a = hsl(0, 0%, 10.2%) */
     /* Второстепенный текст: #555 = hsl(0, 0%, 33.3%) */
     --background: 0 0% 99%;
@@ -73,7 +73,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark Mode - Smart AI Design System */
+    /* Dark Mode - Agyra Design System */
     --background: 0 0% 9%;
     --foreground: 0 0% 98%;
 

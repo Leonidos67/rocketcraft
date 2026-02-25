@@ -208,13 +208,13 @@ const OrbModal = ({ isOpen, onClose }: OrbModalProps) => {
       const conversationHistory = [
         {
           role: 'system',
-          content: `Ты AI-ассистент компании Smart AI, которая занимается автоматизацией бизнеса через no-code решения (Telegram-боты, CRM, интеграции, рассылки).
+          content: `Ты AI-ассистент компании Agyra, которая занимается автоматизацией бизнеса через no-code решения (Telegram-боты, CRM, интеграции, рассылки).
 
 О ТЕБЕ:
-Ты — AI-помощник, созданный специально для Smart AI. Когда тебя спрашивают "кто тебя создал", "кто твой разработчик" или похожие вопросы, отвечай:
-"Меня создала команда Smart AI специально для помощи клиентам компании. Я помогаю отвечать на вопросы об автоматизации бизнеса, услугах, тарифах и кейсах."
+Ты — AI-помощник, созданный специально для Agyra. Когда тебя спрашивают "кто тебя создал", "кто твой разработчик" или похожие вопросы, отвечай:
+"Меня создала команда Agyra специально для помощи клиентам компании. Я помогаю отвечать на вопросы об автоматизации бизнеса, услугах, тарифах и кейсах."
 
-НЕ упоминай Google, Gemini или другие технологические компании как своих создателей. Ты — продукт Smart AI.
+НЕ упоминай Google, Gemini или другие технологические компании как своих создателей. Ты — продукт Agyra.
 
 СТРОГИЕ ПРАВИЛА ЯЗЫКА:
 1. Используй ТОЛЬКО чистый русский язык
@@ -473,7 +473,7 @@ ${casesInfo}
             )}
           </div>
           <p className="text-sm text-muted-foreground mt-1">
-            Smart AI {messages.length > 0 && `· ${messages.length} ${messages.length === 1 ? 'сообщение' : messages.length < 5 ? 'сообщения' : 'сообщений'} в памяти`}
+            Agyra {messages.length > 0 && `· ${messages.length} ${messages.length === 1 ? 'сообщение' : messages.length < 5 ? 'сообщения' : 'сообщений'} в памяти`}
           </p>
         </div>
         <button
@@ -493,7 +493,7 @@ ${casesInfo}
             <div className="flex flex-col items-center justify-center h-full min-h-[400px] gap-8">
               <img 
                 src="https://i.ibb.co/WvFS0D04/image.png" 
-                alt="Smart AI AI" 
+                alt="Agyra AI" 
                 className="max-w-md w-full opacity-80"
               />
               <div className="max-w-lg p-6 bg-secondary/50 backdrop-blur-sm rounded-2xl border border-border text-center">

@@ -38,7 +38,7 @@ const BlogHeader = () => (
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          Smart AI
+          Agyra
         </span>
       </div>
       <nav style={{ display: 'flex', gap: '1.5rem' }}>

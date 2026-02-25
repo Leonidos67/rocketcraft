@@ -91,7 +91,7 @@ const Trend = () => {
         <div className="max-w-6xl mx-auto text-center">
           <Link to="/" className="inline-block pointer-events-auto">
             <div className="flex items-center gap-2 text-white hover:text-blue-400 transition-colors">
-              <span className="font-display font-bold text-xl tracking-wider">SmartAI</span>
+              <span className="font-display font-bold text-xl tracking-wider">Agyra</span>
             </div>
           </Link>
         </div>

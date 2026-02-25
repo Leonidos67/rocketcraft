@@ -14,7 +14,7 @@ const Footer = () => {
              className="flex items-center gap-2 mb-4 cursor-pointer"
             >
               <Rocket width={32} height={32} stroke="currentColor" className="text-foreground" />
-              <span className="text-2xl font-bold text-foreground">Smart AI</span>
+              <span className="text-2xl font-bold text-foreground">Agyra</span>
             </Link>
             <p className="text-muted-foreground mb-4">
               Автоматизация бизнеса через собственные решения

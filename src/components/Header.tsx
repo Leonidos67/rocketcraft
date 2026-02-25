@@ -88,7 +88,7 @@ const Header = () => {
                   />
                 </div>
                 <SparklesText className="text-xl" sparklesCount={5}>
-                  Smart AI
+                  Agyra
                 </SparklesText>
               </Link>
             </div>
@@ -102,7 +102,7 @@ const Header = () => {
                 />
               </div>
               <span className="text-xl font-semibold transition-colors">
-                Smart AI
+                Agyra
               </span>
             </Link>
 

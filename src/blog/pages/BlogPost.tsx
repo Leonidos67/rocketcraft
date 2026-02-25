@@ -397,7 +397,7 @@ const BlogPost = () => {
                         stroke="currentColor"
                         strokeWidth={2}
                     />
-                    <span className='text-lg'>Smart AI</span>
+                    <span className='text-lg'>Agyra</span>
                     </a>
                     <div className="mt-2">
                     Готовы перейти от рутины к полной автоматизации?
@@ -409,7 +409,7 @@ const BlogPost = () => {
                     rel="noopener noreferrer"
                     className="mt-2 inline-block text-sm w-full bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-3 rounded-lg text-center transition-colors duration-200"
                 >
-                    Перейти на сайт Smart Ai
+                    Перейти на сайт Agyra
                 </a>
                 </div>
             </div>
