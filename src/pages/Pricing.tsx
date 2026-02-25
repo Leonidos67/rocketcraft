@@ -1,7 +1,7 @@
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
+import Banner from '@/components/Banner';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 
@@ -62,9 +62,9 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen">
+      <Banner />
       <PageLoader />
-      <Header />
-      <main className="pt-32 pb-20">
+      <main className="pt-40 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-16 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -115,8 +115,8 @@ const Pricing = () => {
                   onClick={scrollToContacts}
                   className={`w-full ${
                     plan.popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md transform hover:-translate-y-0.5'
                   }`}
                 >
                   {plan.cta}

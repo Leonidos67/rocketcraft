@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowUp, Send, ChevronDown, X } from 'lucide-react';
+import { ArrowUp, Send, ChevronDown, X, House } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import SiriOrb from '@/components/ui/SiriOrb';
@@ -13,7 +13,6 @@ const pages = [
   { path: '/services', title: 'Услуги' },
   { path: '/team', title: 'Команда' },
   { path: '/cases', title: 'Кейсы' },
-  { path: '/pricing', title: 'Тарифы' },
   { path: '/process', title: 'Процесс работы' },
   { path: '/contacts', title: 'Контакты' },
 ];
@@ -99,7 +98,7 @@ const PageActions = ({ title }: PageActionsProps) => {
             <div className="relative">
               <div className="bg-background/95 backdrop-blur-sm border border-border shadow-lg rounded-xl px-4 py-2 pointer-events-auto animate-pulse-scale">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm md:text-base text-muted-foreground text-center">
+                  <p className="text-sm md:text-base bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-center">
                     Спросите у ии
                   </p>
                   <button
@@ -123,6 +122,19 @@ const PageActions = ({ title }: PageActionsProps) => {
 
       {/* Основной компонент */}
       <div className="fixed bottom-4 md:bottom-6 left-0 right-0 z-40 px-4 md:px-4">
+        {/* Кнопка "В начало" для мобильной версии - теперь вне основного контейнера */}
+        {hasScrolled && (
+          <div className="flex md:hidden justify-center mb-2">
+            <Button
+              onClick={scrollToTop}
+              variant="outline"
+              size="sm"
+              className="gap-1 h-8 px-3"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
         <div className="max-w-7xl mx-auto bg-background/95 backdrop-blur-sm border border-border shadow-lg rounded-2xl px-4 py-3 md:py-3">
           <div className="flex items-center justify-between gap-2.5 md:gap-4">
           {/* Левая часть - Навигация */}
@@ -130,8 +142,9 @@ const PageActions = ({ title }: PageActionsProps) => {
             {/* Если не на главной - показываем "Главная /" */}
             {!isHomePage && (
               <>
-                <Link to="/" className="hover:text-foreground transition-colors">
-                  Главная
+                <Link to="/" className="hover:text-foreground transition-colors flex items-center">
+                  <House className="w-5 h-5 md:hidden" />
+                  <span className="hidden md:inline">Главная</span>
                 </Link>
                 <span>/</span>
               </>
@@ -149,7 +162,7 @@ const PageActions = ({ title }: PageActionsProps) => {
               
               {/* Dropdown меню */}
               {isDropdownOpen && (
-                <div className="absolute bottom-full left-0 mb-2 w-56 bg-background border border-border rounded-lg shadow-xl overflow-hidden">
+                <div className="absolute bottom-full left-0 mb-2 w-56 bg-background border border-border rounded-lg shadow-xl overflow-hidden p-1.5">
                   {allPages.map((page) => {
                     const isActive = location.pathname === page.path;
                     return (
@@ -159,7 +172,7 @@ const PageActions = ({ title }: PageActionsProps) => {
                           navigate(page.path);
                           setIsDropdownOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-3 transition-colors text-sm ${
+                        className={`w-full text-left px-3 py-2 my-1 rounded transition-colors text-sm ${
                           isActive
                             ? 'bg-primary/10 text-primary font-semibold cursor-default'
                             : 'text-foreground hover:bg-secondary cursor-pointer'
@@ -196,12 +209,13 @@ const PageActions = ({ title }: PageActionsProps) => {
           
           {/* Правая часть - кнопки */}
           <div className="flex gap-1.5 md:gap-2 flex-1 justify-end">
+            {/* Кнопка "В начало" для десктопа - скрыта в мобильной версии */}
             {hasScrolled && (
               <Button
                 onClick={scrollToTop}
                 variant="outline"
                 size="sm"
-                className="gap-1 md:gap-2 h-8 md:h-9 px-3 md:px-3"
+                className="hidden md:flex gap-1 md:gap-2 h-8 md:h-9 px-3 md:px-3"
               >
                 <ArrowUp className="w-4 h-4 md:w-4 md:h-4" />
                 <span className="hidden sm:inline text-xs md:text-sm">В начало</span>
@@ -211,10 +225,10 @@ const PageActions = ({ title }: PageActionsProps) => {
             <Button
               asChild
               size="sm"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-1 md:gap-2 h-8 md:h-9 px-3 md:px-3"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5 md:gap-2 h-8 md:h-9 px-3 md:px-3 py-1 md:py-0.5 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
             >
               <Link to="/contacts">
-                <Send className="w-4 h-4 md:w-4 md:h-4" />
+                <Send className="h-4 w-4" />
                 <span className="hidden sm:inline text-xs md:text-sm">Связаться</span>
               </Link>
             </Button>

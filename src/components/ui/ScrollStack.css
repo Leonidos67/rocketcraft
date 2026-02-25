@@ -13,8 +13,15 @@
 }
 
 .scroll-stack-inner {
-  padding: 5vh 5rem 10rem;
+  padding: 5vh 4rem 10rem;
   min-height: 100vh;
+}
+
+@media (max-width: 740px) {
+  .scroll-stack-inner {
+    padding: 5vh 1rem 10rem;
+    min-height: 100vh;
+  }
 }
 
 .scroll-stack-card-wrapper {
@@ -27,10 +34,10 @@
   backface-visibility: hidden;
   transform-style: preserve-3d;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  height: 30rem;
+  height: fit-content;
   width: 100%;
   margin: 0;
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 40px;
   box-sizing: border-box;
   /* Improve mobile performance */
@@ -38,6 +45,13 @@
   transform: translateZ(0);
   position: relative;
   transition: all 0.3s ease;
+  min-height: 20rem;
+}
+
+@media (min-width: 640px) {
+  .scroll-stack-card {
+    padding: 3rem;
+  }
 }
 
 .scroll-stack-end {

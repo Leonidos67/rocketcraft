@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { cases } from '@/data/cases';
 import { Link } from 'react-router-dom';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -207,13 +208,13 @@ const OrbModal = ({ isOpen, onClose }: OrbModalProps) => {
       const conversationHistory = [
         {
           role: 'system',
-          content: `Ты AI-ассистент компании Rocket Craft, которая занимается автоматизацией бизнеса через no-code решения (Telegram-боты, CRM, интеграции, рассылки).
+          content: `Ты AI-ассистент компании Smart AI, которая занимается автоматизацией бизнеса через no-code решения (Telegram-боты, CRM, интеграции, рассылки).
 
 О ТЕБЕ:
-Ты — AI-помощник, созданный специально для Rocket Craft. Когда тебя спрашивают "кто тебя создал", "кто твой разработчик" или похожие вопросы, отвечай:
-"Меня создала команда Rocket Craft специально для помощи клиентам компании. Я помогаю отвечать на вопросы об автоматизации бизнеса, услугах, тарифах и кейсах."
+Ты — AI-помощник, созданный специально для Smart AI. Когда тебя спрашивают "кто тебя создал", "кто твой разработчик" или похожие вопросы, отвечай:
+"Меня создала команда Smart AI специально для помощи клиентам компании. Я помогаю отвечать на вопросы об автоматизации бизнеса, услугах, тарифах и кейсах."
 
-НЕ упоминай Google, Gemini или другие технологические компании как своих создателей. Ты — продукт Rocket Craft.
+НЕ упоминай Google, Gemini или другие технологические компании как своих создателей. Ты — продукт Smart AI.
 
 СТРОГИЕ ПРАВИЛА ЯЗЫКА:
 1. Используй ТОЛЬКО чистый русский язык
@@ -260,10 +261,10 @@ ${casesInfo}
    ПРАВИЛЬНО: [LINK:/cases:Кейсы]
    НЕПРАВИЛЬНО: [LINK:/:Кейсы]
    
-4. Тарифы:
-   ПУТЬ: /pricing (НЕ /)
-   ПРАВИЛЬНО: [LINK:/pricing:Тарифы]
-   НЕПРАВИЛЬНО: [LINK:/:Тарифы]
+// 4. Тарифы:
+//    ПУТЬ: /pricing (НЕ /)
+//    ПРАВИЛЬНО: [LINK:/pricing:Тарифы]
+//    НЕПРАВИЛЬНО: [LINK:/:Тарифы]
    
 5. Процесс работы:
    ПУТЬ: /process (НЕ /)
@@ -292,9 +293,6 @@ ${casesInfo}
 Запрос: "где посмотреть кейсы"
 Ответ: У нас есть страница с подробными кейсами: барбершоп, кофейня и йога-студия. [LINK:/cases:Кейсы]
 
-Запрос: "покажи тарифы"
-Ответ: У нас есть несколько тарифных планов для разных типов бизнеса. [LINK:/pricing:Тарифы]
-
 Запрос: "покажи услуги"
 Ответ: Мы предлагаем Telegram-боты, CRM-системы, интеграции и рассылки. [LINK:/services:Услуги]
 
@@ -309,7 +307,6 @@ ${casesInfo}
 [LINK:/:Главная]
 [LINK:/services:Услуги]
 [LINK:/cases:Кейсы]
-[LINK:/pricing:Тарифы]
 [LINK:/process:Процесс]
 [LINK:/contacts:Контакты]
 
@@ -330,7 +327,6 @@ ${casesInfo}
 Главная → [LINK:/:Главная]
 Услуги → [LINK:/services:Услуги] (НЕ [LINK:/:Услуги])
 Кейсы → [LINK:/cases:Кейсы] (НЕ [LINK:/:Кейсы])
-Тарифы → [LINK:/pricing:Тарифы] (НЕ [LINK:/:Тарифы])
 Процесс → [LINK:/process:Процесс] (НЕ [LINK:/:Процесс])
 Контакты → [LINK:/contacts:Контакты] (НЕ [LINK:/:Контакты])`,
         },
@@ -338,65 +334,80 @@ ${casesInfo}
         { role: 'user', content: userMessage.content },
       ];
 
-      console.log('📤 Отправка в Gemini API:', conversationHistory.length, 'сообщений');
+      console.log('📤 Отправка в Google Gemini API:', conversationHistory.length, 'сообщений');
 
-      // Преобразуем формат сообщений для Gemini API
-      const systemInstruction = conversationHistory.find(m => m.role === 'system');
-      const geminiContents = conversationHistory
+      // Используем правильный API ключ Google Gemini из памяти проекта
+      const GEMINI_API_KEY = 'AIzaSyBM3PeK3w8WgX2TYF_Mog9mW8q_WQzBy-w';
+      
+      // Создаем экземпляр GoogleGenerativeAI
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+      
+      // Получаем подтвержденную рабочую модель gemini-2.0-flash
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });  
+      
+      // Преобразуем историю в формат, понятный Gemini
+      const chatHistory = conversationHistory
         .filter(m => m.role !== 'system')
         .map(m => ({
           role: m.role === 'user' ? 'user' : 'model',
           parts: [{ text: m.content }]
         }));
-
-      const GEMINI_API_KEY = 'AIzaSyCdd2hsJ6YM0F1W-VS6ORmS-_l3qlK91XM';
-      const GEMINI_MODEL = 'gemini-2.0-flash-exp';
       
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: geminiContents,
-            systemInstruction: systemInstruction ? {
-              parts: [{ text: systemInstruction.content }]
-            } : undefined,
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 800,
-              topP: 0.9,
-            },
-          }),
+      // Начинаем чат с историей
+      const chat = model.startChat({
+        history: chatHistory.slice(0, -1), // Все сообщения кроме последнего
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 800,
+          topP: 0.9,
+        },
+      });
+      
+      // Функция для повторных попыток с экспоненциальной задержкой
+      const sendMessageWithRetry = async (maxRetries = 3, delay = 2000) => {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          try {
+            const result = await chat.sendMessage(userMessage.content);
+            const response = await result.response;
+            return response.text();
+          } catch (error) {
+            // Если это ошибка 429 и остались попытки, ждем и пробуем снова
+            if (error.status === 429 && attempt < maxRetries) {
+              console.log(`Попытка ${attempt + 1} не удалась из-за превышения квоты. Повтор через ${delay}ms...`);
+              await new Promise(resolve => setTimeout(resolve, delay));
+              delay *= 2; // Увеличиваем задержку в 2 раза для следующей попытки
+              continue;
+            }
+            // Если это не ошибка 429 или закончились попытки, пробрасываем ошибку
+            throw error;
+          }
         }
-      );
+      };
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('Gemini API Error:', response.status, errorData);
-        throw new Error(`Ошибка Gemini API: ${response.status}`);
-      }
-
-      const data = await response.json();
+      // Отправляем последнее сообщение с повторными попытками
+      const text = await sendMessageWithRetry(4, 2000); // Увеличиваем количество попыток и начальную задержку
       
-      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-        throw new Error('Неверный формат ответа Gemini API');
-      }
-
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.candidates[0].content.parts[0].text,
+        content: text,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Ошибка при отправке сообщения:', error);
+      let errorMessageContent = 'Извините, произошла ошибка при обращении к AI. '; 
+      
+      // Проверяем специфические ошибки
+      if (error.status === 429) {
+        errorMessageContent += 'Превышена квота запросов к API. Пожалуйста, подождите немного и попробуйте снова.';
+      } else {
+        errorMessageContent += error instanceof Error ? error.message : 'Попробуйте еще раз.';
+      }
+      
       const errorMessage: Message = {
         role: 'assistant',
-        content: `Извините, произошла ошибка при обращении к AI. ${error instanceof Error ? error.message : 'Попробуйте еще раз.'}`,
+        content: errorMessageContent, 
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -462,7 +473,7 @@ ${casesInfo}
             )}
           </div>
           <p className="text-sm text-muted-foreground mt-1">
-            Rocket Craft {messages.length > 0 && `· ${messages.length} ${messages.length === 1 ? 'сообщение' : messages.length < 5 ? 'сообщения' : 'сообщений'} в памяти`}
+            Smart AI {messages.length > 0 && `· ${messages.length} ${messages.length === 1 ? 'сообщение' : messages.length < 5 ? 'сообщения' : 'сообщений'} в памяти`}
           </p>
         </div>
         <button
@@ -482,7 +493,7 @@ ${casesInfo}
             <div className="flex flex-col items-center justify-center h-full min-h-[400px] gap-8">
               <img 
                 src="https://i.ibb.co/WvFS0D04/image.png" 
-                alt="Rocket Craft AI" 
+                alt="Smart AI AI" 
                 className="max-w-md w-full opacity-80"
               />
               <div className="max-w-lg p-6 bg-secondary/50 backdrop-blur-sm rounded-2xl border border-border text-center">

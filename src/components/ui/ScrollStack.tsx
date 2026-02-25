@@ -30,7 +30,7 @@ interface ScrollStackProps {
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   className = '',
-  itemDistance = 300,
+  itemDistance = 60,
   itemScale = 0.03,
   itemStackDistance = 10,
   stackPosition = '20%',
@@ -284,6 +284,8 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       card.style.webkitTransform = 'translateZ(0)';
       card.style.perspective = '1000px';
       card.style.webkitPerspective = '1000px';
+      // Ensure cards can grow based on content
+      card.style.height = 'fit-content';
     });
 
     setupLenis();

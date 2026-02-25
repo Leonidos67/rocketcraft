@@ -9,12 +9,15 @@ const Footer = () => {
       <div className="px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <Link
+             to="/"
+             className="flex items-center gap-2 mb-4 cursor-pointer"
+            >
               <Rocket width={32} height={32} stroke="currentColor" className="text-foreground" />
-              <span className="text-2xl font-bold text-foreground">Rocket Craft</span>
-            </div>
+              <span className="text-2xl font-bold text-foreground">Smart AI</span>
+            </Link>
             <p className="text-muted-foreground mb-4">
-              Автоматизация бизнеса через no-code решения
+              Автоматизация бизнеса через собственные решения
             </p>
             <div className="flex gap-4">
               <a
@@ -65,14 +68,19 @@ const Footer = () => {
                   Кейсы
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/pricing" className="hover:text-foreground transition-colors">
                   Тарифы
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/process" className="hover:text-foreground transition-colors">
                   Процесс
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy-policy" className="hover:text-foreground transition-colors">
+                  Политика конфиденциальности
                 </Link>
               </li>
               {/* <li>
@@ -85,7 +93,7 @@ const Footer = () => {
 
           <div>
             <h4 className="font-bold mb-4" style={{ color: 'white' }}>Контакты</h4>
-            <p className="text-muted-foreground">+7 (999) 123-45-67</p>
+            <a href='tel:+79303811111' className="text-muted-foreground hover:text-foreground">+7 (930) 381-11-11</a>
           </div>
         </div>
       </div>

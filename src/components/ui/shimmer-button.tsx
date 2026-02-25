@@ -18,11 +18,11 @@ export const ShimmerButton = React.forwardRef<
 >(
   (
     {
-      shimmerColor = "#ffffff",
+      shimmerColor = "#6366f1", // indigo-500
       shimmerSize = "0.05em",
-      shimmerDuration = "3s",
-      borderRadius = "100px",
-      background = "rgba(0, 0, 0, 1)",
+      shimmerDuration = "2s",
+      borderRadius = "0.5rem", // 8px
+      background = "rgba(99, 102, 241, 0.1)", // indigo-500 with opacity
       className,
       children,
       ...props
@@ -42,39 +42,29 @@ export const ShimmerButton = React.forwardRef<
           } as CSSProperties
         }
         className={cn(
-          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 whitespace-nowrap [background:var(--bg)]",
-          "transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px",
+          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-indigo-500/20 px-4 py-1.5 whitespace-nowrap [background:var(--bg)]",
+          "text-indigo-600 dark:text-indigo-400 font-medium",
+          "shadow-sm hover:shadow-md",
+          "transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 active:translate-y-px",
+          "h-8 text-sm",
           className
         )}
         ref={ref}
         {...props}
       >
-        {/* spark container */}
-        <div
-          className={cn(
-            "-z-30 blur-[2px]",
-            "[container-type:size] absolute inset-0 overflow-visible"
-          )}
-        >
-          {/* spark */}
-          <div className="animate-shimmer-slide absolute inset-0 [aspect-ratio:1] h-[100cqh] [border-radius:0] [mask:none]">
-            {/* spark before */}
-            <div className="animate-spin-around absolute -inset-full w-auto [translate:0_0] rotate-0 [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))]" />
-          </div>
-        </div>
         {children}
 
         {/* Highlight */}
         <div
           className={cn(
             "absolute inset-0 size-full",
-            "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#ffffff1f]",
+            "rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-6px_8px_rgba(99,102,241,0.1)]",
             // transition
             "transform-gpu transition-all duration-300 ease-in-out",
             // on hover
-            "group-hover:shadow-[inset_0_-6px_10px_#ffffff3f]",
+            "group-hover:shadow-[inset_0_-6px_8px_rgba(99,102,241,0.2)]",
             // on click
-            "group-active:shadow-[inset_0_-10px_10px_#ffffff3f]"
+            "group-active:shadow-[inset_0_-8px_8px_rgba(99,102,241,0.2)]"
           )}
         />
 
@@ -90,4 +80,3 @@ export const ShimmerButton = React.forwardRef<
 )
 
 ShimmerButton.displayName = "ShimmerButton"
-

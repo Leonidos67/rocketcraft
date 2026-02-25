@@ -36,7 +36,7 @@ const PageLoader = () => {
         </div>
         
         {/* Text */}
-        <p className="text-sm text-muted-foreground animate-pulse">Загрузка...</p>
+        <p className="text-sm text-muted-foreground animate-pulse">буквально секунду...</p>
       </div>
     </div>
   );

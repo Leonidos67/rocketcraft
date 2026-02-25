@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Seymour+One&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +20,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Rocket Craft Design System - Strict & Minimalist (Notion-style) - Light Theme */
+    /* Smart AI Design System - Strict & Minimalist (Notion-style) - Light Theme */
     /* Основной текст: #1a1a1a = hsl(0, 0%, 10.2%) */
     /* Второстепенный текст: #555 = hsl(0, 0%, 33.3%) */
     --background: 0 0% 99%;
@@ -71,7 +73,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark Mode - Rocket Craft Design System */
+    /* Dark Mode - Smart AI Design System */
     --background: 0 0% 9%;
     --foreground: 0 0% 98%;
 
@@ -127,7 +129,6 @@ All colors MUST be HSL.
     transition: background-color 0.3s ease, color 0.3s ease;
     background: linear-gradient(135deg, #f9fafb 0%, #eff2f6 100%);
     min-height: 100vh;
-    cursor: none !important;
   }
 
   input,
@@ -136,9 +137,26 @@ All colors MUST be HSL.
     cursor: text !important;
   }
 
-  a,
+  /* a,
   button {
     cursor: none !important;
+  } */
+
+  /* Show visible cursor in FullscreenServicesMenu */
+  .fixed.inset-0.z-\[100\] {
+    cursor: default !important;
+  }
+  
+  /* Ensure text elements in FullscreenServicesMenu have text cursor */
+  .fixed.inset-0.z-\[100\] input,
+  .fixed.inset-0.z-\[100\] textarea,
+  .fixed.inset-0.z-\[100\] select {
+    cursor: text !important;
+  }
+  
+  .fixed.inset-0.z-\[100\] button,
+  .fixed.inset-0.z-\[100\] a {
+    cursor: pointer !important;
   }
 
   /* Плавный переход между темами для основных элементов */
@@ -146,10 +164,10 @@ All colors MUST be HSL.
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
-    color: hsl(0, 0%, 0%) !important; /* Черный цвет */
-  }
+    color: hsl(0, 0%, 0%) !important;
+  } */
 
   footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
     color: hsl(0, 0%, 100%) !important; /* Белый цвет */
@@ -287,25 +305,25 @@ All colors MUST be HSL.
 
   /* Button Styles */
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 h-8 px-4 py-1.5 rounded-lg text-sm font-medium;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300 h-8 px-4 py-1.5 rounded-lg text-sm font-medium;
   }
 
   .btn-outline {
-    @apply border-border hover:bg-accent;
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300 h-8 px-4 py-1.5 rounded-lg text-sm font-medium;
   }
 
-  /* Background utility classes */
-  .bg-page {
-    background-color: var(--page-background);
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 h-8 px-4 py-1.5 rounded-lg text-sm font-medium;
   }
-
-  .bg-page-pattern {
-    background-image: var(--page-background-pattern);
-  }
-
-  .bg-page-full {
-    background-color: var(--page-background);
-    background-image: var(--page-background-pattern);
+  
+  .seymour-one-regular {
+    font-family: "Seymour One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
 }
 
@@ -427,4 +445,35 @@ All colors MUST be HSL.
   .animate-spin-around {
     animation: spin-around calc(var(--speed, 3s) * 2) infinite linear;
   }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee var(--duration) linear infinite;
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration) linear infinite;
+  }
+}
+
+/* Calendar weekday headers color */
+.rdp-head_cell {
+  color: #f0f0f0 !important;
 }

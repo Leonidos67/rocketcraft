@@ -243,9 +243,9 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black flex overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-sm flex overflow-hidden">
       {/* Левая панель - Навигация */}
-      <div className="w-64 border-r border-border flex-shrink-0 overflow-y-auto hide-scrollbar h-full">
+      <div className="w-64 border-r border-border bg-card flex-shrink-0 overflow-y-auto hide-scrollbar h-full">
         <div className="p-6">
           <nav className="space-y-2">
             {tabs.map((tab) => {
@@ -257,8 +257,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left ${
                     isActive
-                      ? 'bg-white text-black font-semibold shadow-md'
-                      : 'text-white hover:bg-white/10'
+                      ? 'bg-primary text-primary-foreground font-semibold shadow-sm'
+                      : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                   }`}
                 >
                   <Icon className="w-5 h-5 flex-shrink-0" />
@@ -271,15 +271,15 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
       </div>
 
       {/* Правая панель - Контент */}
-      <div className="flex-1 overflow-y-auto hide-scrollbar h-full">
+      <div className="flex-1 bg-background overflow-y-auto hide-scrollbar h-full">
         {/* Контент Все услуги */}
         {activeTab === 'all' && (
           <div>
             {/* Основные услуги */}
             <div className="px-8 md:px-12 lg:px-16 pt-8 pb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">Основные услуги</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">Основные услуги</h2>
+                  <p className="text-lg text-muted-foreground">
                     Ключевые решения для автоматизации бизнеса
                   </p>
                 </div>
@@ -290,14 +290,14 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                     return (
                       <div
                         key={index}
-                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <div className="flex flex-col items-center text-center mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                           </div>
-                          <h3 className="text-base font-bold text-white mb-2">{service.name}</h3>
-                          <p className="text-xs text-white/70 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -330,8 +330,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             {/* Интеграции и коммуникации */}
             <div className="px-8 md:px-12 lg:px-16 pt-12 pb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">Интеграции и коммуникации</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">Интеграции и коммуникации</h2>
+                  <p className="text-lg text-muted-foreground">
                     Связь всех систем в единую экосистему
                   </p>
                 </div>
@@ -342,14 +342,14 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                     return (
                       <div
                         key={index}
-                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <div className="flex flex-col items-center text-center mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                           </div>
-                          <h3 className="text-base font-bold text-white mb-2">{service.name}</h3>
-                          <p className="text-xs text-white/70 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -382,8 +382,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             {/* AI и аналитика */}
             <div className="px-8 md:px-12 lg:px-16 pt-12 pb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">AI и аналитика</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">AI и аналитика</h2>
+                  <p className="text-lg text-muted-foreground">
                     Умные решения на основе искусственного интеллекта
                   </p>
                 </div>
@@ -394,14 +394,14 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                     return (
                       <div
                         key={index}
-                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <div className="flex flex-col items-center text-center mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                           </div>
-                          <h3 className="text-base font-bold text-white mb-2">{service.name}</h3>
-                          <p className="text-xs text-white/70 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -434,8 +434,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             {/* Поддержка и развитие */}
             <div className="px-8 md:px-12 lg:px-16 pt-12 pb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">Поддержка и развитие</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">Поддержка и развитие</h2>
+                  <p className="text-lg text-muted-foreground">
                     Обучение, консалтинг и техническое сопровождение
                   </p>
                 </div>
@@ -446,14 +446,14 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                     return (
                       <div
                         key={index}
-                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <div className="flex flex-col items-center text-center mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                           </div>
-                          <h3 className="text-base font-bold text-white mb-2">{service.name}</h3>
-                          <p className="text-xs text-white/70 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -486,8 +486,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             {/* Контроль за сотрудниками */}
             <div className="px-8 md:px-12 lg:px-16 pt-12 pb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">Контроль за сотрудниками</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">Контроль за сотрудниками</h2>
+                  <p className="text-lg text-muted-foreground">
                     Системы учёта, мотивации и повышения эффективности персонала
                   </p>
                 </div>
@@ -498,14 +498,14 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                     return (
                       <div
                         key={index}
-                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                        className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <div className="flex flex-col items-center text-center mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                            <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                           </div>
-                          <h3 className="text-base font-bold text-white mb-2">{service.name}</h3>
-                          <p className="text-xs text-white/70 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -538,8 +538,8 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             {/* Решения по отраслям */}
             <div className="px-8 md:px-12 lg:px-16 pt-12 pb-12">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-white mb-2">Решения по отраслям</h2>
-                  <p className="text-lg text-white/80">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">Решения по отраслям</h2>
+                  <p className="text-lg text-muted-foreground">
                     Готовые автоматизации под специфику вашего бизнеса
                   </p>
                 </div>
@@ -556,11 +556,11 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                           <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                             <Icon className="w-5 h-5 text-primary" />
                           </div>
-                          <h3 className="text-sm font-bold text-white">{industry.name}</h3>
+                          <h3 className="text-sm font-bold text-foreground">{industry.name}</h3>
                         </div>
                         <ul className="space-y-1.5">
                           {industry.features.map((feature, i) => (
-                            <li key={i} className="text-xs text-white/70 flex items-start gap-2">
+                            <li key={i} className="text-xs text-muted-foreground flex items-start gap-2">
                               <span className="text-primary mt-0.5 text-xs">•</span>
                               <span>{feature}</span>
                             </li>
@@ -608,13 +608,13 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                   return (
                     <div
                       key={index}
-                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                     >
                       <div className="flex flex-col items-center text-center mb-3">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground mb-2">{service.name}</h3>
+                        <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
@@ -644,13 +644,13 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                   return (
                     <div
                       key={index}
-                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                     >
                       <div className="flex flex-col items-center text-center mb-3">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground mb-2">{service.name}</h3>
+                        <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
@@ -680,13 +680,13 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                   return (
                     <div
                       key={index}
-                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                     >
                       <div className="flex flex-col items-center text-center mb-3">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground mb-2">{service.name}</h3>
+                        <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
@@ -716,13 +716,13 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             return (
               <div
                 key={index}
-                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                     >
                       <div className="flex flex-col items-center text-center mb-3">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground mb-2">{service.name}</h3>
+                        <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
@@ -752,13 +752,12 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
             return (
               <div
                 key={index}
-                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-md transition-all"
-              >
+                      className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
                       <div className="flex flex-col items-center text-center mb-3">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 ease-in-out">
+                          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300 ease-in-out" />
                         </div>
-                        <h3 className="text-base font-bold text-foreground mb-2">{service.name}</h3>
+                        <h3 className="text-base font-bold text-foreground mb-2 truncate max-w-full">{service.name}</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
@@ -788,19 +787,19 @@ const FullscreenServicesMenu = ({ isOpen, onClose }: FullscreenServicesMenuProps
                   return (
                     <div
                       key={index}
-                      className="p-5 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-sm transition-all"
+                      className="p-5 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
                     >
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                           <Icon className="w-5 h-5 text-primary" />
-                  </div>
-                        <h3 className="text-sm font-bold text-foreground">{industry.name}</h3>
-                </div>
+                       </div>
+                        <h3 className="text-sm font-bold text-foreground truncate max-w-full">{industry.name}</h3>
+                      </div>
                       <ul className="space-y-1.5">
                         {industry.features.map((feature, i) => (
                           <li key={i} className="text-xs text-muted-foreground flex items-start gap-2">
                             <span className="text-primary mt-0.5 text-xs">•</span>
-                            <span>{feature}</span>
+                            <span className="truncate max-w-full">{feature}</span>
                     </li>
                   ))}
                 </ul>

@@ -149,10 +149,12 @@ export const SmoothCursor = () => {
         </svg>
       ) : (
           <Cursor>
-            <CursorPointer className={(isOrangeBg || forceWhite) ? "text-white" : "text-black"} />
+            <CursorPointer className="text-black" />
         </Cursor>
       )}
     </div>
   );
 };
+
+
 

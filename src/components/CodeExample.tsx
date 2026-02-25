@@ -243,7 +243,7 @@ const CodeExample = () => {
 
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               asChild
             >
               <Link to="/contacts">

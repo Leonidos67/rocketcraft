@@ -13,10 +13,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    // Установить темную тему по умолчанию
-    document.documentElement.classList.add('dark');
-  }, []);
+  // Removed dark theme enforcement to maintain consistent light background
 
   // Переключение глобального класса для белого курсора при открытом окне услуг
   useEffect(() => {
@@ -70,13 +67,14 @@ const Header = () => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           shouldBeTransparent 
             ? 'bg-transparent border-b border-transparent' 
             : isServicesOpen
             ? 'bg-background border-b border-border'
             : 'bg-white/20 backdrop-blur-sm border-b border-transparent'
         }`}
+        style={{ top: isScrolled ? '0px' : '28px' }} // Initial offset, removed when scrolled
       >
         <div className="px-6">
           <div className="relative flex items-center justify-between h-20">
@@ -90,7 +88,7 @@ const Header = () => {
                   />
                 </div>
                 <SparklesText className="text-xl" sparklesCount={5}>
-                  Rocket Craft
+                  Smart AI
                 </SparklesText>
               </Link>
             </div>
@@ -104,23 +102,22 @@ const Header = () => {
                 />
               </div>
               <span className="text-xl font-semibold transition-colors">
-                Rocket Craft
+                Smart AI
               </span>
             </Link>
 
             {/* Desktop Menu */}
             <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
-              <button
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className={`flex items-center gap-1 text-sm transition-colors px-3 py-1.5 rounded-md ${
-                  isServicesOpen
-                    ? 'bg-white bg-opacity-10 text-white font-medium'
-                    : 'text-black hover:bg-black hover:bg-opacity-10'
+              <Link
+                to="/services"
+                className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
+                  isActive('/team')
+                    ? isServicesOpen ? 'bg-white bg-opacity-10 text-white font-medium' : 'bg-black bg-opacity-10 text-black font-medium'
+                    : isServicesOpen ? 'text-white hover:bg-white hover:bg-opacity-10' : 'text-black hover:bg-black hover:bg-opacity-10'
                 }`}
               >
                 Услуги
-                <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
-              </button>
+              </Link>
               <Link
                 to="/team"
                 className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
@@ -141,7 +138,7 @@ const Header = () => {
               >
                 Кейсы
               </Link>
-              <Link
+              {/* <Link
                 to="/pricing"
                 className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
                   isActive('/pricing')
@@ -150,7 +147,7 @@ const Header = () => {
                 }`}
               >
                 Тарифы
-              </Link>
+              </Link> */}
               <Link
                 to="/process"
                 className={`text-sm transition-colors px-3 py-1.5 rounded-md ${
@@ -175,7 +172,10 @@ const Header = () => {
 
             <div className="hidden lg:flex items-center">
               <Link to="/contacts">
-                <InteractiveHoverButton className={`${isServicesOpen ? 'border-white' : 'border-black'} text-sm px-3 py-1.5 pr-6 pl-6 h-auto`}>
+                <InteractiveHoverButton 
+                  variant={isServicesOpen ? "outline" : "default"} 
+                  className={`text-sm px-3 py-1.5 pr-6 pl-6 h-auto shadow-md ${isServicesOpen ? 'border-white text-white' : 'border-primary'}`}
+                >
                   Оставить заявку
                 </InteractiveHoverButton>
               </Link>
@@ -183,7 +183,7 @@ const Header = () => {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden transition-colors text-foreground"
+              className={`lg:hidden transition-colors ${isServicesOpen ? 'text-white' : 'text-black'}`}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -229,7 +229,7 @@ const Header = () => {
                 >
                   Кейсы
                 </Link>
-                <Link
+                {/* <Link
                   to="/pricing"
                   onClick={() => setIsMobileMenuOpen(false)}
                     className={`text-left text-sm transition-colors py-2 px-3 rounded-md ${
@@ -239,7 +239,7 @@ const Header = () => {
                     }`}
                 >
                   Тарифы
-                </Link>
+                </Link> */}
                 <Link
                   to="/process"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -263,7 +263,7 @@ const Header = () => {
                   Контакты
                 </Link> */}
                 <Link to="/contacts" className="w-full mt-2">
-                  <InteractiveHoverButton className="border-black w-full ">
+                  <InteractiveHoverButton variant="default" className="w-full shadow-md">
                     Оставить заявку
                   </InteractiveHoverButton>
                 </Link>

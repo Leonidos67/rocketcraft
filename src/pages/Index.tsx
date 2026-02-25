@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Banner from '@/components/Banner';
 import CodeExample from '@/components/CodeExample';
 import { Button } from '@/components/ui/button';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
@@ -8,6 +9,8 @@ import { IconCloud } from '@/components/ui/icon-cloud';
 import { Highlighter } from '@/components/ui/highlighter';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
 import { ArrowRight, Coffee, Briefcase, DollarSign, Workflow, Eye, Bell, Zap, Code, Rocket, Cloud, Sparkles, Shield, Lock, TrendingUp, Users, Target, Clock, Heart, BarChart3 } from 'lucide-react';
+import { AnimatedBeamMultipleOutputDemo } from '@/components/ui/animated-beam-demo';
+import { BentoDemo } from '@/components/ui/bento-demo';
 import { Link } from 'react-router-dom';
 import OrbModal from '@/components/OrbModal';
 import ScrollBasedVelocityDemo from '@/components/ScrollBasedVelocityDemo';
@@ -106,13 +109,13 @@ const sections = [
     link: '/cases',
     highlights: ['3 кейса', 'Проверенные метрики', 'Реальные клиенты'],
   },
-  {
-    title: 'Тарифы',
-    icon: DollarSign,
-    description: 'Прозрачные цены от 15 000 ₽. Lite, Pro, Full — выберите свой вариант',
-    link: '/pricing',
-    highlights: ['Фиксированные цены', 'Без скрытых платежей', 'От 15 000 ₽'],
-  },
+  // {
+  //   title: 'Тарифы',
+  //   icon: DollarSign,
+  //   description: 'Прозрачные цены от 15 000 ₽. Lite, Pro, Full — выберите свой вариант',
+  //   link: '/pricing',
+  //   highlights: ['Фиксированные цены', 'Без скрытых платежей', 'От 15 000 ₽'],
+  // },
   {
     title: 'Процесс',
     icon: Workflow,
@@ -299,7 +302,8 @@ const Index = () => {
   }, [transitionStage, maxCircleScale]);
 
   return (
-    <div className={`min-h-screen transition-colors ${transitionStage === 'complete' ? 'bg-[#ff9800]' : ''}`}>
+    <div className="min-h-screen cursor-default">
+      <Banner />
       <Header />
       
       {/* Hero + Scroll Velocity (общий блок на высоту экрана) */}
@@ -379,19 +383,20 @@ const Index = () => {
                 </span>
               </h1>
               <p className="text-hero-description">
-                Telegram-боты, CRM, интеграции и рассылки под ключ. <br />
-                Увеличьте поток клиентов и упростите процессы за 48 часов.
+                Telegram-боты, CRM, интеграции и рассылки под ключ.
+                <br />
+                Увеличьте поток клиентов и упростите процессы.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contacts">
-                  <ShimmerButton className="shadow-2xl h-11 pr-8 pl-8 text-black" background="transparent" shimmerColor="#000000" borderRadius="6px">
-                    <span className="text-center text-sm font-medium">
-                      Посмотреть кейсы
+                  <ShimmerButton className="shadow-lg h-8 px-6 text-indigo-600" background="rgba(99, 102, 241, 0.1)" shimmerColor="#6366f1" borderRadius="0.5rem">
+                    <span className="text-center font-medium">
+                      Готовые решения
                     </span>
                   </ShimmerButton>
                 </Link>
                 <Link to="/cases">
-                  <InteractiveHoverButton className="border-black pr-8 pl-6 shadow-2xl">
+                  <InteractiveHoverButton variant="default" className="h-8 shadow-lg">
                     Оставить заявку
                   </InteractiveHoverButton>
                 </Link>
@@ -415,11 +420,10 @@ const Index = () => {
           </div> */}
         </section>
 
-      {/* Metrics Carousel Section */}
+      {/* Metrics Carousel Section
       <section className="py-16 border-t border-transparent">
         <div className="px-8 md:px-20 lg:px-40 xl:px-40">
           <div className="flex flex-col border border-border rounded-2xl backdrop-blur-sm">
-              {/* Navigation Buttons */}
               <div className="grid grid-cols-5 gap-2 p-2">
                 {carouselData.map((item, index) => {
                   const ItemIcon = item.icon;
@@ -434,7 +438,6 @@ const Index = () => {
                           : 'bg-[#f0f0f0] hover:bg-[#e0e0e0]'
                       }`}
                     >
-                      {/* Прогресс-бар */}
                       {isActive && (
                         <div 
                           key={`progress-${item.id}-${activeCarousel}`}
@@ -448,8 +451,6 @@ const Index = () => {
                   );
                 })}
               </div>
-
-              {/* Content Block */}
               <div 
                 className={`p-8 bg-white/10 transition-all duration-300 ${
                   isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
@@ -459,7 +460,6 @@ const Index = () => {
                   <h3 className="text-carousel-title">{activeItem.title}</h3>
                   <p className="text-carousel-description">{activeItem.description}</p>
                 </div>
-                {/* Разделитель */}
                 <div className="w-full border-t border-black/20 mb-6" />
                 <div className="flex items-baseline gap-2">
                   <span className="text-carousel-metric">{activeItem.metric}</span>
@@ -468,87 +468,161 @@ const Index = () => {
               </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Scroll Stack Section */}
-      <section className="py-20 min-h-screen mt-20">
-        <div className="text-center">
+      <section className="py-20  min-h-screen mt-20 px-8 md:px-20 lg:px-40 xl:px-40">
+        {/* <div className="text-center">
           <h2 className="text-section-title">
             Наши направления
           </h2>
-        </div>
+        </div> */}
         <ScrollStack useWindowScroll={true}>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-blue-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl border border-border p-8 pb-16">
-            <h2 className="text-3xl font-bold mb-4">Автоматизация бизнес-процессов</h2>
-            <div className="text-xl text-black/80 space-y-3">
-              <p>
+          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-green-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Автоматизация бизнес-процессов</h2>
+              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-green-500 to-purple-500 rounded-full"></div>
+            </div>
+            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4 pb-2">
+              <p className="text-black/80 font-medium">
                 Системы, которые берут на себя рутину и делают бизнес эффективнее.
               </p>
-              <ul className="list-disc pl-6">
-                <li>Автоматизация заявок</li>
-                <li>Автоматизация уведомлений</li>
-                <li>Автоматизация отчётов</li>
-                <li>Автоматизация взаимодействия с клиентами</li>
-                <li>Сокращение до 80% ручной работы и исключение ошибок</li>
+              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
+                  <span>Автоматизация заявок и отчётов</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
+                  <span>Автоматизация взаимодействия с клиентами</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
+                  <span>Сокращение до 90% ручной работы и исключение ошибок</span>
+                </li>
               </ul>
-              <p>
+              <p className="text-black/75 pt-2 border-t border-black/10">
                 Бизнес работает быстрее, сотрудники — продуктивнее, клиенты — довольнее.
               </p>
             </div>
-            <div className="absolute bottom-6 left-8">
-              <Link to="/services">
-                <InteractiveHoverButton className="border-black pr-8 pl-6 shadow-2xl">
-                  Подробнее об услуге
-                </InteractiveHoverButton>
-              </Link>
+            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
+                asChild
+              >
+                <Link to="/contacts">
+                  <span className="font-semibold">Заказать автоматизацию</span>
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
             </div>
           </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-green-500/20 to-teal-500/10 backdrop-blur-sm rounded-2xl border border-border p-8 pb-16">
-            <h2 className="text-3xl font-bold mb-4">Боты и мессенджер-системы</h2>
-            <div className="text-xl text-black/80 space-y-3">
-              <p>
-                Telegram и WhatsApp-боты для:
+          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-blue-500/20 to-teal-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Боты и мессенджер-системы</h2>
+              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full"></div>
+            </div>
+            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4 pb-2">
+              <p className="text-black/80 font-medium">
+                Telegram и WhatsApp-боты для автоматизации вашего бизнеса.
               </p>
-              <ul className="list-disc pl-6">
-                <li>Автоматизация заявок</li>
-                <li>Автоматизация уведомлений</li>
-                <li>Автоматизация отчётов</li>
-                <li>Автоматизация взаимодействия с клиентами</li>
-                <li>Сокращение до 80% ручной работы и исключение ошибок</li>
+              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
+                  <span>Приём заявок и бронирований 24/7</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
+                  <span>Автоматические напоминания клиентам</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
+                  <span>Мгновенная обработка запросов без ожидания</span>
+                </li>
               </ul>
-              <p>
-                Бизнес работает быстрее, сотрудники — продуктивнее, клиенты — довольнее.
+              <p className="text-black/75 pt-2 border-t border-black/10">
+                Клиенты получают ответы мгновенно, а вы экономите время на рутинных операциях.
               </p>
             </div>
-            <div className="absolute bottom-6 left-8">
+            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
+                asChild
+              >
+                <Link to="/contacts">
+                  <span className="font-semibold">Заказать автоматизацию</span>
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollStackItem>
+          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-orange-500/20 to-red-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Интеграции и CRM</h2>
+              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+            </div>
+            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4">
+              <p className="text-black/80 font-medium">
+                Подключение всех ваших инструментов в единую экосистему для максимальной эффективности.
+              </p>
+              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
+                  <span>Синхронизация данных между платформами</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
+                  <span>Автоматизация обмена информацией</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
+                  <span>Единая база клиентов и сделок</span>
+                </li>
+              </ul>
+              <p className="text-black/75 pt-2 border-t border-black/10">
+                Все ваши инструменты работают вместе, экономя время и исключая ошибки.
+              </p>
+            </div>
+            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
               <Link to="/services">
-                <InteractiveHoverButton className="border-black pr-8 pl-6 shadow-2xl">
+                <InteractiveHoverButton variant="outline" className="shadow-md w-full text-sm sm:text-base">
                   Подробнее об услуге
                 </InteractiveHoverButton>
               </Link>
             </div>
           </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-orange-500/20 to-red-500/10 backdrop-blur-sm rounded-2xl border border-border p-8 pb-16">
-            <h2 className="text-3xl font-bold mb-4">Интеграции и CRM</h2>
-            <p>
-              
-            </p>
-            <div className="absolute bottom-6 left-8">
-              <Link to="/services">
-                <InteractiveHoverButton className="border-black pr-8 pl-6 shadow-2xl">
-                  Подробнее об услуге
-                </InteractiveHoverButton>
-              </Link>
+          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-pink-500/20 to-rose-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">AI и аналитика</h2>
+              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full"></div>
             </div>
-          </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-pink-500/20 to-rose-500/10 backdrop-blur-sm rounded-2xl border border-border p-8 pb-16">
-            <h2 className="text-3xl font-bold mb-4">AI и аналитика</h2>
-            <p>
-              
-            </p>
-            <div className="absolute bottom-6 left-8">
+            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4">
+              <p className="text-black/80 font-medium">
+                Умная аналитика и искусственный интеллект для принятия обоснованных решений.
+              </p>
+              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
+                  <span>Анализ больших данных и выявление закономерностей</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
+                  <span>Прогнозирование трендов и спроса</span>
+                </li>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
+                  <span>Автоматическое выявление узких мест в процессах</span>
+                </li>
+              </ul>
+              <p className="text-black/75 pt-2 border-t border-black/10">
+                Данные работают на вас, помогая принимать решения быстрее и точнее.
+              </p>
+            </div>
+            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
               <Link to="/services">
-                <InteractiveHoverButton className="border-black pr-8 pl-6 shadow-2xl">
+                <InteractiveHoverButton variant="outline" className="shadow-md w-full text-sm sm:text-base">
                   Подробнее об услуге
                 </InteractiveHoverButton>
               </Link>
@@ -614,7 +688,7 @@ const Index = () => {
       {/* Overview Sections */}
       <section className="py-20 border-t border-transparent">
         <div className="px-8 md:px-20 lg:px-40 xl:px-40">
-          <div className="mb-16">
+          <div className="mb-16 text-center">
             <h2 className="text-section-title">
               Что мы предлагаем
             </h2>
@@ -622,48 +696,13 @@ const Index = () => {
               Комплексные решения для автоматизации вашего бизнеса
             </p>
           </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {sections.map((section, index) => {
-                const Icon = section.icon;
-                return (
-                  <Link
-                    key={index}
-                    to={section.link}
-                    className="group p-8 bg-card backdrop-blur-sm rounded-lg border border-border hover:bg-accent hover:shadow-lg transition-all"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                          <Icon className="w-6 h-6 text-primary transition-colors" />
-                        </div>
-                        <h2 className="text-section-card-title">{section.title}</h2>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                    </div>
-                    
-                    <p className="text-section-card-description">
-                      {section.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {section.highlights.map((highlight, i) => (
-                        <span
-                          key={i}
-                          className="text-section-highlight"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+          
+          <BentoDemo />
+        </div>
+      </section>
 
         {/* Enterprise Features */}
+        {/*
         <section className="py-20 border-t border-border">
         <div className="px-8 md:px-20 lg:px-40 xl:px-40">
           <div className="mb-16 text-center">
@@ -676,7 +715,6 @@ const Index = () => {
           </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Первый блок - акцентный с градиентом */}
               <div className="p-8 bg-gradient-to-br from-violet-500/20 to-purple-500/10 backdrop-blur-sm rounded-xl border border-violet-500/20 hover:border-violet-500/40 hover:shadow-2xl hover:shadow-violet-500/20 transition-all">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-600/10 border border-violet-500/20 flex items-center justify-center mb-6 shadow-lg">
                   <Eye className="w-8 h-8 text-violet-600" />
@@ -689,7 +727,6 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Второй блок - минималистичный */}
               <div className="p-8 bg-card backdrop-blur-sm rounded-xl border border-border hover:bg-accent transition-all group">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -704,7 +741,6 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Третий блок - с фоном и тенью */}
               <div className="p-8 bg-gradient-to-br from-amber-500/10 to-orange-500/5 backdrop-blur-sm rounded-xl border border-amber-500/20 hover:border-amber-500/40 hover:shadow-xl transition-all">
                 <div className="mb-6">
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400/10 to-orange-500/10 border border-amber-500/20 flex items-center justify-center shadow-md">
@@ -721,128 +757,31 @@ const Index = () => {
             </div>
           </div>
         </section>
+        */}
 
         {/* Why RocketCraft */}
-        <section className="py-20 border-t border-border">
-        <div className="px-8 md:px-20 lg:px-40 xl:px-40">
-          <div className="mb-16 text-center">
+        {/* <section className="py-20 border-t border-border">
+          <div className="px-8 md:px-20 lg:px-40 xl:px-40 mb-16 text-center">
             <h2 className="text-section-title">
-              Почему выбирают Rocket Craft
+              Что используем
             </h2>
           </div>
+        </section> */}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Большой блок - занимает 2 колонки */}
-              <div className="md:col-span-2 p-10 bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-transparent backdrop-blur-sm rounded-2xl border border-blue-500/30 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-600/10 border border-blue-500/20 flex items-center justify-center shadow-xl flex-shrink-0">
-                    <Code className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-feature-title-large">
-                      Никакого кода с вашей стороны
-                    </h3>
-                    <p className="text-feature-description-large">
-                      Вам не нужно писать ни строчки кода. Мы создаем решения на базе no-code платформ, которые просто работают. Сосредоточьтесь на развитии бизнеса, а не на технических деталях.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Компактный вертикальный блок */}
-              <div className="p-6 bg-card backdrop-blur-sm rounded-xl border border-border hover:bg-accent transition-all">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/10 to-rose-600/10 border border-pink-500/20 flex items-center justify-center mb-4 shadow-lg">
-                  <Rocket className="w-7 h-7 text-pink-600" />
-                </div>
-                <h3 className="text-feature-title-small">
-                  Запуск за 48 часов
-                </h3>
-                <p className="text-feature-description-small">
-                  От идеи до продакшена — всего 2 дня благодаря готовым решениям и автоматизации.
-                </p>
-              </div>
-
-              {/* Горизонтальный блок */}
-              <div className="p-6 bg-gradient-to-r from-emerald-500/10 to-teal-500/5 backdrop-blur-sm rounded-xl border border-emerald-500/20 hover:border-emerald-500/40 transition-all group">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-400/10 to-teal-500/10 border border-emerald-500/20 flex items-center justify-center group-hover:rotate-12 transition-transform">
-                    <Cloud className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <h3 className="text-feature-title-compact">
-                    Работаем с вашими платформами
-                  </h3>
-                </div>
-                <p className="text-feature-description-small">
-                  Интеграция с Telegram, WhatsApp, CRM и облачными сервисами.
-                </p>
-              </div>
-
-              {/* Блок с тенью и подсветкой */}
-              <div className="p-6 bg-gradient-to-br from-purple-500/15 to-fuchsia-500/10 backdrop-blur-sm rounded-xl border border-purple-500/30 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20 transition-all">
-                <div className="mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/10 to-fuchsia-600/10 border border-purple-500/20 flex items-center justify-center shadow-lg">
-                    <Sparkles className="w-7 h-7 text-purple-600" />
-                  </div>
-                </div>
-                <h3 className="text-feature-title-small">
-                  Бесконечное масштабирование
-                </h3>
-                <p className="text-feature-description-small">
-                  Решения готовы к любой нагрузке — от 10 до 10 000 клиентов в день.
-                </p>
-              </div>
-
-              {/* Минималистичный блок */}
-              <div className="p-6 bg-card backdrop-blur-sm rounded-xl border border-border hover:bg-accent hover:border-green-500/30 transition-all group">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-400/10 to-emerald-500/10 border border-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Shield className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h3 className="text-feature-title-compact pt-1">
-                    Безопасные интеграции
-                  </h3>
-                </div>
-                <p className="text-feature-description-small">
-                  Современное шифрование защищает ваши данные на каждом этапе.
-                </p>
-              </div>
-
-              {/* Акцентный блок */}
-              <div className="p-8 bg-gradient-to-br from-orange-500/20 to-red-500/10 backdrop-blur-sm rounded-2xl border border-orange-500/30 hover:border-orange-500/50 hover:shadow-xl transition-all">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/10 to-red-600/10 border border-orange-500/20 flex items-center justify-center shadow-lg">
-                    <Lock className="w-7 h-7 text-orange-600" />
-                  </div>
-                  <h3 className="text-feature-title-compact">
-                    Конфиденциальность гарантирована
-                  </h3>
-                </div>
-                <p className="text-feature-description">
-                  Безопасное хранение чувствительных данных без раскрытия в интерфейсе.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Globe Section */}
+        {/* 
         <section className="py-0">
-          <div className="px-8 md:px-20 lg:px-40 xl:px-40">
-            <div className="relative flex size-full max-w-6xl mx-auto items-center justify-center overflow-hidden min-h-[700px] pt-8 pb-40 md:pb-60">
-              <Globe className="top-28" />
-            </div>
-          </div>
-        </section>
+          <AnimatedBeamMultipleOutputDemo />
+        </section> */}
 
         {/* CTA Section */}
-        <section className="py-20 border-t border-border mb-20">
+        <section className="py-20 mb-20">
           <div className="px-8 md:px-20 lg:px-40 xl:px-40">
             <div className="p-12 bg-gradient-to-r from-primary/10 to-primary/5 backdrop-blur-sm rounded-2xl border border-border text-center">
               <h2 className="text-cta-title">
                 Начните автоматизацию уже сегодня
               </h2>
               <p className="text-cta-description">
-                Запустите свой первый бот за 48 часов и увидьте результаты уже на следующей неделе
+                Запустите свой первый бот за 48 часов и увидите результаты уже на следующей неделе
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
