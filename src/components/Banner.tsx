@@ -9,7 +9,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative top-0 left-0 right-0 z-30 bg-[#fff0d0] text-black py-2 overflow-hidden cursor-pointer" onClick={handleClick}>
+    <div className="relative top-0 left-0 right-0 z-30 bg-[#0087e8] text-pink-100 py-2 overflow-hidden cursor-pointer" onClick={handleClick}>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }

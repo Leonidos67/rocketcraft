@@ -388,14 +388,14 @@ const Index = () => {
                 Увеличьте поток клиентов и упростите процессы.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contacts">
+                <Link to="/services">
                   <ShimmerButton className="shadow-lg h-8 px-6 text-indigo-600" background="rgba(99, 102, 241, 0.1)" shimmerColor="#6366f1" borderRadius="0.5rem">
                     <span className="text-center font-medium">
-                      Готовые решения
+                      К услугам
                     </span>
                   </ShimmerButton>
                 </Link>
-                <Link to="/cases">
+                <Link to="/contacts">
                   <InteractiveHoverButton variant="default" className="h-8 shadow-lg">
                     Оставить заявку
                   </InteractiveHoverButton>
@@ -586,11 +586,16 @@ const Index = () => {
               </p>
             </div>
             <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Link to="/services">
-                <InteractiveHoverButton variant="outline" className="shadow-md w-full text-sm sm:text-base">
-                  Подробнее об услуге
-                </InteractiveHoverButton>
-              </Link>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
+                asChild
+              >
+                <Link to="/contacts">
+                  <span className="font-semibold">Заказать автоматизацию</span>
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
             </div>
           </ScrollStackItem>
           <ScrollStackItem itemClassName="relative bg-gradient-to-br from-pink-500/20 to-rose-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
@@ -621,11 +626,16 @@ const Index = () => {
               </p>
             </div>
             <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Link to="/services">
-                <InteractiveHoverButton variant="outline" className="shadow-md w-full text-sm sm:text-base">
-                  Подробнее об услуге
-                </InteractiveHoverButton>
-              </Link>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
+                asChild
+              >
+                <Link to="/contacts">
+                  <span className="font-semibold">Заказать автоматизацию</span>
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
             </div>
           </ScrollStackItem>
         </ScrollStack>

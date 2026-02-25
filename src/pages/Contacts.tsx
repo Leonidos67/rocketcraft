@@ -173,7 +173,7 @@ const Contacts = () => {
   
   // Format brief data for Telegram message
   const formatBriefMessage = (data: typeof formData) => {
-    let message = '\n\n📋 НОВЫЙ БРИФ:';
+    let message = '\n\n📋 НОВАЯ ЗАЯВКА:';
     
     message += '\n⏰ Время отправки: ' + new Date().toLocaleString('ru-RU') + '\n\n';
     

@@ -178,10 +178,12 @@ const Trend = () => {
                 
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
-                  <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 w-full sm:w-auto font-medium shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
-                    Обсудить ваш проект
-                    <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  <Link to="/contacts" className="block">
+                    <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 w-full sm:w-auto font-medium shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
+                      Обсудить ваш проект
+                      <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -593,10 +595,12 @@ const Trend = () => {
               Не отставайте от конкурентов. Обсудите с нами, какой ИИ нужен именно вашему бизнесу.
             </p> */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
-                Получить консультацию
-                <Rocket className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <Link to="/contacts" className="block">
+                <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
+                  Получить консультацию
+                  <Rocket className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </section>

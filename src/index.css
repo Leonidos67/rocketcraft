@@ -170,7 +170,7 @@ All colors MUST be HSL.
   } */
 
   footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
-    color: hsl(0, 0%, 100%) !important; /* Белый цвет */
+    /* color: hsl(0, 0%, 100%) !important; Белый цвет */
   }
 
   h1 {

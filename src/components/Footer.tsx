@@ -5,7 +5,7 @@ import { Globe } from '@/components/ui/globe';
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border pt-12 pb-0 bg-black">
+    <footer className="border-t border-border pt-12 pb-0 bg-white">
       <div className="px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -19,7 +19,7 @@ const Footer = () => {
             <p className="text-muted-foreground mb-4">
               Автоматизация бизнеса через собственные решения
             </p>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <a
                 href="https://t.me/rocketcraft"
                 target="_blank"
@@ -29,29 +29,11 @@ const Footer = () => {
               >
                 <Send className="w-5 h-5 text-foreground" />
               </a>
-              <a
-                href="https://instagram.com/rocketcraft"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5 text-foreground" />
-              </a>
-              <a
-                href="https://linkedin.com/company/rocketcraft"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5 text-foreground" />
-              </a>
-            </div>
+            </div> */}
           </div>
 
           <div>
-            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Услуги</h4>
+            <h4 className="font-bold mb-4" style={{ color: 'black' }}>Услуги</h4>
             <ul className="space-y-2 text-muted-foreground">
               <li className="hover:text-foreground transition-colors cursor-pointer">Telegram-боты</li>
               <li className="hover:text-foreground transition-colors cursor-pointer">CRM-системы</li>
@@ -61,7 +43,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Компания</h4>
+            <h4 className="font-bold mb-4" style={{ color: 'black' }}>Компания</h4>
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link to="/cases" className="hover:text-foreground transition-colors">
@@ -92,7 +74,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Контакты</h4>
+            <h4 className="font-bold mb-4" style={{ color: 'black' }}>Контакты</h4>
             <a href='tel:+79303811111' className="text-muted-foreground hover:text-foreground">+7 (930) 381-11-11</a>
           </div>
         </div>
