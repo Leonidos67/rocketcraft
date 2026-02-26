@@ -137,10 +137,17 @@ All colors MUST be HSL.
     cursor: text !important;
   }
 
-  /* a,
+  a,
   button {
     cursor: none !important;
-  } */
+  }
+
+  /* Hide the custom smooth cursor only on small screens */
+  @media (max-width: 768px) {
+    .fixed.top-0.left-0.pointer-events-none.z-\[9999\] {
+      display: none !important;
+    }
+  }
 
   /* Show visible cursor in FullscreenServicesMenu */
   .fixed.inset-0.z-\[100\] {
@@ -318,6 +325,38 @@ All colors MUST be HSL.
 
   .btn-destructive {
     @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 h-8 px-4 py-1.5 rounded-lg text-sm font-medium;
+  }
+  
+  /* Liquid glass effect styles */
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  
+  .mobile-header-glass {
+    @apply lg:hidden;
+    background: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Mobile dropdown menu background */
+  @media (max-width: 768px) {
+    .mobile-dropdown-menu {
+      background: rgba(255, 255, 255, 0.85);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.85) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      margin-top: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 16px;
+    }
   }
   
   .seymour-one-regular {
