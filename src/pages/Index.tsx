@@ -387,16 +387,16 @@ const Index = () => {
                 <br />
                 Увеличьте поток клиентов и упростите процессы.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/services">
-                  <ShimmerButton className="shadow-lg h-8 px-6 text-indigo-600" background="rgba(99, 102, 241, 0.1)" shimmerColor="#6366f1" borderRadius="0.5rem">
+              <div className="flex flex-col gap-4 w-full max-w-xs">
+                <Link to="/services" className="w-full">
+                  <ShimmerButton className="w-full shadow-lg h-12 text-indigo-600" background="rgba(99, 102, 241, 0.1)" shimmerColor="#6366f1" borderRadius="0.5rem">
                     <span className="text-center font-medium">
                       К услугам
                     </span>
                   </ShimmerButton>
                 </Link>
-                <Link to="/contacts">
-                  <InteractiveHoverButton variant="default" className="h-8 shadow-lg">
+                <Link to="/contacts" className="w-full">
+                  <InteractiveHoverButton variant="default" className="w-full h-12 shadow-lg">
                     Оставить заявку
                   </InteractiveHoverButton>
                 </Link>
