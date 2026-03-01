@@ -357,52 +357,50 @@ const Index = () => {
           }}
         />
           {/* Верхняя часть: контент hero */}
-          <div className="px-8 md:px-10 lg:px-12 xl:px-16 pt-28 md:pt-32 relative z-10 w-full mt-auto mb-8 md:mb-16">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
-              {/* IconCloud */}
-              <div className="flex justify-center items-center mb-8">
-                <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-                  <IconCloud images={iconUrls} />
-                </div>
-              </div>
-              <h1 className="text-hero-base">
-                <span className="block">
-                  <Highlighter action="underline" color="#FF9800" isView={true}>
-                    Автоматизируем
-                  </Highlighter>
-                  {' '}ваш бизнес,{' '}
-                  который
-                </span>
-                <span className="block text-hero-typewriter">
-                  {displayedText && (
-                    <Highlighter action="highlight" color="#87CEFA" enableAnimation={shouldHighlightTypewriter}>
-                      {displayedText}
-                      <span className="inline-block w-0.5 h-[1em] bg-primary ml-1 animate-pulse">|</span>
-                    </Highlighter>
-                  )}
-                </span>
-              </h1>
-              <p className="text-hero-description">
-                Telegram-боты, CRM, интеграции и рассылки под ключ.
-                <br />
-                Увеличьте поток клиентов и упростите процессы.
-              </p>
-              <div className="flex flex-col gap-4 w-full max-w-xs">
-                <Link to="/services" className="w-full">
-                  <ShimmerButton className="w-full shadow-lg h-12 text-indigo-600" background="rgba(99, 102, 241, 0.1)" shimmerColor="#6366f1" borderRadius="0.5rem">
-                    <span className="text-center font-medium">
-                      К услугам
-                    </span>
-                  </ShimmerButton>
-                </Link>
-                <Link to="/contacts" className="w-full">
-                  <InteractiveHoverButton variant="default" className="w-full h-12 shadow-lg">
-                    Оставить заявку
-                  </InteractiveHoverButton>
-                </Link>
-              </div>
-            </div>
-          </div>
+<div className="px-8 md:px-10 lg:px-12 xl:px-16 pt-28 md:pt-32 relative z-10 w-full mt-auto mb-8 md:mb-16">
+  <div className="max-w-4xl mx-auto text-center space-y-6">
+    {/* IconCloud */}
+    <div className="flex justify-center items-center mb-8">
+      <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+        <IconCloud images={iconUrls} />
+      </div>
+    </div>
+    <h1 className="text-hero-base">
+      <span className="block">
+        <Highlighter action="underline" color="#FF9800" isView={true}>
+          Автоматизируем
+        </Highlighter>
+        {' '}ваш бизнес,{' '}
+        который
+      </span>
+      <span className="block text-hero-typewriter">
+        {displayedText && (
+          <Highlighter action="highlight" color="#87CEFA" enableAnimation={shouldHighlightTypewriter}>
+            {displayedText}
+            <span className="inline-block w-0.5 h-[1em] bg-primary ml-1 animate-pulse">|</span>
+          </Highlighter>
+        )}
+      </span>
+    </h1>
+    <p className="text-hero-description">
+      Telegram-боты, CRM, интеграции и рассылки под ключ.
+      <br />
+      Увеличьте поток клиентов и упростите процессы.
+    </p>
+    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <Link to="/services" className="w-full sm:w-auto">
+        <Button className="w-full sm:w-auto rounded-3xl py-6 text-base font-medium bg-white text-black border border-gray-300 hover:bg-gray-100">
+          К услугам
+        </Button>
+      </Link>
+      <Link to="/contacts" className="w-full sm:w-auto">
+        <Button className="w-full sm:w-auto rounded-3xl py-6 text-base font-medium bg-black text-white hover:bg-gray-800">
+          Оставить заявку
+        </Button>
+      </Link>
+    </div>
+  </div>
+</div>
 
           {/* Нижняя часть: С кем работаем (текст слева, бегущие строки справа) */}
           {/* <div className="relative z-10 w-full">

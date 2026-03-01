@@ -16,6 +16,7 @@ import Process from "./pages/Process";
 import Contacts from "./pages/Contacts";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trend from "./pages/Trend";
+import BusinessSolutionsPage from "./pages/BusinessSolutionsPage";
 import NotFound from "./pages/NotFound";
 import AppBlog from "./blog/AppBlog";
 
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/trend" element={<Trend />} />
+            <Route path="/business-solutions" element={<BusinessSolutionsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
