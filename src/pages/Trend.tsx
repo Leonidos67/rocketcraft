@@ -52,10 +52,10 @@ const Trend = () => {
 
   // Trend stats
   const trendStats = [
-    { icon: <TrendingUp className="w-6 h-6" />, value: "78%", label: "компаний планируют внедрить кастомный ИИ в 2026" },
-    { icon: <Clock className="w-6 h-6" />, value: "300%", label: "экономии времени на рутинных задачах" },
-    { icon: <Shield className="w-6 h-6" />, value: "3.5x", label: "рост конверсии при персонализации" },
-    { icon: <BarChart className="w-6 h-6" />, value: "$15B", label: "рынок кастомных ИИ-решений к 2027" }
+    { icon: <TrendingUp className="w-6 h-6" />, value: "78%", label: "*компаний планируют внедрить кастомный ИИ в 2026" },
+    { icon: <Clock className="w-6 h-6" />, value: "300%", label: "*экономии времени на рутинных задачах" },
+    { icon: <Shield className="w-6 h-6" />, value: "3.5x", label: "*рост конверсии при персонализации" },
+    { icon: <BarChart className="w-6 h-6" />, value: "$15B", label: "*рынок кастомных ИИ-решений к 2027" }
   ];
 
   const containerVariants = {
@@ -116,76 +116,30 @@ const Trend = () => {
             />
           </div>
           
-          <div className="max-w-8xl mx-auto px-6 text-center relative z-10 w-full">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              {/* Left Column - MorphingText */}
-              <div className="w-full lg:w-3/5 flex flex-col items-start" style={{ minHeight: '450px' }}>
-                <Badge className="mb-8 bg-gradient-to-r from-blue-500 via-blue-800 to-blue-500 border-blue-500/30 text-white px-4 py-2 rounded-full text-xs font-medium uppercase tracking-widest backdrop-blur-md">
-                  <Sparkles className="w-3 h-3 mr-2 inline-block" />
-                  ТРЕНД 2026: КАСТОМИЗИРОВАННЫЙ ИИ
-                </Badge>
-                <div className="mb-8 w-full">
-                  <MorphingText 
-                    texts={["Стандарт — в прошлом", "ИИ — ваше будущее"]} 
-                    className="w-full text-4xl md:text-6xl lg:text-7xl font-bold text-white seymour-one-regular text-center"
-                  />
-                </div>
-                
-                <p className="mt-8 text-xl md:text-2xl text-gray-400 font-light leading-relaxed backdrop-blur-sm bg-black/20 p-6 rounded-3xl text-left">
-                  2026 год — переломный момент. Компании, которые используют готовые решения, проигрывают тем, кто строит свой ИИ. 
-                  Мы создаем нейросети, которые знают ваш бизнес лучше, чем вы думаете.
-                </p>
-              </div>
-              
-              {/* Right Column - Stats and Buttons */}
-              <div className="w-full lg:w-2/5 flex flex-col items-center">
-                {/* Trend Stats in two rows */}
-                <div className="grid grid-cols-2 gap-6 mb-12 w-full">
-                  {trendStats.slice(0, 2).map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + i * 0.1 }}
-                      className="text-center backdrop-blur-sm bg-black/20 p-6 rounded-2xl"
-                    >
-                      <div className="flex justify-center mb-3 text-blue-400">
-                        {stat.icon}
-                      </div>
-                      <div className="text-2xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                      <div className="text-xs md:text-sm text-gray-500 uppercase tracking-wider">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-                
-                <div className="grid grid-cols-2 gap-6 w-full mb-12">
-                  {trendStats.slice(2, 4).map((stat, i) => (
-                    <motion.div
-                      key={i + 2}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + i * 0.1 }}
-                      className="text-center backdrop-blur-sm bg-black/20 p-6 rounded-2xl"
-                    >
-                      <div className="flex justify-center mb-3 text-blue-400">
-                        {stat.icon}
-                      </div>
-                      <div className="text-2xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                      <div className="text-xs md:text-sm text-gray-500 uppercase tracking-wider">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-                
-                {/* Buttons */}
-                <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
-                  <Link to="/contacts" className="block">
-                    <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 w-full sm:w-auto font-medium shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
-                      Обсудить ваш проект
-                      <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10 w-full">
+            <Badge className="mb-8 bg-gradient-to-r from-blue-500 via-blue-800 to-blue-500 border-blue-500/30 text-white px-4 py-2 rounded-full text-xs font-medium uppercase tracking-widest backdrop-blur-md">
+              <Sparkles className="w-3 h-3 mr-2 inline-block" />
+              ТРЕНД 2026: КАСТОМИЗИРОВАННЫЙ ИИ
+            </Badge>
+            <div className="mb-8 w-full">
+              <MorphingText 
+                texts={["Стандарт — в прошлом", "ИИ — ваше будущее"]} 
+                className="w-full text-4xl md:text-6xl lg:text-7xl font-bold text-white seymour-one-regular text-center"
+              />
+            </div>
+            
+            <p className="mt-8 text-xl md:text-2xl text-gray-400 font-light leading-relaxed backdrop-blur-sm bg-black/20 p-6 rounded-3xl text-center max-w-3xl mx-auto">
+              2026 год — переломный момент. Компании, которые используют готовые решения, проигрывают тем, кто строит свой ИИ. 
+              Мы создаем нейросети, которые знают ваш бизнес лучше, чем вы думаете.
+            </p>
+            
+            <div className="mt-12 flex justify-center w-full">
+              <Link to="/contacts" className="block">
+                <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 border-0 shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:scale-105">
+                  Обсудить ваш проект
+                  <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
             </div>
           </div>
           
@@ -197,7 +151,68 @@ const Trend = () => {
           </div>
         </section>
 
-        {/* Слайд 2: Что такое кастомный ИИ */}
+        {/* Слайд 2: Statistics */}
+        <section className="snap-start h-screen flex items-center justify-center relative overflow-hidden">
+          {/* Анимированный фон для этой секции */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+            <Beams
+              beamWidth={2}
+              beamHeight={20}
+              beamNumber={10}
+              lightColor="#8b5cf6"
+              speed={1.5}
+              noiseIntensity={1.5}
+              scale={0.15}
+              rotation={15}
+            />
+          </div>
+          
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent seymour-one-regular">
+                Цифры говорят сами за себя
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto font-light">
+                Почему кастомный ИИ — это необходимость уже сегодня
+              </p>
+            </motion.div>
+
+            {/* Trend Stats in two rows */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+              {trendStats.map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
+                  className="text-center backdrop-blur-sm bg-black/20 p-6 rounded-2xl hover:border-blue-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-1"
+                >
+                  <div className="flex justify-center mb-3 text-blue-400">
+                    {stat.icon}
+                  </div>
+                  <div className="text-3xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
+                  <div className="text-sm md:text-base text-gray-400 uppercase tracking-wider">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="text-center text-xs text-gray-500 mt-8 font-light"
+            >
+              * Информация из открытых источников
+            </motion.p>
+          </div>
+        </section>
         <section className="snap-start h-screen flex items-center justify-center relative overflow-hidden">
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
@@ -261,7 +276,7 @@ const Trend = () => {
           </div>
         </section>
 
-        {/* Слайд 3: Почему тренд */}
+        {/* Слайд 4: Почему тренд */}
         <section className="snap-start h-screen flex items-center justify-center bg-black/40 relative overflow-hidden">
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
@@ -315,7 +330,7 @@ const Trend = () => {
           </div>
         </section>
 
-        {/* Слайд 4: Сравнение */}
+        {/* Слайд 5: Сравнение */}
         <section className="snap-start h-screen flex items-center justify-center relative overflow-hidden">
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-10">
@@ -472,14 +487,14 @@ const Trend = () => {
         </section>
 
         {/* Слайд 7: Технологии */}
-        <section className="snap-start h-screen flex items-center justify-center bg-black/40 relative overflow-hidden">
+        <section className="snap-start h-screen flex items-center justify-center bg-gradient-to-br from-orange-900/40 via-black to-orange-900/40 relative overflow-hidden">
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
             <Beams
               beamWidth={2}
               beamHeight={20}
               beamNumber={12}
-              lightColor="#3b82f6"
+              lightColor="#f97316"
               speed={1.5}
               noiseIntensity={1.5}
               scale={0.15}
@@ -489,7 +504,7 @@ const Trend = () => {
           
           <div className="max-w-6xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Технологии, которые мы используем</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">Технологии, которые мы используем</h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
                 Не просто модные слова, а работающие инструменты
               </p>
@@ -503,7 +518,7 @@ const Trend = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.1 }}
-                  className="backdrop-blur-sm bg-black/20 p-8 rounded-3xl text-center hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-1"
+                  className="backdrop-blur-sm bg-black/20 p-8 rounded-3xl text-center hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:-translate-y-1 border border-orange-500/10"
                 >
                   <div className="flex justify-center mb-6">
                     <div className="p-4 rounded-2xl bg-gray-800/50 border border-gray-700">
@@ -519,14 +534,14 @@ const Trend = () => {
         </section>
 
         {/* Слайд 8: FAQ */}
-        <section className="snap-start h-screen flex items-center justify-center relative overflow-hidden">
+        <section className="snap-start h-screen flex items-center justify-center bg-gradient-to-br from-orange-900/30 via-black to-orange-900/30 relative overflow-hidden">
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-10">
             <Beams
               beamWidth={2}
               beamHeight={20}
               beamNumber={10}
-              lightColor="#8b5cf6"
+              lightColor="#f97316"
               speed={1.2}
               noiseIntensity={1.5}
               scale={0.15}
@@ -536,7 +551,7 @@ const Trend = () => {
           
           <div className="max-w-8xl mx-auto px-6 relative z-10">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Ответы на вопросы</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">Ответы на вопросы</h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
                 То, что вы хотели спросить, но стеснялись
               </p>
@@ -550,10 +565,10 @@ const Trend = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass-card p-8 rounded-2xl"
+                  className="glass-card p-8 rounded-2xl border border-orange-500/10"
                 >
-                  <h3 className="text-xl font-bold mb-4 text-blue-100 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                  <h3 className="text-xl font-bold mb-4 text-orange-100 flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-orange-500" />
                     {faq.question}
                   </h3>
                   <p className="text-gray-400 font-light leading-relaxed pl-5 border-l border-gray-800">{faq.answer}</p>
@@ -564,9 +579,9 @@ const Trend = () => {
         </section>
 
         {/* Слайд 9: Финальный CTA */}
-        <section className="snap-start h-screen flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-blue-900/10" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
+        <section className="snap-start h-screen flex items-center justify-center bg-gradient-to-br from-orange-900/20 via-black to-orange-900/20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-orange-900/10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-orange-600/20 blur-[120px] rounded-full pointer-events-none" />
           
           {/* Анимированный фон для этой секции */}
           <div className="absolute inset-0 w-full h-full pointer-events-none opacity-30">
@@ -574,7 +589,7 @@ const Trend = () => {
               beamWidth={3}
               beamHeight={30}
               beamNumber={20}
-              lightColor="#3b82f6"
+              lightColor="#f97316"
               speed={2}
               noiseIntensity={1.75}
               scale={0.2}
@@ -589,7 +604,7 @@ const Trend = () => {
             className="max-w-6xl mx-auto px-6 text-center relative z-10"
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-8 text-white">
-              Будьте в тренде 2026 <br /><span className="text-6xl md:text-8xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">с нашим ИИ</span>
+              Будьте в тренде 2026 <br /><span className="text-6xl md:text-8xl bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">с нашим ИИ</span>
             </h2>
             {/* <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light">
               Не отставайте от конкурентов. Обсудите с нами, какой ИИ нужен именно вашему бизнесу.

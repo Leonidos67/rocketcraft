@@ -89,67 +89,93 @@ const BlogPost = () => {
         ],
         content: `
             <div id="section-1"></div>
-            <h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">${post.headings?.[0] || "1. ChatGPT или Gemini: ваш стратег и генератор идей"}</h3>
-<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Написание коммерческих предложений, постов для соцсетей, обработка писем, анализ текстов, мозговые штурмы.</p>
-<div style="background-color:rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffd600;">
-    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Не просто просите «написать пост». Давайте контекст. Скажите: «Ты эксперт по маркетингу для кофеен. Напиши 3 варианта поста для Instagram про новый летний латте. Цель — вызвать желание попробовать. Аудитория — молодежь 20-30 лет. Тон — дружеский и энергичный».</p>
+
+<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">1. Claude (от Anthropic) — ваш стратег</h3>
+<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Продвинутый AI с огромным контекстным окном (до 200K токенов). Может анализировать документы объемом с книгу, видит глубинные связи и выдает стратегически точные решения. Лучше ChatGPT понимает бизнес-контекст и нюансы.</p>
+<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffffff;">
+    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Загрузите в Claude всю переписку с топ-20 клиентов за полгода и попросите выделить паттерны, которые ведут к сделке. Он найдет неочевидные триггеры и возражения, которые вы упускали.</p>
 </div>
-<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Экономия 5-7 часов</strong> в неделю на создании контента и коммуникации.</p>
-<!-- КНОПКИ ДЛЯ ПЕРВОГО ИНСТРУМЕНТА -->
+<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Глубокая аналитика</strong> коммуникаций без привлечения дорогих аналитиков. Стратегия, основанная на реальных данных, а не на интуиции.</p>
 <div style="margin-bottom: 2em;">
-    <a href="https://chat.openai.com" target="_blank" style="display: inline-block; background-color: #10a37f; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт ChatGPT</a>
-    <a href="https://gemini.google.com" target="_blank" style="display: inline-block; background-color: #4285f4; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9em;">Сайт Gemini</a>
+    <a href="https://claude.ai" target="_blank" style="display: inline-block; border: 1px solid #555; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Claude</a>
 </div>
 
-<div id="section-2"></div>
-<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">${post.headings?.[1] || "2. Midjourney или Leonardo.ai: ваш дизайнер-иллюстратор"}</h3>
-<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Создание уникальных изображений для сайта, соцсетей, рекламных баннеров и даже дизайна упаковки.</p>
-<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffd600;">
-    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Используйте референсы. Загрузите фото своего продукта и попросите ИИ создать «похожее изображение в стиле минималистичной 3D-графики на пастельном фоне». Результат будет в разы лучше абстрактных запросов.</p>
+<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">2. Perplexity AI — генератор идей и исследователь</h3>
+<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Не просто чат, а AI-поисковик с ссылками на реальные источники. Выдает факты, статистику, тренды с подтверждением откуда взял. Идеален для создания контента на базе исследований, а не просто "фантазии нейросети".</p>
+<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffffff;">
+    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Используйте Perplexity для быстрого создания экспертных постов. Запрос: "Собери 10 исследований 2024 года о поведении потребителей в нише [ваша сфера] с цифрами и графиками". Получаете выжимку с ссылками за 1 минуту.</p>
 </div>
-<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Экономия $200-500</strong> в месяц на услугах дизайнера для рутинных задач и уникальный визуал, который выделит вас на фоне конкурентов.</p>
-<!-- КНОПКИ ДЛЯ ВТОРОГО ИНСТРУМЕНТА -->
+<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Контент с авторитетом.</strong> Посты перестают быть "водой", появляются реальные факты, которые убеждают клиентов.</p>
 <div style="margin-bottom: 2em;">
-    <a href="https://www.midjourney.com" target="_blank" style="display: inline-block; background-color: #1e1e1e; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Midjourney</a>
-    <a href="https://leonardo.ai" target="_blank" style="display: inline-block; background-color: #6d28d9; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9em;">Сайт Leonardo.ai</a>
+    <a href="https://www.perplexity.ai" target="_blank" style="display: inline-block; border: 1px solid #555; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Perplexity</a>
 </div>
 
-<div id="section-3"></div>
-<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">${post.headings?.[2] || "3. Tome или Gamma: ваш презентатор"}</h3>
-<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Моментальное создание презентаций для инвесторов, клиентов или внутренних встреч на основе текстового описания.</p>
-<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffd600;">
-    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Создайте структуру в ChatGPT («Сделай план презентации для продвижения наших услуг автоматизации для салонов красоты»), а затем скопируйте ее в Tome — он сгенерирует слайды с подходящими визуалами и версткой.</p>
+<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">3. Ideogram — дизайнер-иллюстратор</h3>
+<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Лучший AI для работы с типографикой и текстом на картинках. В отличие от Midjourney, Ideogram умеет писать читаемые слова, логотипы, посты с надписями, мерч. Идеален для соцсетей, где нужен текст на визуале.</p>
+<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffffff;">
+    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Генерируйте обложки для Reels и постов сразу с заголовком. Например: "Создай изображение в стиле кинопостера с текстом '5 способов увеличить прибыль'". Экономите часы в Canva.</p>
 </div>
-<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Экономия 3-4 часов</strong> на подготовке каждого важного показа. Вы сможете реагировать на запросы клиентов в 10 раз быстрее.</p>
-<!-- КНОПКИ ДЛЯ ТРЕТЬЕГО ИНСТРУМЕНТА -->
+<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Скорость производства</strong> визуала. От идеи до готовой картинки с текстом — 30 секунд.</p>
 <div style="margin-bottom: 2em;">
-    <a href="https://tome.app" target="_blank" style="display: inline-block; background-color: #6d28d9; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Tome</a>
-    <a href="https://gamma.app" target="_blank" style="display: inline-block; background-color: #3b82f6; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9em;">Сайт Gamma</a>
+    <a href="https://ideogram.ai" target="_blank" style="display: inline-block; border: 1px solid #555; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Ideogram</a>
 </div>
 
-<div id="section-4"></div>
-<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">${post.headings?.[3] || "4. Otter.ai или Notta.ai: ваш личный секретарь на совещаниях"}</h3>
-<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Автоматическая транскрибация (расшифровка) звонков, встреч и интервью. Сервис не только пишет текст, но и выделяет ключевые моменты и задачи.</p>
-<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffd600;">
-    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Подключите его к Zoom-звонку с клиентом. После встречи вы мгновенно получите готовый конспект со всеми договоренностями и не упустите детали.</p>
+<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">4. Beautiful.ai — ваш презентатор</h3>
+<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> AI-презентации, которые реально выглядят дорого. Сам подбирает макеты, выравнивает элементы, анимирует появление. Достаточно добавить текст и картинки — все остальное сервис делает сам, соблюдая законы дизайна.</p>
+<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffffff;">
+    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Сделайте корпоративный шаблон в Beautiful.ai и научите менеджеров делать КП. Любой сотрудник сможет собрать презентацию уровня топ-дизайнера за 15 минут.</p>
 </div>
-<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Повышение исполнительской дисциплины</strong> и снятие стресса от «а о чем мы договаривались?». Все фиксируется автоматически.</p>
-<!-- КНОПКИ ДЛЯ ЧЕТВЕРТОГО ИНСТРУМЕНТА -->
+<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Имидж премиальности.</strong> Клиенты воспринимают компанию как серьезного игрока, когда видят качественные материалы.</p>
 <div style="margin-bottom: 2em;">
-    <a href="https://otter.ai" target="_blank" style="display: inline-block; background-color: #ef4444; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Otter.ai</a>
-    <a href="https://www.notta.ai" target="_blank" style="display: inline-block; background-color: #0ea5e9; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9em;">Сайт Notta.ai</a>
+    <a href="https://www.beautiful.ai" target="_blank" style="display: inline-block; border: 1px solid #555; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Beautiful.ai</a>
 </div>
 
-<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">5. Fireflies.ai или CRM с AI: ваш аналитик по клиентам</h3>
-<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Идет дальше расшифровки. Анализирует разговоры с клиентами, автоматически фиксирует сделки в CRM, выявляет возражения и даже оценивает настроение клиента.</p>
-<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffd600;">
-    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Интегрируйте с вашей телефонией. После звонка в карточке клиента появится не только запись, но и автоматически созданная задача («Клиент просил перезвонить с КП 25 апреля»).</p>
+<h3 style="font-size: 1.4em; color: #f9f9f9; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 1px solid #eee;">5. Fathom.video — AI-секретарь на совещаниях</h3>
+<p style="margin-bottom: 0.8em;"><strong style="color: #3498db;">Для чего:</strong> Бесплатный AI-ассистент для Zoom. Сам подключается к встрече, записывает, расшифровывает, выделяет ключевые моменты и отправляет саммари в CRM или Notion. Не требует от участников нажимать "запись".</p>
+<div style="background-color: rgb(32, 32, 32); padding: 1.2em; margin: 1em 0; border-radius: 8px; border-left: 4px solid #ffffff;">
+    <p style="margin: 0; font-size: 0.95em;"><strong style="color: #f9f9f9;">Практический лайфхак:</strong> Интегрируйте с HubSpot или Salesforce. После созвона Fathom сам создаст карточку контакта, запишет туда итоги встречи и поставит задачу менеджеру.</p>
 </div>
-<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Увеличение конверсии</strong> на 10-15%, так как вы будете точно знать, на каком этапе теряете клиентов, и сможете улучшить скрипты продаж.</p>
-<!-- КНОПКИ ДЛЯ ПЯТОГО ИНСТРУМЕНТА -->
+<p style="margin-bottom: 1em;"><strong style="color: #27ae60;">Что это даст бизнесу:</strong> <strong style="color: #e74c3c;">Прозрачность продаж.</strong> Руководитель видит, как проходят переговоры, без подслушивания. Ни один пункт договоренностей не теряется.</p>
 <div style="margin-bottom: 2em;">
-    <a href="https://fireflies.ai" target="_blank" style="display: inline-block; background-color: #f97316; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Fireflies.ai</a>
-    <a href="https://www.salesforce.com/products/what-is-salesforce-ai/" target="_blank" style="display: inline-block; background-color: #00a1e0; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9em;">Пример CRM с AI</a>
+    <a href="https://fathom.video" target="_blank" style="display: inline-block; border: 1px solid #555; color: white; padding: 0.5em 1.2em; border-radius: 6px; text-decoration: none; font-weight: 500; margin-right: 0.8em; font-size: 0.9em;">Сайт Fathom</a>
+</div>
+
+<!-- БЛОК ПРО ВНЕДРЕНИЕ AI В БИЗНЕС (без изменений внутри, только фон остался) -->
+<div style="margin-top: 3em; margin-bottom: 2em; padding: 2em; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+    <h3 style="font-size: 1.8em; color: #222222; margin-top: 0; margin-bottom: 0.5em; text-align: center;">Внедряем AI в ваш бизнес</h3>
+    <p style="font-size: 1.1em; color: #444444; text-align: center; margin-bottom: 2em;">Мы в AGURA не просто рассказываем про инструменты — мы собираем из них готовые рабочие системы под ваши задачи</p>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5em; margin-bottom: 2em;">
+        <div style="flex: 1; min-width: 250px; background: white; padding: 1.5em; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <div style="font-size: 2em; margin-bottom: 0.3em;">🎯</div>
+            <h4 style="color: #222222; margin-top: 0; margin-bottom: 0.8em;">Аудит и стратегия</h4>
+            <p style="color: #555555; margin-bottom: 0;">Анализируем ваши текущие процессы, находим точки, где AI даст максимум эффекта. Составляем дорожную карту внедрения с конкретными метриками.</p>
+        </div>
+        <div style="flex: 1; min-width: 250px; background: white; padding: 1.5em; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <div style="font-size: 2em; margin-bottom: 0.3em;">⚙️</div>
+            <h4 style="color: #222222; margin-top: 0; margin-bottom: 0.8em;">Настройка и интеграция</h4>
+            <p style="color: #555555; margin-bottom: 0;">Подбираем связки инструментов, интегрируем их с вашей CRM, телефонией и соцсетями. Все работает в единой системе, ничего не теряется.</p>
+        </div>
+        <div style="flex: 1; min-width: 250px; background: white; padding: 1.5em; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <div style="font-size: 2em; margin-bottom: 0.3em;">📊</div>
+            <h4 style="color: #222222; margin-top: 0; margin-bottom: 0.8em;">Аналитика и оптимизация</h4>
+            <p style="color: #555555; margin-bottom: 0;">Настраиваем сквозную аналитику, чтобы вы видели реальный ROI от внедрения. Ежемесячно оптимизируем связки под растущие задачи.</p>
+        </div>
+    </div>
+    
+    <div style="background-color: #f0f0f0; padding: 1.5em; border-radius: 12px; margin-bottom: 2em;">
+        <h4 style="color: #222222; margin-top: 0; margin-bottom: 0.8em;">Примеры того, что мы уже собрали для клиентов:</h4>
+        <ul style="color: #444444; margin-bottom: 0;">
+            <li style="margin-bottom: 0.5em;"><strong>Для бьюти-студии:</strong> Автоматическая запись клиентов через AI-ассистента + напоминания о визите + сбор обратной связи после процедуры. Запись выросла на 40%.</li>
+            <li style="margin-bottom: 0.5em;"><strong>Для инфобизнеса:</strong> Связка ChatGPT + Midjourney + Tome = производство 30 постов, 10 Reels и 5 презентаций в неделю силами одного человека. Охваты выросли в 3 раза.</li>
+            <li style="margin-bottom: 0.5em;"><strong>Для отдела продаж:</strong> Otter.ai анализирует все звонки, CRM автоматически ставит задачи менеджерам, конверсия в сделку +18%.</li>
+        </ul>
+    </div>
+    
+    <div style="text-align: center; margin-top: 1.5em;">
+        <a href="#" style="display: inline-block; background-color: #222222; color: white; padding: 1em 2.5em; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.2em; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">👉 Перейти на сайт AGURA — получить консультацию</a>
+        <p style="color: #666666; margin-top: 1em; font-size: 0.9em;">Рассчитаем, сколько сэкономит ваш бизнес с AI</p>
+    </div>
 </div>
         `,
         date: "2026-01-09",
@@ -195,7 +221,7 @@ const BlogPost = () => {
           <div className="flex items-center text-sm">
             <button 
               onClick={() => window.history.back()}
-              className="mr-4 p-2 rounded-lg hover:bg-[#161616] transition-colors text-[#999] hover:text-white"
+              className="mr-4 p-2 rounded-lg hover:bg-[#161616] transition-colors text-[#999] hover:text-white cursor-pointer"
               aria-label="Назад"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -248,7 +274,7 @@ const BlogPost = () => {
                           const prevId = Math.max(1, post.id - 1);
                           window.location.href = `/post/${prevId}`;
                         }}
-                        className="p-2 rounded-lg hover:bg-black/20 transition-colors"
+                        className="p-2 rounded-lg hover:bg-black/20 transition-colors cursor-pointer"
                         disabled={post.id <= 1}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -263,7 +289,7 @@ const BlogPost = () => {
                           const nextId = Math.min(TOTAL_POSTS, post.id + 1);
                           window.location.href = `/post/${nextId}`;
                         }}
-                        className="p-2 rounded-lg hover:bg-black/20 transition-colors"
+                        className="p-2 rounded-lg hover:bg-black/20 transition-colors cursor-pointer"
                         disabled={post.id >= TOTAL_POSTS}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -389,7 +415,7 @@ const BlogPost = () => {
                     href="http://localhost:5173" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                    className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
                     >
                     <Rocket 
                         width={20}
@@ -407,7 +433,7 @@ const BlogPost = () => {
                     href="http://localhost:5173" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-block text-sm w-full bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-3 rounded-lg text-center transition-colors duration-200"
+                    className="mt-2 inline-block text-sm w-full bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-3 rounded-lg text-center transition-colors duration-200 cursor-pointer"
                 >
                     Перейти на сайт Agyra
                 </a>

@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -26,11 +25,7 @@ const BusinessSolutionsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Шапка */}
       <Header />
-
-      {/* Баннер */}
-      <Banner />
 
       {/* Основной контент */}
       <main className="relative">

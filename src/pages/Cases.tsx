@@ -1,92 +1,195 @@
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ExternalLink, Calendar } from 'lucide-react';
-import { caseStudies } from '@/data/cases';
-import { cn } from '@/lib/utils';
+import PrimaryButton from '@/components/PrimaryButton';
+import CasePortfolioCard from '@/components/CasePortfolioCard';
+import {
+  caseFilters,
+  caseTestimonials,
+  filterCases,
+  type CaseFilterId,
+} from '@/data/caseCards';
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const reveal = (delay = 0, reduced = false) => ({
+  hidden: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: reduced ? 0 : 0.65, delay, ease: EASE },
+  },
+});
 
 const Cases = () => {
+  const reducedMotion = useReducedMotion();
+  const [activeFilter, setActiveFilter] = useState<CaseFilterId>('all');
+  const filteredCases = filterCases(activeFilter);
+
+  useEffect(() => {
+    document.title = 'Кейсы — Agyra';
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
-      <Banner />
+    <div className="min-h-screen bg-background">
+      <Header />
       <PageLoader />
-      <main className="pt-32 pb-20">
-        <div className="container mx-auto">
 
-          {/* Hero Section */}
-          <section id="hero" className="cursor-default mb-24 px-6 max-w-7xl mx-auto">
-            <div className="mb-4">
-              <h1 className="cursor-default text-5xl md:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-top-5 duration-700">
-                Наши кейсы
-              </h1>
-              
-              <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed animate-in fade-in slide-in-from-top-5 duration-900 mb-8">
-                Реальные примеры решений, которые мы реализовали для наших клиентов
-              </p>
-              
-            </div>
-          </section>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-6">
+      <main>
+        <motion.section
+          className="site-container cases-page-hero text-center mt-20"
+          initial="hidden"
+          animate="visible"
+          variants={reveal(0, !!reducedMotion)}
+        >
+          <p className="text-hero-section-label">Кейсы</p>
+          <h1 className="text-section-title mt-4 max-w-4xl mx-auto">Это наша работа</h1>
+          <p className="cases-page-hero__intro mx-auto mt-6">
+            Реальные проекты автоматизации — где каждое решение, каждая интеграция и каждый
+            бот решают конкретную бизнес-задачу с измеримым результатом.
+          </p>
+        </motion.section>
 
-            {caseStudies.map((item) => (
-              <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={item.thumbnailUrl || item.imageUrl} 
-                    alt={item.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-xl">{item.title}</CardTitle>
-                    <Badge variant="secondary" className="bg-primary/10 text-primary">
-                      {item.industry}
-                    </Badge>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-1">{item.subtitle}</p>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <div className="space-y-3">
-                    <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
-                    
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {item.tags.slice(0, 3).map((tag, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    
-                    <div className="pt-4 flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {new Date(item.startDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long' })}
-                      </span>
-                      
-                      <Button asChild size="sm" className="group/btn">
-                        <Link to={`/cases/${item.id}`}>
-                          Подробнее
-                          <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+        <section className="site-container cases-page-grid-section">
+          <motion.div
+            className="cases-filter"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={reveal(0, !!reducedMotion)}
+          >
+            <p className="cases-filter__label">Фильтр по типу кейса</p>
+            <ul className="cases-filter__list" role="list">
+              {caseFilters.map((filter) => (
+                <li key={filter.id}>
+                  <button
+                    type="button"
+                    className={
+                      activeFilter === filter.id
+                        ? 'cases-filter__btn cases-filter__btn--active'
+                        : 'cases-filter__btn'
+                    }
+                    onClick={() => setActiveFilter(filter.id)}
+                  >
+                    {filter.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            key={activeFilter}
+            className="cases-grid"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: reducedMotion ? 0 : 0.08 },
+              },
+            }}
+          >
+            {filteredCases.map((item) => (
+              <motion.div
+                key={item.id}
+                variants={{
+                  hidden: { opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+                }}
+              >
+                <CasePortfolioCard item={item} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        <section className="site-container cases-testimonials">
+          <motion.h2
+            className="cases-testimonials__title"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={reveal(0, !!reducedMotion)}
+          >
+            Мы можем много рассказать о подходе, но клиенты говорят сами
+          </motion.h2>
+
+          <div className="cases-testimonials__grid">
+            {caseTestimonials.map((item, index) => (
+              <motion.blockquote
+                key={item.company}
+                className="cases-testimonial"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
+                variants={reveal(index * 0.06, !!reducedMotion)}
+              >
+                <p className="cases-testimonial__quote">«{item.quote}»</p>
+                <footer className="cases-testimonial__author">
+                  <cite>{item.author}</cite>
+                  <span>{item.company}</span>
+                </footer>
+              </motion.blockquote>
             ))}
           </div>
-        </div>
+        </section>
+
+        <section className="site-container">
+          <motion.div
+            className="services-aanpak"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            variants={reveal(0, !!reducedMotion)}
+          >
+            <motion.div
+              className="services-aanpak__visual"
+              aria-hidden="true"
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: EASE }}
+            />
+
+            <div>
+              <p className="text-hero-section-label mb-6">Подход</p>
+              <h2 className="text-section-title mb-6">Как мы работаем</h2>
+              <p className="text-section-subtitle mb-8 max-w-lg">
+                Мы не работаем за вас, а вместе с вами. Проектируем решение, показываем
+                логику и объясняем каждый шаг. Не «кнопка здесь, поле там» — а система,
+                которая складывается в целое.
+              </p>
+              <Link to="/process" className="btn-link-arrow text-foreground">
+                Узнать о процессе
+              </Link>
+            </div>
+          </motion.div>
+        </section>
+
+        <section className="site-container pb-20 md:pb-28">
+          <motion.div
+            className="services-page-cta"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={reveal(0, !!reducedMotion)}
+          >
+            <h2 className="services-page-cta__title">Готовы к такому же результату?</h2>
+            <p className="services-page-cta__text">
+              Расскажите о задаче — на бесплатной консультации разберём, что подойдёт
+              именно вам, и назовём сроки.
+            </p>
+            <PrimaryButton to="/contacts">Оставить заявку</PrimaryButton>
+          </motion.div>
+        </section>
       </main>
+
       <Footer />
-      <PageActions title="Кейсы" />
     </div>
   );
 };

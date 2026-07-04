@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 
@@ -62,7 +61,6 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen">
-      <Banner />
       <PageLoader />
       <main className="pt-40 pb-20">
         <div className="container mx-auto px-4">

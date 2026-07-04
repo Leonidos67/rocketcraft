@@ -48,7 +48,8 @@ const BlogHeader = () => (
             textDecoration: 'none',
             color: '#666',
             fontWeight: '500',
-            transition: 'color 0.2s'
+            transition: 'color 0.2s',
+            cursor: 'pointer'
           }}
           onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#333'}
           onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#666'}
@@ -61,7 +62,8 @@ const BlogHeader = () => (
             textDecoration: 'none',
             color: '#666',
             fontWeight: '500',
-            transition: 'color 0.2s'
+            transition: 'color 0.2s',
+            cursor: 'pointer'
           }}
           onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#333'}
           onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#666'}
@@ -180,20 +182,7 @@ const AppBlog = () => (
   </div>
 );
 
-// Отключаем все курсоры
-const disableAllCursors = () => {
-  const style = document.createElement('style');
-  style.textContent = `
-    * { cursor: auto !important; }
-    html, body { cursor: auto !important; }
-    body * { cursor: auto !important; }
-    [style*="cursor"] { cursor: auto !important; }
-  `;
-  document.head.appendChild(style);
-};
-
 // Запускаем приложение
 document.addEventListener('DOMContentLoaded', () => {
-  disableAllCursors();
   ReactDOM.createRoot(document.getElementById('root')).render(<AppBlog />);
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import { SmoothCursor } from '@/components/ui/cursor';
 import BlogHeader from './components/BlogHeader';
 import BlogHome from './pages/BlogHome';
 import BlogPost from './pages/BlogPost';
@@ -8,6 +9,7 @@ import BlogAdmin from './pages/BlogAdmin';
 const AppBlog = () => {
   return (
     <Router>
+      {/* <SmoothCursor /> */}
       <div className="min-h-screen bg-[#000]">
         <BlogHeader />
         <main className="container mx-auto px-4 py-0">

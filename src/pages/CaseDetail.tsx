@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 
 const CaseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,7 +47,6 @@ const CaseDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
-      <Banner />
       <PageLoader />
       <main className="pt-20 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">

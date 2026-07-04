@@ -64,7 +64,7 @@ const BlogHome = () => {
       <main className="container mx-auto px-0 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">Блог</h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-white/80 text-lg">
             Больше результата, меньше рутины. Гид по автоматизации.
           </p>
         </div>
@@ -87,33 +87,33 @@ const BlogHome = () => {
           {posts.map((post) => (
             <article 
               key={post.id}
-              className="bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-2xl border border-white/5 hover:border-white/5"
+              className="bg-white/5 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-2xl border border-white/5 hover:border-white/5 cursor-pointer"
             >
-              <Link to={`/post/${post.id}`} className="block h-full">
-                <div className="flex">
+              <Link to={`/post/${post.id}`} className="block h-full cursor-pointer">
+                <div className="flex cursor-pointer">
                   {/* Обложка слева */}
                   <div className="w-1/3">
                     <img 
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover cursor-pointer"
                     />
                   </div>
                   
                   {/* Контент справа */}
-                  <div className="w-2/3 p-6 flex flex-col">
-                    <h2 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  <div className="w-2/3 p-6 flex flex-col cursor-pointer">
+                    <h2 className="cursor-pointer text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
                       {post.title}
                     </h2>
-                    <p className="text-gray-300 mb-4 flex-grow">
+                    <p className="cursor-pointer text-gray-300 mb-4 flex-grow">
                       {post.excerpt}
                     </p>
                     {/* Теги */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="cursor-pointer flex flex-wrap gap-2 mb-4">
                       {post.tags.map((tag) => (
                         <span 
                           key={tag.id}
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          className={`cursor-pointer px-2 py-1 rounded-full text-xs font-medium ${
                             tag.color === 'blue' ? 'bg-blue-500/20 text-blue-300' :
                             tag.color === 'green' ? 'bg-green-500/20 text-green-300' :
                             tag.color === 'purple' ? 'bg-purple-500/20 text-purple-300' :
@@ -130,8 +130,8 @@ const BlogHome = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-800">
-                      <span className="bg-gray-800 px-3 py-1 rounded-full text-gray-300">
+                    <div className="cursor-pointer flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-800">
+                      <span className="cursor-pointer bg-gray-800 px-3 py-1 rounded-full text-gray-300">
                         {post.author}
                       </span>
                       <span>{new Date(post.date).toLocaleDateString('ru-RU')}</span>

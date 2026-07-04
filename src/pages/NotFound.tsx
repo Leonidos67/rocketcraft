@@ -1,7 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft, Search, AlertCircle, RefreshCw, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -41,7 +40,6 @@ const NotFound = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-background/95 to-background/90">
-      <Banner />
       <PageLoader />
       
       {/* Анимированные частицы */}
@@ -105,20 +103,13 @@ const NotFound = () => {
                   Но не расстраивайтесь — у нас много других интересных страниц!
                 </span>
               </h1>
-              
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-                Вы пытались перейти на: 
-                <span className="block font-mono text-foreground bg-muted px-3 py-1 rounded-lg mt-2 inline-block">
-                  {location.pathname}
-                </span>
-              </p>
             </div>
 
             {/* Кнопки действий */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button
                 size="lg"
-                className="gap-3 px-8 py-6 h-auto rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                className="gap-3 px-6 py-3 h-auto rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
                 asChild
               >
                 <Link to="/">
@@ -126,26 +117,11 @@ const NotFound = () => {
                   На главную
                 </Link>
               </Button>
-              
-              <Button
-                size="lg"
-                variant="outline"
-                className="gap-3 px-8 py-6 h-auto rounded-xl border-2 hover:border-primary/50 transform hover:-translate-y-1 transition-all duration-300"
-                onClick={() => window.history.back()}
-              >
-                <ArrowLeft className="w-5 h-5" />
-                Вернуться назад
-              </Button>
             </div>
 
             {/* Дополнительная информация */}
             <div className="mt-16 pt-8 border-t border-border/50">
               <div className="inline-flex flex-col sm:flex-row items-center gap-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span>Статус: Страница не найдена</span>
-                </div>
-                <div className="hidden sm:block h-4 w-px bg-border" />
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                   <span>Путь: {location.pathname}</span>

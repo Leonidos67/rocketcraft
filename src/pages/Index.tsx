@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Banner from '@/components/Banner';
 import CodeExample from '@/components/CodeExample';
 import { Button } from '@/components/ui/button';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
@@ -11,12 +10,15 @@ import { ShimmerButton } from '@/components/ui/shimmer-button';
 import { ArrowRight, Coffee, Briefcase, DollarSign, Workflow, Eye, Bell, Zap, Code, Rocket, Cloud, Sparkles, Shield, Lock, TrendingUp, Users, Target, Clock, Heart, BarChart3 } from 'lucide-react';
 import { AnimatedBeamMultipleOutputDemo } from '@/components/ui/animated-beam-demo';
 import { BentoDemo } from '@/components/ui/bento-demo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import PrimaryButton from '@/components/PrimaryButton';
 import OrbModal from '@/components/OrbModal';
 import ScrollBasedVelocityDemo from '@/components/ScrollBasedVelocityDemo';
 import ScrollableCardStack from '@/components/ui/scrollable-card-stack';
-import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
+import ServiceStackSection from '@/components/ServiceStackSection';
 import { Globe } from '@/components/ui/globe';
+import DottedMapSection from '@/components/ui/dotted-map-section';
+import HomeAllServicesFab from '@/components/HomeAllServicesFab';
 
 const techSlugs = [
   "typescript",
@@ -140,6 +142,7 @@ const heroTexts = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeCarousel, setActiveCarousel] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [resetTimer, setResetTimer] = useState(0);
@@ -302,122 +305,55 @@ const Index = () => {
   }, [transitionStage, maxCircleScale]);
 
   return (
-    <div className="min-h-screen cursor-default">
-      <Banner />
-      <Header />
-      
-      {/* Hero + Scroll Velocity (общий блок на высоту экрана) */}
-      <section className="relative min-h-screen overflow-hidden flex flex-col">
-        {/* Light Background - только для hero */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-              linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-            `,
-            backgroundSize: "20px 20px",
-            backgroundPosition: "0 0, 0 0",
-            maskImage: `
-              repeating-linear-gradient(
-                to right,
-                black 0px,
-                black 3px,
-                transparent 3px,
-                transparent 8px
-              ),
-              repeating-linear-gradient(
-                to bottom,
-                black 0px,
-                black 3px,
-                transparent 3px,
-                transparent 8px
-              ),
-              radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)
-            `,
-            WebkitMaskImage: `
-              repeating-linear-gradient(
-                to right,
-                black 0px,
-                black 3px,
-                transparent 3px,
-                transparent 8px
-              ),
-              repeating-linear-gradient(
-                to bottom,
-                black 0px,
-                black 3px,
-                transparent 3px,
-                transparent 8px
-              ),
-              radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)
-            `,
-            maskComposite: "intersect",
-            WebkitMaskComposite: "source-in",
-          }}
-        />
-          {/* Верхняя часть: контент hero */}
-<div className="px-8 md:px-10 lg:px-12 xl:px-16 pt-28 md:pt-32 relative z-10 w-full mt-auto mb-8 md:mb-16">
-  <div className="max-w-4xl mx-auto text-center space-y-6">
-    {/* IconCloud */}
-    <div className="flex justify-center items-center mb-8">
-      <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-        <IconCloud images={iconUrls} />
-      </div>
-    </div>
-    <h1 className="text-hero-base">
-      <span className="block">
-        <Highlighter action="underline" color="#FF9800" isView={true}>
-          Автоматизируем
-        </Highlighter>
-        {' '}ваш бизнес,{' '}
-        который
-      </span>
-      <span className="block text-hero-typewriter">
-        {displayedText && (
-          <Highlighter action="highlight" color="#87CEFA" enableAnimation={shouldHighlightTypewriter}>
-            {displayedText}
-            <span className="inline-block w-0.5 h-[1em] bg-primary ml-1 animate-pulse">|</span>
-          </Highlighter>
-        )}
-      </span>
-    </h1>
-    <p className="text-hero-description">
-      Telegram-боты, CRM, интеграции и рассылки под ключ.
-      <br />
-      Увеличьте поток клиентов и упростите процессы.
-    </p>
-    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <Link to="/services" className="w-full sm:w-auto">
-        <Button className="w-full sm:w-auto rounded-3xl py-6 text-base font-medium bg-white text-black border border-gray-300 hover:bg-gray-100">
-          К услугам
-        </Button>
-      </Link>
-      <Link to="/contacts" className="w-full sm:w-auto">
-        <Button className="w-full sm:w-auto rounded-3xl py-6 text-base font-medium bg-black text-white hover:bg-gray-800">
-          Оставить заявку
-        </Button>
-      </Link>
-    </div>
-  </div>
-</div>
+    <div className="site-canvas cursor-default">
+      <div className="site-section">
+        <Header />
 
-          {/* Нижняя часть: С кем работаем (текст слева, бегущие строки справа) */}
-          {/* <div className="relative z-10 w-full">
-            <div className="pr-8 pl-4 md:pr-20 lg:pr-40 xl:pr-56 py-2">
-              <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] items-center gap-6">
-                <div>
-                  <h3 className="text-hero-section-label">С кем работаем</h3>
-                </div>
-                <div>
-                  <ScrollBasedVelocityDemo />
-                </div>
+        {/* Hero + карта */}
+        <div className="home-intro-track">
+        <section
+          className="relative min-h-screen flex flex-col justify-end pb-16 md:pb-24"
+        >
+          <div className="site-container relative z-10 w-full">
+            <div className="max-w-5xl">
+              <h1 className="text-hero-base text-left mb-8">
+                <span className="block">
+                  Автоматизируем ваш бизнес, который
+                </span>
+                <span className="block text-hero-typewriter mt-2">
+                  {displayedText}
+                  <span className="inline-block w-0.5 h-[0.85em] bg-primary ml-1 animate-pulse align-middle" />
+                </span>
+              </h1>
+
+              <p className="text-hero-description text-left mb-10">
+                Telegram-боты, CRM, интеграции и рассылки под ключ.
+                Увеличьте поток клиентов и упростите процессы.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 items-start">
+                <PrimaryButton to="/contacts">
+                  Оставить заявку
+                </PrimaryButton>
+                <Link to="/services" className="btn-sm-secondary">
+                  К услугам
+                </Link>
               </div>
             </div>
-            <div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l" />
-          </div> */}
+          </div>
         </section>
 
+        <div className="home-map-fab-wrap">
+          <DottedMapSection />
+          <HomeAllServicesFab />
+        </div>
+        </div>
+      </div>
+
+      {/* Scroll Stack Section */}
+      <section className="site-section site-container pt-8 min-h-screen">
+        <ServiceStackSection />
+      </section>
       {/* Metrics Carousel Section
       <section className="py-16 border-t border-transparent">
         <div className="px-8 md:px-20 lg:px-40 xl:px-40">
@@ -468,195 +404,20 @@ const Index = () => {
         </div>
       </section> */}
 
-      {/* Scroll Stack Section */}
-      <section className="py-20  min-h-screen mt-20 px-8 md:px-20 lg:px-40 xl:px-40">
-        {/* <div className="text-center">
-          <h2 className="text-section-title">
-            Наши направления
-          </h2>
-        </div> */}
-        <ScrollStack useWindowScroll={true}>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-green-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
-            <div className="mb-4 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Автоматизация бизнес-процессов</h2>
-              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-green-500 to-purple-500 rounded-full"></div>
-            </div>
-            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4 pb-2">
-              <p className="text-black/80 font-medium">
-                Системы, которые берут на себя рутину и делают бизнес эффективнее.
-              </p>
-              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
-                  <span>Автоматизация заявок и отчётов</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
-                  <span>Автоматизация взаимодействия с клиентами</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-2"></span>
-                  <span>Сокращение до 90% ручной работы и исключение ошибок</span>
-                </li>
-              </ul>
-              <p className="text-black/75 pt-2 border-t border-black/10">
-                Бизнес работает быстрее, сотрудники — продуктивнее, клиенты — довольнее.
-              </p>
-            </div>
-            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
-                asChild
-              >
-                <Link to="/contacts">
-                  <span className="font-semibold">Заказать автоматизацию</span>
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-blue-500/20 to-teal-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
-            <div className="mb-4 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Боты и мессенджер-системы</h2>
-              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full"></div>
-            </div>
-            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4 pb-2">
-              <p className="text-black/80 font-medium">
-                Telegram и WhatsApp-боты для автоматизации вашего бизнеса.
-              </p>
-              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
-                  <span>Приём заявок и бронирований 24/7</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
-                  <span>Автоматические напоминания клиентам</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
-                  <span>Мгновенная обработка запросов без ожидания</span>
-                </li>
-              </ul>
-              <p className="text-black/75 pt-2 border-t border-black/10">
-                Клиенты получают ответы мгновенно, а вы экономите время на рутинных операциях.
-              </p>
-            </div>
-            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
-                asChild
-              >
-                <Link to="/contacts">
-                  <span className="font-semibold">Заказать автоматизацию</span>
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-orange-500/20 to-red-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
-            <div className="mb-4 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">Интеграции и CRM</h2>
-              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-            </div>
-            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4">
-              <p className="text-black/80 font-medium">
-                Подключение всех ваших инструментов в единую экосистему для максимальной эффективности.
-              </p>
-              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
-                  <span>Синхронизация данных между платформами</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
-                  <span>Автоматизация обмена информацией</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-500 mt-2"></span>
-                  <span>Единая база клиентов и сделок</span>
-                </li>
-              </ul>
-              <p className="text-black/75 pt-2 border-t border-black/10">
-                Все ваши инструменты работают вместе, экономя время и исключая ошибки.
-              </p>
-            </div>
-            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
-                asChild
-              >
-                <Link to="/contacts">
-                  <span className="font-semibold">Заказать автоматизацию</span>
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollStackItem>
-          <ScrollStackItem itemClassName="relative bg-gradient-to-br from-pink-500/20 to-rose-500/10 backdrop-blur-sm rounded-2xl border border-border p-6 sm:p-10 pb-16 sm:pb-20 shadow-lg">
-            <div className="mb-4 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-black leading-tight">AI и аналитика</h2>
-              <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full"></div>
-            </div>
-            <div className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed space-y-3 sm:space-y-4">
-              <p className="text-black/80 font-medium">
-                Умная аналитика и искусственный интеллект для принятия обоснованных решений.
-              </p>
-              <ul className="space-y-2 sm:space-y-2.5 pl-0 list-none">
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Анализ больших данных и выявление закономерностей</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Прогнозирование трендов и спроса</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Автоматическое выявление узких мест в процессах</span>
-                </li>
-              </ul>
-              <p className="text-black/75 pt-2 border-t border-black/10">
-                Данные работают на вас, помогая принимать решения быстрее и точнее.
-              </p>
-            </div>
-            <div className="absolute bottom-4 sm:bottom-8 left-6 sm:left-10 right-6 sm:right-10">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-4 mb-[-100px] hover:scale-105 active:scale-95 transition-transform"
-                asChild
-              >
-                <Link to="/contacts">
-                  <span className="font-semibold">Заказать автоматизацию</span>
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollStackItem>
-        </ScrollStack>
-      </section>
-
       {/* Transition Section */}
-      <section id="transition-section" className="min-h-screen flex flex-col items-center justify-center py-20 relative">
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10 transition-all">
-          <div className="text-white text-4xl md:text-5xl font-bold" style={{ transform: `scale(${textScale})` }}>
-            НАШИ
-          </div>
-          <div className="text-white text-4xl md:text-5xl font-bold" style={{ transform: `scale(${textScale})` }}>
-            КЕЙСЫ
+      {/* <section id="transition-section" className="site-container pb-40 flex items-center justify-center relative">
+        <div 
+          className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-primary cursor-pointer hover:opacity-90 transition-opacity relative flex items-center justify-center"
+          onClick={() => navigate('/services')}
+        >
+          <div className="text-primary-foreground text-2xl md:text-4xl font-semibold text-center z-10 pointer-events-none leading-tight">
+            Все<br/>услуги
           </div>
         </div>
-        <div 
-          className="w-96 h-96 rounded-full bg-[#ff9800] transition-all"
-          style={{ transform: `scale(${circleScale})`, opacity: circleOpacity }}
-        />
-      </section>
+      </section> */}
 
       {/* Cases Section with Scrollable Cards */}
-      <section className="pb-20 px-8 md:px-20 lg:px-40 xl:px-40">
+      {/* <section className="site-container pb-20">
         <div className="mx-auto w-full max-w-md">
           <ScrollableCardStack
             items={[
@@ -691,11 +452,11 @@ const Index = () => {
             className="mx-auto"
           />
         </div>
-      </section>
+      </section> */}
 
       {/* Overview Sections */}
-      <section className="py-20 border-t border-transparent">
-        <div className="px-8 md:px-20 lg:px-40 xl:px-40">
+      <section className="site-section py-20">
+        <div className="site-container">
           <div className="mb-16 text-center">
             <h2 className="text-section-title">
               Что мы предлагаем
@@ -767,7 +528,7 @@ const Index = () => {
         </section>
         */}
 
-        {/* Why RocketCraft */}
+        {/* Why Agyra */}
         {/* <section className="py-20 border-t border-border">
           <div className="px-8 md:px-20 lg:px-40 xl:px-40 mb-16 text-center">
             <h2 className="text-section-title">
@@ -782,34 +543,22 @@ const Index = () => {
         </section> */}
 
         {/* CTA Section */}
-        <section className="py-20 mb-20">
-          <div className="px-8 md:px-20 lg:px-40 xl:px-40">
-            <div className="p-12 bg-gradient-to-r from-primary/10 to-primary/5 backdrop-blur-sm rounded-2xl border border-border text-center">
+        <section className="site-section py-20">
+          <div className="site-container">
+            <div className="p-10 md:p-16 bg-sm-grey-light rounded-3xl border border-border text-center">
               <h2 className="text-cta-title">
                 Начните автоматизацию уже сегодня
               </h2>
               <p className="text-cta-description">
                 Запустите свой первый бот за 48 часов и увидите результаты уже на следующей неделе
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="btn-primary"
-                  asChild
-                >
-                  <Link to="/contacts">
-                    Начать бесплатно
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="btn-outline"
-                  asChild
-                >
-                  <Link to="/services">Смотреть услуги</Link>
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <PrimaryButton to="/contacts">
+                  Начать бесплатно
+                </PrimaryButton>
+                <Link to="/services" className="btn-sm-secondary">
+                  Смотреть услуги
+                </Link>
               </div>
             </div>
           </div>

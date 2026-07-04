@@ -1,4 +1,3 @@
-// Original interface for backward compatibility
 export interface CaseItem {
   title: string;
   industry: string;
@@ -7,7 +6,6 @@ export interface CaseItem {
   results: string[];
 }
 
-// Extended interface with all details
 export interface CaseStudy {
   id: string;
   title: string;
@@ -26,151 +24,227 @@ export interface CaseStudy {
   solutions: string[];
   technologies: string[];
   tags: string[];
-  // For backward compatibility
   problem: string;
   solution: string;
 }
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "1",
-    title: "E-commerce Platform Redesign",
-    subtitle: "Modernizing the shopping experience",
-    description: "Complete overhaul of an outdated e-commerce platform to improve user experience and increase conversions.",
-    detailedDescription: "Our team worked closely with the client to understand their business goals and customer needs. We conducted extensive user research, created detailed wireframes, and iterated on designs based on user feedback. The result was a modern, intuitive e-commerce platform that increased conversion rates by 35%.",
-    imageUrl: "https://placehold.co/1200x600/4f46e5/white?text=E-commerce+Platform",
-    thumbnailUrl: "https://placehold.co/600x400/4f46e5/white?text=E-commerce",
-    client: "ShopMax",
-    industry: "Retail",
-    services: ["UI/UX Design", "Frontend Development", "Performance Optimization"],
-    startDate: "2023-01-15",
-    endDate: "2023-04-20",
+    id: '1',
+    title: 'Кофейня «Бодрый день»',
+    subtitle: 'Автоматизация записи и бронирования через Telegram-бота',
+    description:
+      'Теряли до 30% клиентов из-за неудобной записи по телефону. Внедрили бота и CRM-интеграцию.',
+    detailedDescription:
+      'Кофейня принимала бронирования только по телефону в рабочие часы. Клиенты уходили к конкурентам, администраторы перегружались звонками. Мы внедрили Telegram-бота с записью на столики, напоминаниями и синхронизацией с CRM. За первый месяц доля онлайн-записей превысила 70%.',
+    imageUrl: 'https://placehold.co/1200x600/22c55e/white?text=Кофейня',
+    thumbnailUrl: 'https://placehold.co/600x400/22c55e/white?text=Кофейня',
+    client: 'Кофейня «Бодрый день»',
+    industry: 'HoReCa',
+    services: ['Telegram-бот', 'CRM-интеграция', 'Автоматизация уведомлений'],
+    startDate: '2024-02-01',
+    endDate: '2024-02-21',
     results: [
-      "35% increase in conversion rate",
-      "40% improvement in page load speed",
-      "60% reduction in bounce rate"
+      '+45% новых клиентов через бота',
+      'Бронирование 24/7 без участия администратора',
+      '0 пропущенных записей в пиковые часы',
     ],
     challenges: [
-      "Legacy codebase that was difficult to maintain",
-      "Outdated user interface causing poor user experience",
-      "Slow loading times affecting sales"
+      'Потеря клиентов из-за занятой линии и отсутствия записи вне рабочего времени',
+      'Ручной учёт бронирований в таблицах',
+      'Нет напоминаний — высокий процент no-show',
     ],
     solutions: [
-      "Implemented modern design principles with focus on usability",
-      "Optimized frontend performance and backend APIs",
-      "Integrated analytics to track user behavior and optimize further"
+      'Telegram-бот с выбором времени и количества гостей',
+      'Автоматические напоминания за 24 и 2 часа до визита',
+      'Интеграция с CRM для истории клиентов и повторных визитов',
     ],
-    technologies: ["React", "Node.js", "MongoDB", "AWS"],
-    tags: ["e-commerce", "ui-ux", "performance"],
-    problem: "Legacy codebase that was difficult to maintain, outdated user interface causing poor user experience, slow loading times affecting sales",
-    solution: "Implemented modern design principles with focus on usability, optimized frontend performance and backend APIs, integrated analytics to track user behavior and optimize further"
+    technologies: ['Telegram Bot API', 'Node.js', 'PostgreSQL', 'AmoCRM'],
+    tags: ['бот', 'horeca', 'crm'],
+    problem:
+      'Потеря до 30% клиентов из-за неудобной записи по телефону и отсутствия автоматизации',
+    solution:
+      'Telegram-бот для бронирования, напоминания клиентам и интеграция с CRM',
   },
   {
-    id: "2",
-    title: "Mobile Banking Application",
-    subtitle: "Secure and intuitive financial management",
-    description: "Development of a secure mobile banking application with advanced features for personal finance management.",
-    detailedDescription: "We developed a comprehensive mobile banking solution that prioritizes security while maintaining an intuitive user experience. The app includes features like biometric authentication, budget tracking, and real-time notifications. Security was our top priority throughout the development process, implementing multiple layers of encryption and secure communication protocols.",
-    imageUrl: "https://placehold.co/1200x600/059669/white?text=Banking+App",
-    thumbnailUrl: "https://placehold.co/600x400/059669/white?text=Banking",
-    client: "FinSecure Bank",
-    industry: "Financial Services",
-    services: ["Mobile App Development", "Security Implementation", "Backend Architecture"],
-    startDate: "2022-09-10",
-    endDate: "2023-03-05",
+    id: '2',
+    title: 'Барбершоп «Стиль»',
+    subtitle: 'Онлайн-запись и CRM для салона красоты',
+    description:
+      'Мастера тратили 2 часа в день на обработку записей. Автоматизировали запись и напоминания.',
+    detailedDescription:
+      'Барбершоп вёл запись в мессенджерах и блокноте. Мастера отвлекались от работы, клиенты забывали о визитах. Мы запустили бота с выбором мастера и услуги, подключили CRM и цепочку напоминаний. Повторные визиты выросли за счёт персональных предложений.',
+    imageUrl: 'https://placehold.co/1200x600/3b82f6/white?text=Барбершоп',
+    thumbnailUrl: 'https://placehold.co/600x400/3b82f6/white?text=Барбершоп',
+    client: 'Барбершоп «Стиль»',
+    industry: 'Услуги',
+    services: ['Онлайн-запись', 'CRM', 'Маркетинговые рассылки'],
+    startDate: '2024-03-10',
+    endDate: '2024-04-05',
     results: [
-      "Achieved SOC 2 Type II compliance",
-      "Over 1 million downloads in first year",
-      "99.9% uptime since launch"
+      'Экономия 10 часов в неделю на администрировании',
+      '+60% повторных визитов',
+      'Снижение no-show на 40%',
     ],
     challenges: [
-      "Meeting strict financial security requirements",
-      "Creating seamless user experience for complex financial operations",
-      "Ensuring regulatory compliance across multiple jurisdictions"
+      'Ручная обработка записей отнимала время у мастеров',
+      'Нет единой базы клиентов и истории визитов',
+      'Клиенты не возвращались без напоминаний и акций',
     ],
     solutions: [
-      "Implemented multi-factor authentication and end-to-end encryption",
-      "Designed simplified UI for complex financial operations",
-      "Conducted regular security audits and penetration testing"
+      'Бот с записью к конкретному мастеру и услуге',
+      'CRM с сегментацией и историей посещений',
+      'Автоматические напоминания и персональные предложения',
     ],
-    technologies: ["React Native", "Firebase", "Node.js", "PostgreSQL"],
-    tags: ["mobile-app", "security", "finance"],
-    problem: "Meeting strict financial security requirements, creating seamless user experience for complex financial operations, ensuring regulatory compliance across multiple jurisdictions",
-    solution: "Implemented multi-factor authentication and end-to-end encryption, designed simplified UI for complex financial operations, conducted regular security audits and penetration testing"
+    technologies: ['Telegram Bot API', 'React', 'Node.js', 'Bitrix24'],
+    tags: ['бот', 'crm', 'услуги'],
+    problem: 'Мастера тратили 2 часа в день на обработку записей вручную',
+    solution: 'Онлайн-запись через бота, CRM и автоматические напоминания',
   },
   {
-    id: "3",
-    title: "Healthcare Management System",
-    subtitle: "Streamlining patient care and administrative tasks",
-    description: "Comprehensive healthcare management system to improve patient care coordination and reduce administrative burden.",
-    detailedDescription: "This healthcare management system transformed how medical professionals coordinate patient care. We built a centralized platform that connects doctors, nurses, and administrative staff, enabling seamless communication and efficient workflow management. The system includes features for appointment scheduling, patient records, billing, and telemedicine capabilities.",
-    imageUrl: "https://placehold.co/1200x600/dc2626/white?text=Healthcare+System",
-    thumbnailUrl: "https://placehold.co/600x400/dc2626/white?text=Healthcare",
-    client: "MediCare Health Network",
-    industry: "Healthcare",
-    services: ["Full-Stack Development", "HIPAA Compliance", "Cloud Infrastructure"],
-    startDate: "2022-06-01",
-    endDate: "2023-01-15",
+    id: '3',
+    title: 'Фитнес-клуб «Энергия»',
+    subtitle: 'Автоматизация абонементов и аналитика посещаемости',
+    description:
+      'Сложный учёт абонементов и низкая посещаемость. Внедрили напоминания и аналитику.',
+    detailedDescription:
+      'Фитнес-клуб вёл абонементы в разных системах, администраторы вручную напоминали о продлении. Посещаемость падала, отток рос. Мы объединили учёт абонементов, настроили автоматические напоминания о тренировках и продлении, добавили дашборд посещаемости для управляющего.',
+    imageUrl: 'https://placehold.co/1200x600/f97316/white?text=Фитнес',
+    thumbnailUrl: 'https://placehold.co/600x400/f97316/white?text=Фитнес',
+    client: 'Фитнес-клуб «Энергия»',
+    industry: 'Фитнес',
+    services: ['Автоматизация абонементов', 'Уведомления', 'Аналитика'],
+    startDate: '2024-01-15',
+    endDate: '2024-03-01',
     results: [
-      "45% reduction in administrative tasks",
-      "Improved patient satisfaction scores by 30%",
-      "Reduced appointment scheduling time by 60%"
+      '+35% посещаемости за 3 месяца',
+      'Автоматическое продление абонементов',
+      'Аналитика в реальном времени для руководства',
     ],
     challenges: [
-      "Ensuring HIPAA compliance for patient data protection",
-      "Integrating with existing hospital systems",
-      "Training staff on new processes and technology"
+      'Разрозненный учёт абонементов и посещений',
+      'Низкая посещаемость без системы напоминаний',
+      'Руководство не видело картину в цифрах',
     ],
     solutions: [
-      "Implemented robust data encryption and access controls",
-      "Created API integrations with existing EMR systems",
-      "Provided comprehensive training and ongoing support"
+      'Единая система учёта абонементов и визитов',
+      'Цепочка напоминаний о тренировках и продлении',
+      'Дашборд с метриками посещаемости и оттока',
     ],
-    technologies: ["Angular", ".NET Core", "Azure", "SQL Server"],
-    tags: ["healthcare", "compliance", "integration"],
-    problem: "Ensuring HIPAA compliance for patient data protection, integrating with existing hospital systems, training staff on new processes and technology",
-    solution: "Implemented robust data encryption and access controls, created API integrations with existing EMR systems, provided comprehensive training and ongoing support"
+    technologies: ['Node.js', 'PostgreSQL', 'Telegram Bot API', 'Metabase'],
+    tags: ['фитнес', 'аналитика', 'автоматизация'],
+    problem: 'Сложный учёт абонементов и низкая посещаемость',
+    solution: 'Автоматизация продления, напоминания и аналитика посещаемости',
   },
   {
-    id: "4",
-    title: "AI-Powered Analytics Dashboard",
-    subtitle: "Transforming data into actionable insights",
-    description: "Advanced analytics dashboard with AI-powered insights to help businesses make data-driven decisions.",
-    detailedDescription: "We developed an intelligent analytics platform that uses machine learning algorithms to identify trends, anomalies, and predictive insights from business data. The dashboard features customizable widgets, automated reporting, and real-time data visualization. Our AI components provide recommendations and flag potential issues before they become critical.",
-    imageUrl: "https://placehold.co/1200x600/7c3aed/white?text=Analytics+Dashboard",
-    thumbnailUrl: "https://placehold.co/600x400/7c3aed/white?text=Analytics",
-    client: "DataInsight Inc.",
-    industry: "Technology",
-    services: ["AI/ML Integration", "Data Visualization", "Cloud Architecture"],
-    startDate: "2023-03-12",
-    endDate: "2023-08-25",
+    id: '4',
+    title: 'Сеть магазинов «Маркет+»',
+    subtitle: 'Интеграция CRM, склада и мессенджеров',
+    description:
+      'Разрозненные системы учёта замедляли обработку заказов. Построили единую экосистему.',
+    detailedDescription:
+      'Сеть из 8 точек работала в разных системах: заказы в мессенджерах, склад в Excel, CRM не синхронизирована. Ошибки в остатках и задержки с уведомлениями клиентов. Мы связали CRM, склад и каналы связи в одну цепочку с автоматическими статусами заказа и единой аналитикой по сети.',
+    imageUrl: 'https://placehold.co/1200x600/ec4899/white?text=Ритейл',
+    thumbnailUrl: 'https://placehold.co/600x400/ec4899/white?text=Ритейл',
+    client: 'Сеть магазинов «Маркет+»',
+    industry: 'Ритейл',
+    services: ['Интеграции', 'CRM', 'Автоматизация заказов'],
+    startDate: '2023-11-01',
+    endDate: '2024-01-20',
     results: [
-      "Reduced data analysis time by 70%",
-      "Increased decision-making speed by 50%",
-      "Identified cost savings of $2M annually"
+      '+40% скорость обработки заказов',
+      'Почти нулевой уровень ошибок в остатках',
+      'Единая аналитика по всем точкам сети',
     ],
     challenges: [
-      "Processing large volumes of data in real-time",
-      "Making complex data understandable to non-technical users",
-      "Ensuring accuracy of AI predictions"
+      'Разрозненные системы учёта на разных точках',
+      'Ручная передача статусов заказа клиентам',
+      'Нет сводной аналитики для владельца сети',
     ],
     solutions: [
-      "Implemented scalable cloud infrastructure with distributed processing",
-      "Designed intuitive visualization components with drill-down capabilities",
-      "Trained ML models with historical data and validation metrics"
+      'Интеграция CRM, склада и мессенджеров',
+      'Автоматические уведомления о статусе заказа',
+      'Единый дашборд по продажам и остаткам',
     ],
-    technologies: ["Vue.js", "Python", "TensorFlow", "Google Cloud"],
-    tags: ["ai", "analytics", "data-viz"],
-    problem: "Processing large volumes of data in real-time, making complex data understandable to non-technical users, ensuring accuracy of AI predictions",
-    solution: "Implemented scalable cloud infrastructure with distributed processing, designed intuitive visualization components with drill-down capabilities, trained ML models with historical data and validation metrics"
-  }
+    technologies: ['1C', 'AmoCRM', 'Node.js', 'WhatsApp Business API'],
+    tags: ['ритейл', 'интеграции', 'crm'],
+    problem: 'Разрозненные системы учёта и задержки в обработке заказов',
+    solution: 'Интеграция CRM, склада и мессенджеров с автоматическими уведомлениями',
+  },
+  {
+    id: '5',
+    title: 'Онлайн-школа «Прогресс»',
+    subtitle: 'Автоматизация заявок и поддержки студентов',
+    description: 'Школа теряла заявки из разных каналов. Настроили бота и автоматические отчёты.',
+    detailedDescription:
+      'Онлайн-школа получала заявки из сайта, мессенджеров и рекламы без единой системы. Менеджеры дублировали ответы, отчёты собирали вручную. Мы внедрили бота первой линии поддержки, автоматизацию заявок и еженедельные отчёты для руководства.',
+    imageUrl: 'https://placehold.co/1200x600/cdb7f1/0b1311?text=Прогресс',
+    thumbnailUrl: 'https://placehold.co/600x400/cdb7f1/0b1311?text=Прогресс',
+    client: 'Онлайн-школа «Прогресс»',
+    industry: 'Образование',
+    services: ['Автоматизация заявок', 'Бот поддержки', 'Отчёты'],
+    startDate: '2024-04-01',
+    endDate: '2024-04-28',
+    results: [
+      'Все заявки в одной воронке',
+      'Сокращение времени ответа на 50%',
+      'Автоматические отчёты для руководства',
+    ],
+    challenges: [
+      'Заявки из разных каналов без единой системы',
+      'Ручные ответы на типовые вопросы',
+      'Нет прозрачной аналитики по воронке',
+    ],
+    solutions: [
+      'Бот первой линии с эскалацией сложных вопросов',
+      'Автоматическая маршрутизация заявок в CRM',
+      'Еженедельные отчёты по конверсии и оплатам',
+    ],
+    technologies: ['Telegram Bot API', 'AmoCRM', 'Node.js', 'Google Sheets API'],
+    tags: ['образование', 'бот', 'автоматизация'],
+    problem: 'Потеря заявок и ручная обработка типовых запросов',
+    solution: 'Бот поддержки, автоматизация заявок и отчётность',
+  },
+  {
+    id: '6',
+    title: 'Логистика «Быстрый путь»',
+    subtitle: 'AI-аналитика маршрутов и интеграция систем',
+    description: 'Разрозненные данные по доставкам. Построили аналитику и связали системы.',
+    detailedDescription:
+      'Логистическая компания управляла маршрутами в нескольких инструментах. Прогнозы строились вручную, клиенты не получали актуальный статус. Мы интегрировали учётные системы и внедрили AI-аналитику для оптимизации маршрутов и прогноза загрузки.',
+    imageUrl: 'https://placehold.co/1200x600/f9e283/0b1311?text=Быстрый+путь',
+    thumbnailUrl: 'https://placehold.co/600x400/f9e283/0b1311?text=Быстрый+путь',
+    client: 'Логистика «Быстрый путь»',
+    industry: 'Логистика',
+    services: ['AI-аналитика', 'Интеграции', 'Маршрутизация'],
+    startDate: '2023-09-01',
+    endDate: '2023-12-15',
+    results: [
+      'Сокращение холостых пробегов на 18%',
+      'Прогноз загрузки на неделю вперёд',
+      'Единый статус доставки для клиентов',
+    ],
+    challenges: [
+      'Данные по маршрутам в разных системах',
+      'Ручное планирование без прогнозов',
+      'Клиенты не видели актуальный статус',
+    ],
+    solutions: [
+      'Интеграция TMS и CRM в единый контур',
+      'AI-модель для прогноза загрузки и маршрутов',
+      'Автоматические уведомления о статусе доставки',
+    ],
+    technologies: ['Python', 'PostgreSQL', '1C', 'WhatsApp Business API'],
+    tags: ['логистика', 'ai', 'интеграции'],
+    problem: 'Разрозненные данные и отсутствие прогнозной аналитики',
+    solution: 'Интеграция систем и AI-аналитика маршрутов',
+  },
 ];
 
-// Also export in the old format for backward compatibility
 export const cases: CaseItem[] = caseStudies.map(({ title, industry, problem, solution, results }) => ({
   title,
   industry,
   problem,
   solution,
-  results
+  results,
 }));

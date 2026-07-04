@@ -7,7 +7,6 @@ import {
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -90,7 +89,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Banner />
       <PageLoader />
       
       {/* Hero Section */}

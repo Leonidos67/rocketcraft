@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import BriefProgressBar from '@/components/BriefProgressBar';
 import BriefStep from '@/components/BriefStep';
 import { Button } from '@/components/ui/button';
@@ -478,7 +477,6 @@ const Contacts = () => {
 
   return (
     <div className="min-h-screen bg-white cursor-default">
-      <Banner />
       <PageLoader />
       
       <main className="pt-32 pb-20">

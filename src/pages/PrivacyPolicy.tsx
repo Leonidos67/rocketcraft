@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer';
 import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
-import Banner from '@/components/Banner';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { ChevronRight, GripVertical, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -508,7 +507,6 @@ const privacyPolicySections = [
 const PrivacyPolicy = () => {
   return (
     <div className="cursor-default min-h-screen">
-      <Banner />
       <PageLoader />
       
       {/* Добавляем навигацию */}

@@ -13,6 +13,17 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"DM Sans"', "Helvetica", "Arial", "sans-serif"],
+      },
+      fontSize: {
+        "display-xl": ["clamp(2rem,5.2vw,6.25rem)", { lineHeight: "1.1", fontWeight: "600" }],
+        "display-lg": ["clamp(1.75rem,3.333vw,4rem)", { lineHeight: "1.1", fontWeight: "600" }],
+        "display-md": ["clamp(1.5rem,2.5vw,3rem)", { lineHeight: "1.1", fontWeight: "600" }],
+        "display-sm": ["clamp(1.125rem,1.666vw,2rem)", { lineHeight: "1.1", fontWeight: "600" }],
+        "label": ["clamp(0.9375rem,1.15vw,1.375rem)", { lineHeight: "1.4", letterSpacing: "0.08em", fontWeight: "400" }],
+        "body-lg": ["clamp(1.125rem,1.35vw,1.625rem)", { lineHeight: "1.6" }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,28 +68,41 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sm: {
+          beige: "#111111",
+          dark: "#f5f5f5",
+          primary: "#f97316",
+          secondary: "#292929",
+          grey: "#2e2e2e",
+          "grey-light": "#1a1a1a",
+          pink: "#2a2a2a",
+          orange: "#f97316",
+          purple: "#333333",
+          yellow: "#3a3a3a",
+          blue: "#252525",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        pill: "9999px",
+      },
+      spacing: {
+        "header-top": "var(--page-header-top-padding)",
+        "header-height": "var(--page-header-height)",
+      },
+      maxWidth: {
+        site: "110rem",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
