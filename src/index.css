@@ -371,6 +371,27 @@ All colors MUST be HSL.
     position: relative;
   }
 
+  .home-service-stack {
+    position: relative;
+    z-index: 2;
+    background: hsl(var(--background));
+  }
+
+  .home-service-stack .scroll-stack-inner {
+    background: hsl(var(--background));
+  }
+
+  @media screen and (max-width: 47.99em) {
+    .home-service-stack {
+      padding-inline: 0;
+    }
+
+    .home-service-stack.site-container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+
   .home-all-services-fab-slot {
     --home-fab-size: clamp(5.5rem, 11vw, 8.5rem);
     display: flex;
@@ -460,6 +481,33 @@ All colors MUST be HSL.
     .home-intro-track .text-hero-description {
       font-size: 1rem;
       margin-bottom: 1.5rem;
+    }
+
+    .home-hero__actions {
+      gap: 0.625rem;
+    }
+
+    .home-hero__actions .btn-sm-primary-wrap {
+      --btn-icon-size: 2.35rem;
+      margin-right: var(--btn-icon-size);
+    }
+
+    .home-hero__actions .btn-sm-primary__label {
+      height: 2.35rem;
+      padding: 0 1rem;
+      font-size: 0.8125rem;
+    }
+
+    .home-hero__actions .btn-sm-primary-icon {
+      width: 2.35rem;
+      height: 2.35rem;
+      margin-top: -1.175rem;
+    }
+
+    .home-hero__actions .btn-sm-secondary {
+      height: 2.35rem;
+      padding: 0 1rem;
+      font-size: 0.8125rem;
     }
 
     .home-all-services-fab {

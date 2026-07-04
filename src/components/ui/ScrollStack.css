@@ -19,8 +19,9 @@
 
 @media (max-width: 740px) {
   .scroll-stack-inner {
-    padding: 2vh 0.75rem 5rem;
+    padding: 2vh 0 5rem;
     min-height: auto;
+    background: hsl(var(--background));
   }
 
   .scroll-stack-card {

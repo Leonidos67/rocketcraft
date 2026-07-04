@@ -31,7 +31,7 @@ const DottedMapSection = () => {
     () =>
       cityMarkers.map((marker) => ({
         ...marker,
-        size: (marker.size ?? 2.3) * (isMobile ? 0.88 : 1),
+        size: (marker.size ?? 2.3) * (isMobile ? 1.45 : 1),
       })),
     [isMobile]
   );
@@ -54,13 +54,13 @@ const DottedMapSection = () => {
         ? (marker.overlay.shortLabel ?? marker.overlay.label)
         : marker.overlay.label;
       const clipId = `${id}-flag-clip-${index}`.replace(/:/g, '-');
-      const imgR = r * (isMobile ? 0.44 : 0.48);
-      const fontSize = r * (isMobile ? 0.62 : 0.72);
-      const pillH = r * (isMobile ? 1.15 : 1.25);
-      const pillPadX = r * (isMobile ? 0.52 : 0.6);
-      const charWidth = fontSize * (isMobile ? 0.54 : 0.58);
+      const imgR = r * (isMobile ? 0.58 : 0.48);
+      const fontSize = r * (isMobile ? 0.82 : 0.72);
+      const pillH = r * (isMobile ? 1.4 : 1.25);
+      const pillPadX = r * (isMobile ? 0.68 : 0.6);
+      const charWidth = fontSize * (isMobile ? 0.58 : 0.58);
       const pillW = label.length * charWidth + imgR * 2 + pillPadX * 2;
-      const gap = r * (isMobile ? 0.28 : 0.35);
+      const gap = r * (isMobile ? 0.32 : 0.35);
 
       const placeLeft = x + r + gap + pillW > MAP_WIDTH - 1;
       const placeAbove = y + pillH / 2 > MAP_HEIGHT - 1;
@@ -118,7 +118,7 @@ const DottedMapSection = () => {
           markers={markers}
           dotColor="hsl(var(--foreground) / 0.2)"
           markerColor="transparent"
-          dotRadius={isMobile ? 0.17 : 0.2}
+          dotRadius={isMobile ? 0.19 : 0.2}
           mapSamples={isMobile ? 4200 : 6500}
           renderMarkerOverlay={renderMarkerOverlay}
         />

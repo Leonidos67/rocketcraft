@@ -329,7 +329,7 @@ const Index = () => {
                 Увеличьте поток клиентов и упростите процессы.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="home-hero__actions flex flex-col sm:flex-row gap-4 items-start">
                 <PrimaryButton to="/contacts">
                   Оставить заявку
                 </PrimaryButton>
@@ -345,13 +345,13 @@ const Index = () => {
           <DottedMapSection />
           <HomeAllServicesFab />
         </div>
+
+        <div className="home-service-stack site-container pt-4 sm:pt-8 pb-10 sm:pb-20">
+          <ServiceStackSection />
+        </div>
         </div>
       </div>
 
-      {/* Scroll Stack Section */}
-      <section className="site-section site-container pt-4 sm:pt-8">
-        <ServiceStackSection />
-      </section>
       {/* Metrics Carousel Section
       <section className="py-16 border-t border-transparent">
         <div className="px-8 md:px-20 lg:px-40 xl:px-40">
