@@ -19,8 +19,13 @@
 
 @media (max-width: 740px) {
   .scroll-stack-inner {
-    padding: 5vh 1rem 10rem;
-    min-height: 100vh;
+    padding: 2vh 0.75rem 5rem;
+    min-height: auto;
+  }
+
+  .scroll-stack-card {
+    border-radius: 1.25rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -37,21 +42,14 @@
   height: fit-content;
   width: 100%;
   margin: 0;
-  padding: 2rem;
+  padding: 0;
   border-radius: 40px;
   box-sizing: border-box;
-  /* Improve mobile performance */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   position: relative;
   transition: all 0.3s ease;
-  min-height: 20rem;
-}
-
-@media (min-width: 640px) {
-  .scroll-stack-card {
-    padding: 3rem;
-  }
+  min-height: auto;
 }
 
 .scroll-stack-end {

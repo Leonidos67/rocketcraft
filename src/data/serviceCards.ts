@@ -1,6 +1,12 @@
 import type { LucideIcon } from 'lucide-react';
 import { Workflow, MessageSquare, Link2, BarChart3, Users } from 'lucide-react';
 
+export interface ServiceStackCardMobileCopy {
+  tagline: string;
+  subtitle: string;
+  bullets: string[];
+}
+
 export interface ServiceStackCard {
   id: string;
   title: string;
@@ -8,6 +14,7 @@ export interface ServiceStackCard {
   subtitle: string;
   bullets: string[];
   outcome: string;
+  mobile?: ServiceStackCardMobileCopy;
   icon: LucideIcon;
   accent: 'green' | 'blue' | 'orange' | 'pink' | 'violet';
   bgLetter: string;
@@ -28,6 +35,11 @@ export const serviceStackCards: ServiceStackCard[] = [
       'Сокращение до 90% ручной работы и исключение ошибок',
     ],
     outcome: 'Бизнес работает быстрее, сотрудники — продуктивнее, клиенты — довольнее.',
+    mobile: {
+      tagline: 'Процессы работают сами.',
+      subtitle: 'Заявки, отчёты и уведомления — без ручного труда.',
+      bullets: ['Автоматизация заявок и отчётов', 'До 90% меньше ручной работы'],
+    },
     icon: Workflow,
     accent: 'green',
     bgLetter: 'A',
@@ -46,6 +58,11 @@ export const serviceStackCards: ServiceStackCard[] = [
       'Мгновенная обработка запросов без ожидания',
     ],
     outcome: 'Клиенты получают ответы мгновенно, а вы экономите время на рутинных операциях.',
+    mobile: {
+      tagline: 'Ответ клиенту за секунды — 24/7.',
+      subtitle: 'Боты принимают заявки и отвечают без участия менеджера.',
+      bullets: ['Заявки и бронирования', 'Автонапоминания клиентам'],
+    },
     icon: MessageSquare,
     accent: 'blue',
     bgLetter: 'G',
@@ -64,6 +81,11 @@ export const serviceStackCards: ServiceStackCard[] = [
       'Make, n8n и кастомные сценарии обмена данными',
     ],
     outcome: 'Все инструменты работают вместе — без дублирования и потери информации.',
+    mobile: {
+      tagline: 'Данные между системами без потерь.',
+      subtitle: 'CRM, сайт, мессенджеры и оплата в одном контуре.',
+      bullets: ['API-интеграции платформ', 'Make, n8n и кастомные сценарии'],
+    },
     icon: Link2,
     accent: 'orange',
     bgLetter: 'Y',
@@ -82,6 +104,11 @@ export const serviceStackCards: ServiceStackCard[] = [
       'Автоматическое выявление узких мест в процессах',
     ],
     outcome: 'Данные работают на вас, помогая принимать решения быстрее и точнее.',
+    mobile: {
+      tagline: 'Решения на данных, не на догадках.',
+      subtitle: 'AI-ассистенты и дашборды для точных управленческих решений.',
+      bullets: ['Прогноз спроса и трендов', 'Выявление узких мест'],
+    },
     icon: BarChart3,
     accent: 'pink',
     bgLetter: 'R',
@@ -100,6 +127,11 @@ export const serviceStackCards: ServiceStackCard[] = [
       'Обучение команды и единая база клиентов',
     ],
     outcome: 'Продажи под контролем: ни один лид не теряется, команда работает в одной системе.',
+    mobile: {
+      tagline: 'Каждый лид под контролем.',
+      subtitle: 'Битрикс24 и amoCRM под вашу воронку продаж.',
+      bullets: ['Воронки и автоматизация', 'Единая база клиентов'],
+    },
     icon: Users,
     accent: 'violet',
     bgLetter: 'A',

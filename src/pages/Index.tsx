@@ -311,9 +311,7 @@ const Index = () => {
 
         {/* Hero + карта */}
         <div className="home-intro-track">
-        <section
-          className="relative min-h-screen flex flex-col justify-end pb-16 md:pb-24"
-        >
+        <section className="home-hero relative min-h-screen flex flex-col justify-end pb-10 md:pb-24">
           <div className="site-container relative z-10 w-full">
             <div className="max-w-5xl">
               <h1 className="text-hero-base text-left mb-8">
@@ -351,7 +349,7 @@ const Index = () => {
       </div>
 
       {/* Scroll Stack Section */}
-      <section className="site-section site-container pt-8 min-h-screen">
+      <section className="site-section site-container pt-4 sm:pt-8">
         <ServiceStackSection />
       </section>
       {/* Metrics Carousel Section

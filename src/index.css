@@ -418,15 +418,14 @@ All colors MUST be HSL.
 
   .home-dotted-map-section {
     width: 100%;
-    height: 100svh;
-    min-height: 100svh;
     margin: 0;
   }
 
   .home-dotted-map-section__frame {
     position: relative;
-    height: 100%;
     width: 100%;
+    height: auto;
+    aspect-ratio: 150 / 75;
     overflow: hidden;
     border-radius: 0;
     border: none;
@@ -448,10 +447,28 @@ All colors MUST be HSL.
   }
 
   @media screen and (max-width: 47.99em) {
-    .home-dotted-map-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      min-height: -webkit-fill-available;
+    .home-hero {
+      min-height: auto;
+      padding-top: clamp(5rem, 14vw, 7rem);
+    }
+
+    .home-intro-track .text-hero-base,
+    .home-intro-track .text-hero-typewriter {
+      font-size: clamp(1.625rem, 7.5vw, 2.25rem);
+    }
+
+    .home-intro-track .text-hero-description {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .home-all-services-fab {
+      padding-inline: clamp(1.25rem, 6vw, 2rem);
+    }
+
+    .home-all-services-fab-slot {
+      margin-top: calc(var(--home-fab-size) * -0.85);
+      padding-bottom: 1rem;
     }
 
     .home-dotted-map-section__fade {
@@ -461,6 +478,33 @@ All colors MUST be HSL.
         hsl(var(--background) / 0.1) 42%,
         hsl(var(--background) / 0.88) 100%
       );
+    }
+
+    .service-feature-card__title {
+      font-size: clamp(1.25rem, 5.5vw, 1.5rem);
+    }
+
+    .service-feature-card__lead {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+
+    .service-feature-card__body {
+      gap: 0.875rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .service-feature-card__deliverable {
+      min-height: auto;
+      padding: 0.75rem 0.85rem;
+    }
+
+    .service-feature-card__deliverable-text {
+      font-size: 0.8125rem;
+    }
+
+    .service-feature-card__actions {
+      padding-top: 0.25rem;
     }
   }
 

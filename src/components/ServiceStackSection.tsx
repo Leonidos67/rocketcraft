@@ -3,7 +3,7 @@ import ServiceFeatureCard from '@/components/ServiceFeatureCard';
 import { serviceStackCards, type ServiceStackCard } from '@/data/serviceCards';
 
 const CARD_SHELL =
-  'relative rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-10 pb-16 sm:pb-20';
+  'relative rounded-2xl border border-neutral-200 bg-neutral-50 p-4 sm:p-10 pb-10 sm:pb-20';
 
 interface ServiceStackSectionProps {
   cards?: ServiceStackCard[];
