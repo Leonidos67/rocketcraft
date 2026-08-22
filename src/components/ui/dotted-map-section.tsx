@@ -108,9 +108,12 @@ const DottedMapSection = () => {
   );
 
   return (
-    <section className="home-dotted-map-section" aria-label="География проектов">
-      <div className="home-dotted-map-section__frame">
-        <div className="home-dotted-map-section__fade" aria-hidden="true" />
+    <section className="w-full m-0" aria-label="География проектов">
+      <div className="relative w-full h-auto aspect-[150/75] overflow-hidden rounded-none border-none bg-background touch-pan-y">
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,hsl(var(--background)/0.08)_55%,hsl(var(--background)/0.72)_100%)] max-[47.99em]:bg-[radial-gradient(ellipse_at_50%_46%,transparent_0%,hsl(var(--background)/0.1)_42%,hsl(var(--background)/0.88)_100%)]"
+          aria-hidden="true"
+        />
         <DottedMap<MapMarker>
           width={MAP_WIDTH}
           height={MAP_HEIGHT}

@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Check, X, Brain, Zap, Database, Cpu, FileText, MessageSquare, Wrench, Rocket, Sparkles, ChevronRight, TrendingUp, Clock, Shield, BarChart } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -8,8 +8,18 @@ import { Link } from 'react-router-dom';
 import { MorphingText } from "@/components/ui/MorphingText"
 import Beams from '@/components/Beams'; // Импортируем компонент Beams
 
-const Trend = () => {
+const trendFontClass = 'font-sans font-semibold';
 
+const glassCardClass = cn(
+  'backdrop-blur-md bg-white/5 border border-white/10',
+);
+
+const neonBorderClass = cn(
+  glassCardClass,
+  'border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.2)]',
+);
+
+const Trend = () => {
   // Technologies data
   const technologies = [
     {
@@ -72,7 +82,7 @@ const Trend = () => {
   };
 
   return (
-    <div className="seymour-one-regular h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-gradient-to-br from-gray-900 via-black to-gray-900 text-foreground" style={{scrollbarWidth: 'thin', scrollbarColor: '#4f46e5 #1f2937'}}>
+    <div className={cn(trendFontClass, 'h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-gradient-to-br from-gray-900 via-black to-gray-900 text-foreground [scrollbar-width:thin] [scrollbar-color:#4f46e5_#1f2937]')}>
       
       {/* Abstract Background Elements - фиксированные */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
@@ -91,7 +101,7 @@ const Trend = () => {
         <div className="max-w-6xl mx-auto text-center">
           <Link to="/" className="inline-block pointer-events-auto">
             <div className="flex items-center gap-2 text-white hover:text-blue-400 transition-colors">
-              <span className="font-display font-bold text-xl tracking-wider">Agyra</span>
+              <span className={cn(trendFontClass, 'text-xl font-bold tracking-wider')}>Agyra</span>
             </div>
           </Link>
         </div>
@@ -124,7 +134,7 @@ const Trend = () => {
             <div className="mb-8 w-full">
               <MorphingText 
                 texts={["Стандарт — в прошлом", "ИИ — ваше будущее"]} 
-                className="w-full text-4xl md:text-6xl lg:text-7xl font-bold text-white seymour-one-regular text-center"
+                className={cn(trendFontClass, 'w-full text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center')}
               />
             </div>
             
@@ -174,7 +184,7 @@ const Trend = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent seymour-one-regular">
+              <h2 className={cn(trendFontClass, 'text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent')}>
                 Цифры говорят сами за себя
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto font-light">
@@ -235,7 +245,7 @@ const Trend = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent seymour-one-regular">
+              <h2 className={cn(trendFontClass, 'text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent')}>
                 Что такое кастомный ИИ?
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto font-light">
@@ -299,7 +309,7 @@ const Trend = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-800 to-purple-300 bg-clip-text text-transparent seymour-one-regular">
+              <h2 className={cn(trendFontClass, 'text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-800 to-purple-300 bg-clip-text text-transparent')}>
                 Почему 2026 — год перемен
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
@@ -352,9 +362,9 @@ const Trend = () => {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={containerVariants}
-              className="text-center mb-12 seymour-one-regular"
+              className={cn('text-center mb-12', trendFontClass)}
             >
-              <motion.h2 variants={itemVariants} className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent seymour-one-regular">
+              <motion.h2 variants={itemVariants} className={cn(trendFontClass, 'text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent')}>
               
                 Готовые боты
                 <span className="text-white"> vs. </span>
@@ -371,7 +381,7 @@ const Trend = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6 }}
-                className="glass-card p-10 rounded-3xl"
+                className={cn(glassCardClass, 'p-10 rounded-3xl')}
               >
                 <div className="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center mb-8 border border-gray-700">
                   <X className="w-8 h-8 text-red-400" />
@@ -399,7 +409,7 @@ const Trend = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6 }}
-                className="glass-card neon-border p-10 rounded-3xl relative overflow-hidden"
+                className={cn(neonBorderClass, 'p-10 rounded-3xl relative overflow-hidden')}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 blur-[50px] -z-10" />
                 <div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-8 border border-blue-500/30">
@@ -449,7 +459,7 @@ const Trend = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-green-200 bg-clip-text text-transparent seymour-one-regular">
+              <h2 className={cn(trendFontClass, 'text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-green-200 bg-clip-text text-transparent')}>
                 Уже работает в 2026
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
@@ -565,7 +575,7 @@ const Trend = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass-card p-8 rounded-2xl border border-orange-500/10"
+                  className={cn(glassCardClass, 'p-8 rounded-2xl border-orange-500/10')}
                 >
                   <h3 className="text-xl font-bold mb-4 text-orange-100 flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-orange-500" />

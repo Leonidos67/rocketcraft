@@ -47,7 +47,7 @@ const NotFound = () => {
         {particles.map((particle, index) => (
           <div
             key={index}
-            className="absolute rounded-full bg-primary/10 animate-float"
+            className="absolute rounded-full bg-primary/10"
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
@@ -88,7 +88,7 @@ const NotFound = () => {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className={cn(
                   "w-32 h-32 rounded-full bg-gradient-to-br from-destructive/20 to-destructive/5 flex items-center justify-center",
-                  isAnimating && "animate-spin-slow"
+                  isAnimating && "motion-safe:animate-[spin_20s_linear_infinite]"
                 )}>
                   <AlertCircle className="w-20 h-20 text-destructive" />
                 </div>
@@ -154,38 +154,6 @@ const NotFound = () => {
           </div>
         </div>
       </main>
-
-      {/* CSS анимации */}
-      <style>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-          }
-          33% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          66% {
-            transform: translateY(10px) translateX(-10px);
-          }
-        }
-        
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };

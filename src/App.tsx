@@ -5,10 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from 'react';
 import ScrollToTop from "./components/ScrollToTop";
+import TopPromoBanner from "./components/TopPromoBanner";
 // import { SmoothCursor } from "@/components/ui/cursor";
 import Index from "./pages/Index";
 import Beta from "./pages/Beta";
 import Services from "./pages/Services";
+import ServicesSlugRoute from "./pages/ServicesSlugRoute";
 import Team from "./pages/Team";
 import Cases from "./pages/Cases";
 import CaseDetail from "./pages/CaseDetail";
@@ -19,6 +21,9 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trend from "./pages/Trend";
 import BusinessSolutionsPage from "./pages/BusinessSolutionsPage";
 import RoiCalculator from "./pages/RoiCalculator";
+import ProductPreview from "./pages/ProductPreview";
+import ProductPreviewDetail from "./pages/ProductPreviewDetail";
+import SaasPrototypeApp from "./pages/saas/SaasPrototypeApp";
 import NotFound from "./pages/NotFound";
 import AppBlog from "./blog/AppBlog";
 
@@ -59,12 +64,13 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <TopPromoBanner />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/beta" element={<Beta />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/:categoryId" element={<Services />} />
-            <Route path="/team" element={<Team />} />
+            <Route path="/services/:slug" element={<ServicesSlugRoute />} />
+            {/* <Route path="/team" element={<Team />} /> */}
             <Route path="/cases" element={<Cases />} />
             <Route path="/cases/:id" element={<CaseDetail />} />
             {/* <Route path="/pricing" element={<Pricing />} /> */}
@@ -74,6 +80,9 @@ const App = () => {
             <Route path="/trend" element={<Trend />} />
             <Route path="/business-solutions" element={<BusinessSolutionsPage />} />
             <Route path="/roi-calc" element={<RoiCalculator />} />
+            <Route path="/product-preview" element={<ProductPreview />} />
+            <Route path="/product-preview/:saasId" element={<ProductPreviewDetail />} />
+            <Route path="/saas/:saasId" element={<SaasPrototypeApp />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

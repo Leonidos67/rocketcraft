@@ -1,4 +1,6 @@
 import PrimaryButton from '@/components/PrimaryButton';
+import { siteContainerClass } from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -21,15 +23,25 @@ const BlogHeader = () => {
         className="fixed top-0 left-0 right-0 z-40 bg-background border-b border-border"
         style={{ paddingTop: 'var(--page-header-top-padding)' }}
       >
-        <div className="site-container">
+        <div className={siteContainerClass}>
           <div className="flex items-center justify-between" style={{ height: 'var(--page-header-height)' }}>
             <Link to="/" className="text-lg md:text-xl font-semibold text-foreground shrink-0">
               Agyra <span className="text-muted-foreground font-normal">| Blog</span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-1">
-              <Link to="/" className="nav-link">Главная</Link>
-              <a href="http://localhost:5173/trend" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <Link
+                to="/"
+                className="rounded-full px-[1.125rem] py-2.5 text-sm font-semibold text-foreground/72 no-underline transition-colors hover:text-foreground"
+              >
+                Главная
+              </Link>
+              <a
+                href="http://localhost:5173/trend"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full px-[1.125rem] py-2.5 text-sm font-semibold text-foreground/72 no-underline transition-colors hover:text-foreground"
+              >
                 Тренды 2026
               </a>
             </nav>
@@ -54,7 +66,7 @@ const BlogHeader = () => {
         className="fixed left-0 right-0 z-30 bg-sm-grey-light border-b border-border"
         style={{ top: 'calc(var(--page-header-top-padding) + var(--page-header-height))' }}
       >
-        <div className="site-container py-3">
+        <div className={cn(siteContainerClass, 'py-3')}>
           <div className="flex items-center justify-between relative">
             {showSearch ? (
               <form onSubmit={handleSearchSubmit} className="flex-1 mr-4">

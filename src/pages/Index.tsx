@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageSectionNav from '@/components/PageSectionNav';
 import CodeExample from '@/components/CodeExample';
 import { Button } from '@/components/ui/button';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
@@ -9,16 +11,51 @@ import { Highlighter } from '@/components/ui/highlighter';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
 import { ArrowRight, Coffee, Briefcase, DollarSign, Workflow, Eye, Bell, Zap, Code, Rocket, Cloud, Sparkles, Shield, Lock, TrendingUp, Users, Target, Clock, Heart, BarChart3 } from 'lucide-react';
 import { AnimatedBeamMultipleOutputDemo } from '@/components/ui/animated-beam-demo';
-import { BentoDemo } from '@/components/ui/bento-demo';
 import { Link, useNavigate } from 'react-router-dom';
 import PrimaryButton from '@/components/PrimaryButton';
 import OrbModal from '@/components/OrbModal';
 import ScrollBasedVelocityDemo from '@/components/ScrollBasedVelocityDemo';
 import ScrollableCardStack from '@/components/ui/scrollable-card-stack';
 import ServiceStackSection from '@/components/ServiceStackSection';
+import HomeOffersSection from '@/components/HomeOffersSection';
 import { Globe } from '@/components/ui/globe';
 import DottedMapSection from '@/components/ui/dotted-map-section';
 import HomeAllServicesFab from '@/components/HomeAllServicesFab';
+import PageLoader from '@/components/PageLoader';
+import { footerPageSections } from '@/data/pageSections/footer';
+import {
+  btnSmSecondaryClass,
+  siteCanvasClass,
+  siteContainerClass,
+  siteSectionClass,
+  textCtaDescriptionClass,
+  textCtaTitleClass,
+} from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
+
+const heroTextClass =
+  'text-display-xl text-foreground max-md:text-[clamp(1.625rem,7.5vw,2.25rem)]';
+
+const heroDescriptionClass =
+  'text-body-lg text-muted-foreground max-w-2xl max-md:text-base';
+
+const heroHeightClass =
+  'min-h-[calc(100svh-var(--site-frame-gap)*2-var(--page-main-offset)-var(--site-header-shell-padding-top))] supports-[height:100dvh]:min-h-[calc(100dvh-var(--site-frame-gap)*2-var(--page-main-offset)-var(--site-header-shell-padding-top))]';
+
+const heroActionsClass = cn(
+  'flex flex-row flex-wrap items-center gap-3 max-md:gap-2.5',
+);
+
+const heroPrimaryButtonClass = cn(
+  'shrink-0',
+  'max-md:[--btn-icon-size:2.35rem]',
+  'max-md:[&>span:nth-child(2)]:px-4 max-md:[&>span:nth-child(2)]:text-[0.8125rem]',
+);
+
+const heroBtnSmSecondaryClass = cn(
+  btnSmSecondaryClass,
+  'max-md:h-[2.35rem] max-md:px-4 max-md:py-0 max-md:text-[0.8125rem]',
+);
 
 const techSlugs = [
   "typescript",
@@ -143,6 +180,7 @@ const heroTexts = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const reducedMotion = useReducedMotion();
   const [activeCarousel, setActiveCarousel] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [resetTimer, setResetTimer] = useState(0);
@@ -305,50 +343,59 @@ const Index = () => {
   }, [transitionStage, maxCircleScale]);
 
   return (
-    <div className="site-canvas cursor-default">
-      <div className="site-section">
+    <div className={cn(siteCanvasClass, 'cursor-default')}>
+      <div className={siteSectionClass}>
         <Header />
+        <PageLoader waitForContent />
 
         {/* Hero + карта */}
-        <div className="home-intro-track">
-        <section className="home-hero relative min-h-screen flex flex-col justify-end pb-10 md:pb-24">
-          <div className="site-container relative z-10 w-full">
+        <div className="relative">
+        <section
+          className={cn(
+            'relative box-border flex flex-col justify-end pb-[clamp(1.5rem,4vw,6rem)] max-md:pb-5',
+            heroHeightClass,
+          )}
+        >
+          <div className={cn(siteContainerClass, 'relative z-10 w-full')}>
             <div className="max-w-5xl">
-              <h1 className="text-hero-base text-left mb-8">
+              <h1 className={cn(heroTextClass, 'text-left mb-[clamp(1rem,2.5vw,2rem)] max-md:mb-3')}>
                 <span className="block">
                   Автоматизируем ваш бизнес, который
                 </span>
-                <span className="block text-hero-typewriter mt-2">
+                <span className={cn('mt-2 block', heroTextClass)}>
                   {displayedText}
                   <span className="inline-block w-0.5 h-[0.85em] bg-primary ml-1 animate-pulse align-middle" />
                 </span>
               </h1>
 
-              <p className="text-hero-description text-left mb-10">
+              <p
+                className={cn(
+                  heroDescriptionClass,
+                  'text-left mb-[clamp(1.25rem,3vw,2.5rem)] max-md:mb-[1.125rem]',
+                )}
+              >
                 Telegram-боты, CRM, интеграции и рассылки под ключ.
                 Увеличьте поток клиентов и упростите процессы.
               </p>
 
-              <div className="home-hero__actions flex flex-col sm:flex-row gap-4 items-start">
-                <PrimaryButton to="/contacts">
-                  Оставить заявку
-                </PrimaryButton>
-                <Link to="/services" className="btn-sm-secondary">
+              <div className={heroActionsClass}>
+                <PrimaryButton to="/services" className={heroPrimaryButtonClass}>
                   К услугам
+                </PrimaryButton>
+                <Link to="/cases" className={heroBtnSmSecondaryClass}>
+                  Наши работы
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        <div className="home-map-fab-wrap">
+        <div className="relative">
           <DottedMapSection />
           <HomeAllServicesFab />
         </div>
 
-        <div className="home-service-stack site-container pt-4 sm:pt-8 pb-10 sm:pb-20">
-          <ServiceStackSection />
-        </div>
+        <ServiceStackSection />
         </div>
       </div>
 
@@ -452,21 +499,7 @@ const Index = () => {
         </div>
       </section> */}
 
-      {/* Overview Sections */}
-      <section className="site-section py-20">
-        <div className="site-container">
-          <div className="mb-16 text-center">
-            <h2 className="text-section-title">
-              Что мы предлагаем
-            </h2>
-            <p className="text-section-subtitle">
-              Комплексные решения для автоматизации вашего бизнеса
-            </p>
-          </div>
-          
-          <BentoDemo />
-        </div>
-      </section>
+      <HomeOffersSection />
 
         {/* Enterprise Features */}
         {/*
@@ -541,20 +574,20 @@ const Index = () => {
         </section> */}
 
         {/* CTA Section */}
-        <section className="site-section py-20">
-          <div className="site-container">
+        <section className={cn(siteSectionClass, 'py-20')}>
+          <div className={siteContainerClass}>
             <div className="p-10 md:p-16 bg-sm-grey-light rounded-3xl border border-border text-center">
-              <h2 className="text-cta-title">
+              <h2 className={textCtaTitleClass}>
                 Начните автоматизацию уже сегодня
               </h2>
-              <p className="text-cta-description">
+              <p className={textCtaDescriptionClass}>
                 Запустите свой первый бот за 48 часов и увидите результаты уже на следующей неделе
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <PrimaryButton to="/contacts">
                   Начать бесплатно
                 </PrimaryButton>
-                <Link to="/services" className="btn-sm-secondary">
+                <Link to="/services" className={btnSmSecondaryClass}>
                   Смотреть услуги
                 </Link>
               </div>
@@ -563,6 +596,7 @@ const Index = () => {
         </section>
 
         <Footer />
+        <PageSectionNav sections={footerPageSections} reducedMotion={!!reducedMotion} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { Send } from 'lucide-react';
+import { formatContactSectionMessage, sendTelegramLead } from '@/lib/telegramLead';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -17,23 +18,26 @@ const ContactSection = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Basic validation
+
     if (!formData.name || !formData.phone) {
       toast.error('Заполните обязательные поля');
       return;
     }
 
     setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      toast.success('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-      setIsSubmitting(false);
-      
-      // Reset form
+
+    try {
+      await toast.promise(
+        sendTelegramLead(formatContactSectionMessage(formData)),
+        {
+          loading: 'Отправка...',
+          success: 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.',
+          error: 'Не удалось отправить заявку. Попробуйте ещё раз.',
+        }
+      );
+
       setFormData({
         name: '',
         phone: '',
@@ -41,7 +45,9 @@ const ContactSection = () => {
         businessType: '',
         comment: '',
       });
-    }, 1000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -127,8 +133,8 @@ const ContactSection = () => {
           </div>
 
           <div className="pt-4">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isSubmitting}
               className="w-full bg-gray-900 text-white hover:bg-gray-800 font-medium py-3 px-6 rounded-lg transition-all duration-200"
             >

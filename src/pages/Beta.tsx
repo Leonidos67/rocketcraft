@@ -11,7 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
-const Home = () => {
+const serviceIconColors: Record<string, string> = {
+  blue: 'bg-blue-500/10 text-blue-600',
+  purple: 'bg-purple-500/10 text-purple-600',
+  green: 'bg-green-500/10 text-green-600',
+  violet: 'bg-violet-500/10 text-violet-600',
+};
+
+const Beta = () => {
   const [scrolled, setScrolled] = useState(false);
   
   useEffect(() => {
@@ -182,8 +189,8 @@ const Home = () => {
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <div className={cn(
-                    "w-16 h-16 rounded-xl flex items-center justify-center mb-6",
-                    `bg-${service.color}-500/10 text-${service.color}-600`
+                    'w-16 h-16 rounded-xl flex items-center justify-center mb-6',
+                    serviceIconColors[service.color],
                   )}>
                     <Icon className="w-8 h-8" />
                   </div>
@@ -430,4 +437,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Beta;

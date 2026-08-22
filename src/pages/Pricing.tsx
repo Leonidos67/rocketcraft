@@ -3,6 +3,7 @@ import PageActions from '@/components/PageActions';
 import PageLoader from '@/components/PageLoader';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const plans = [
   {
@@ -77,11 +78,12 @@ const Pricing = () => {
             {plans.map((plan, index) => (
               <div
                 key={index}
-                className={`relative p-8 bg-card rounded-lg border transition-all ${
+                className={cn(
+                  'relative p-8 bg-card rounded-lg border transition-all',
                   plan.popular
                     ? 'border-primary shadow-md scale-105'
-                    : 'border-border hover:shadow-sm'
-                }`}
+                    : 'border-border hover:shadow-sm',
+                )}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -111,11 +113,12 @@ const Pricing = () => {
 
                 <Button
                   onClick={scrollToContacts}
-                  className={`w-full ${
+                  className={cn(
+                    'w-full transform hover:-translate-y-0.5',
                     plan.popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
-                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md transform hover:-translate-y-0.5'
-                  }`}
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg'
+                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md',
+                  )}
                 >
                   {plan.cta}
                 </Button>

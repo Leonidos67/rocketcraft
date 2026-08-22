@@ -11,7 +11,7 @@ interface PageActionsProps {
 
 const pages = [
   { path: '/services', title: 'Услуги' },
-  { path: '/team', title: 'Команда' },
+  // { path: '/team', title: 'Команда' },
   { path: '/cases', title: 'Кейсы' },
   { path: '/process', title: 'Процесс работы' },
   { path: '/contacts', title: 'Контакты' },

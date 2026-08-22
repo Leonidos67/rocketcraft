@@ -14,6 +14,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Send, ArrowLeft, ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { formatBriefLeadMessage, sendTelegramLead } from '@/lib/telegramLead';
 
 const Contacts = () => {
   // Step management
@@ -133,136 +135,11 @@ const Contacts = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
-    // Prepare data for Telegram message
-    const telegramData = {
-      chat_id: "-5112335677", // Replace with your actual Telegram user ID
-      text: formatBriefMessage(formData)
-      // Removed parse_mode to avoid markdown formatting issues
-    };
-    
-    // Send data to Telegram bot
-    toast.promise(
-      fetch('https://api.telegram.org/bot8691731821:AAHLKtCL3K3YjlU9_i0Uy8ofJE_k2aiJLhg/sendMessage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(telegramData)
-      }).then(async response => {
-        if (!response.ok) {
-          // Read the error response from Telegram API
-          const errorData = await response.json();
-          console.error('Telegram API error:', errorData);
-          throw new Error(`Telegram API error: ${errorData.description || 'Unknown error'}`);
-        }
-        return response.json();
-      }).then(data => {
-        console.log('Success:', data);
-      }).catch(error => {
-        console.error('Error:', error);
-        throw error;
-      }),
-      {
-        loading: 'Отправка...',
-        success: 'Спасибо! Ваш бриф успешно отправлен. Мы свяжемся с вами в ближайшее время.',
-        error: 'Произошла ошибка при отправке. Пожалуйста, проверьте правильность введенных данных.'
-      }
-    );
-  };
-  
-  // Format brief data for Telegram message
-  const formatBriefMessage = (data: typeof formData) => {
-    let message = '\n\n📋 НОВАЯ ЗАЯВКА:';
-    
-    message += '\n⏰ Время отправки: ' + new Date().toLocaleString('ru-RU') + '\n\n';
-    
-    // Problems section
-    if (data.problems && data.problems.length > 0) {
-      message += 'Проблемы: ' + data.problems.join(', ') + '\n';
-      if (data.customProblem) {
-        message += 'Уточнение проблемы: ' + data.customProblem + '\n';
-      }
-    }
-    
-    // Business context
-    if (data.companySize) {
-      message += 'Размер компании: ' + getCompanySizeLabel(data.companySize) + '\n';
-    }
-    if (data.industry) {
-      message += 'Отрасль: ' + getIndustryLabel(data.industry) + '\n';
-    }
-    if (data.geography) {
-      message += 'География: ' + data.geography + '\n';
-    }
-    
-    // AI usage
-    if (data.aiUsage) {
-      message += 'Использует ИИ: ' + (data.aiUsage === 'yes' ? 'Да' : 'Нет') + '\n';
-      if (data.aiUsage === 'yes' && data.aiUsageDetails) {
-        message += 'Где использует ИИ: ' + data.aiUsageDetails + '\n';
-      }
-    }
-    
-    // Goals and expectations
-    if (data.mainGoal) {
-      message += 'Основная цель: ' + data.mainGoal + '\n';
-    }
-    if (data.budget) {
-      message += 'Бюджет: ' + getBudgetLabel(data.budget) + '\n';
-    }
-    
-    // Contact details
-    if (data.name) {
-      message += 'Имя: ' + data.name + '\n';
-    }
-    if (data.email) {
-      message += 'Email: ' + data.email + '\n';
-    }
-    if (data.company) {
-      message += 'Компания: ' + data.company + '\n';
-    }
-    if (data.messenger) {
-      message += 'Мессенджер: ' + data.messenger + '\n';
-    }
-    
-    return message;
-  };
-  
-  // Helper functions to get labels for select values
-  const getCompanySizeLabel = (value: string) => {
-    switch(value) {
-      case '1-10': return '1-10 сотрудников';
-      case '11-50': return '11-50 сотрудников';
-      case '51-200': return '51-200 сотрудников';
-      case '201-500': return '201-500 сотрудников';
-      case '500+': return 'Более 500 сотрудников';
-      default: return value;
-    }
-  };
-  
-  const getIndustryLabel = (value: string) => {
-    switch(value) {
-      case 'retail': return 'Розничная торговля';
-      case 'manufacturing': return 'Производство';
-      case 'finance': return 'Финансы';
-      case 'healthcare': return 'Здравоохранение';
-      case 'education': return 'Образование';
-      case 'tech': return 'Технологии';
-      case 'other': return 'Другое';
-      default: return value;
-    }
-  };
-  
-  const getBudgetLabel = (value: string) => {
-    switch(value) {
-      case 'under-50k': return 'До 50 000 ₽';
-      case '50k-100k': return '50 000 - 100 000 ₽';
-      case '100k-250k': return '100 000 - 250 000 ₽';
-      case '250k-500k': return '250 000 - 500 000 ₽';
-      case 'over-500k': return 'Более 500 000 ₽';
-      case 'prefer-not-to-say': return 'Предпочитаю не указывать';
-      default: return value;
-    }
+    toast.promise(sendTelegramLead(formatBriefLeadMessage(formData)), {
+      loading: 'Отправка...',
+      success: 'Спасибо! Ваш бриф успешно отправлен. Мы свяжемся с вами в ближайшее время.',
+      error: 'Произошла ошибка при отправке. Пожалуйста, проверьте правильность введенных данных.',
+    });
   };
 
   // Render current step
@@ -512,13 +389,14 @@ const Contacts = () => {
                               
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       {filteredProblems.map((problem) => (
-                        <div 
+                        <div
                           key={problem}
-                          className={`p-3 border rounded-3xl cursor-pointer transition-all flex items-center ${
+                          className={cn(
+                            'relative p-3 border rounded-3xl cursor-pointer transition-all flex items-center',
                             formData.problems.includes(problem)
-                              ? 'border-gray-900 bg-gray-50 shadow-sm relative'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
+                              ? 'border-gray-900 bg-gray-50 shadow-sm'
+                              : 'border-gray-200 hover:border-gray-300',
+                          )}
                           onClick={() => handleProblemChange(problem)}
                         >
                           {formData.problems.includes(problem) && (
@@ -528,7 +406,14 @@ const Contacts = () => {
                               </svg>
                             </div>
                           )}
-                          <span className={`text-sm ${formData.problems.includes(problem) ? 'text-gray-900 font-medium' : 'text-gray-900'}`}>{problem}</span>
+                          <span
+                            className={cn(
+                              'text-sm text-gray-900',
+                              formData.problems.includes(problem) && 'font-medium',
+                            )}
+                          >
+                            {problem}
+                          </span>
                         </div>
                       ))}
                     </div>

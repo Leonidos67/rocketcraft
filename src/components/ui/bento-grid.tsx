@@ -1,36 +1,34 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react"
-import { ArrowRight } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-interface BentoGridProps extends ComponentPropsWithoutRef<"div"> {
-  children: ReactNode
-  className?: string
+interface BentoGridProps extends ComponentPropsWithoutRef<'div'> {
+  children: ReactNode;
+  className?: string;
 }
 
-interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
-  name: string
-  className: string
-  background: ReactNode
-  Icon: React.ElementType
-  description: string
-  href: string
-  cta: string
+interface BentoCardProps extends ComponentPropsWithoutRef<'div'> {
+  name: string;
+  className: string;
+  background: ReactNode;
+  Icon: React.ElementType;
+  description: string;
+  href?: string;
+  cta?: string;
+  onCtaClick?: () => void;
 }
 
 const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
   return (
     <div
-      className={cn(
-        "grid w-full auto-rows-[22rem] grid-cols-3 gap-4",
-        className
-      )}
+      className={cn('grid w-full auto-rows-[22rem] grid-cols-3 gap-4', className)}
       {...props}
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
 const BentoCard = ({
   name,
@@ -38,67 +36,56 @@ const BentoCard = ({
   background,
   Icon,
   description,
-  href,
-  cta,
+  href = '#',
+  cta = 'Подробнее',
+  onCtaClick,
   ...props
 }: BentoCardProps) => (
   <div
     key={name}
     className={cn(
-      "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl",
-      "bg-gradient-to-r from-primary/10 to-primary/5 backdrop-blur-sm border border-border",
-      className
+      'group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl',
+      'bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]',
+      className,
     )}
     {...props}
   >
     <div>{background}</div>
-    <div className="p-4 flex flex-col gap-4">
-      <div className="pointer-events-none z-10 flex transform-gpu flex-row gap-4 items-start transition-all duration-300 lg:group-hover:-translate-y-10">
-        <Icon className="h-12 w-12 flex-shrink-0 transform-gpu text-black transition-all duration-300 ease-in-out group-hover:scale-75" />
-        <div className="flex flex-col gap-1">
-          <h3 className="text-xl font-semibold text-white">
-            {name}
-          </h3>
-          <p className="max-w-lg text-black">{description}</p>
-        </div>
-      </div>
-      <div
-        className={cn(
-          "pointer-events-none flex transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:hidden"
-        )}
-      >
-        <Button
-          variant="link"
-          asChild
-          size="sm"
-          className="pointer-events-auto p-0 text-black"
-        >
-          <a href={href}>
-            {cta}
-            <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180 text-black" />
-          </a>
-        </Button>
-      </div>
+
+    <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
+      <Icon className="h-12 w-12 origin-left transform-gpu text-foreground transition-all duration-300 ease-in-out group-hover:scale-75" />
+      <h3 className="text-xl font-semibold text-foreground">{name}</h3>
+      <p className="max-w-lg text-muted-foreground">{description}</p>
     </div>
+
     <div
       className={cn(
-        "pointer-events-none absolute bottom-0 hidden w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:flex"
+        'pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100',
       )}
     >
       <Button
         variant="link"
-        asChild
+        asChild={!onCtaClick}
         size="sm"
-        className="pointer-events-auto p-0 text-black"
+        className="pointer-events-auto p-0"
+        onClick={onCtaClick}
       >
-        <a href={href}>
-          {cta}
-          <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180 text-black" />
-        </a>
+        {onCtaClick ? (
+          <span className="inline-flex items-center gap-1">
+            {cta}
+            <ArrowRight className="ms-1 h-4 w-4" />
+          </span>
+        ) : (
+          <a href={href}>
+            {cta}
+            <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
+          </a>
+        )}
       </Button>
     </div>
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
-  </div>
-)
 
-export { BentoCard, BentoGrid }
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[0.03]" />
+  </div>
+);
+
+export { BentoCard, BentoGrid };

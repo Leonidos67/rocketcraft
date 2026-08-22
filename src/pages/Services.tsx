@@ -12,6 +12,29 @@ import PageSectionNav from '@/components/PageSectionNav';
 import { servicesPageSections } from '@/data/pageSections/services';
 import { servicesByDirection } from '@/data/servicesByDirection';
 import { pageReveal } from '@/lib/pageMotion';
+import {
+  pageCtaClass,
+  pageCtaTextClass,
+  pageCtaTitleClass,
+  processCardClass,
+  processCardTextClass,
+  processCardTitleClass,
+  processIntroClass,
+  processSectionClass,
+  processStepClass,
+  productSectionClass,
+  sectionLabelClass,
+  sectionLabelSlashClass,
+  sectionTitleClass,
+} from '@/lib/studioPageStyles';
+import {
+  btnLinkArrowClass,
+  pageSectionClass,
+  siteCanvasServicesClass,
+  siteContainerClass,
+  siteSectionClass,
+} from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 
 const reveal = pageReveal;
 
@@ -34,7 +57,7 @@ const processPoints = [
 ];
 
 const Services = () => {
-  const { categoryId } = useParams();
+  const { slug: categoryId } = useParams<{ slug?: string }>();
   const reducedMotion = useReducedMotion();
   const catalogRef = useRef<HTMLElement>(null);
   const [isCatalogVisible, setIsCatalogVisible] = useState(false);
@@ -70,8 +93,8 @@ const Services = () => {
   }, [categoryId, reducedMotion]);
 
   return (
-    <div className="site-canvas site-canvas--services min-h-screen">
-      <div className="site-section services-page">
+    <div className={cn(siteCanvasServicesClass, 'min-h-screen')}>
+      <div className={siteSectionClass}>
         <Header />
         <PageLoader />
 
@@ -81,24 +104,24 @@ const Services = () => {
           reducedMotion={!!reducedMotion}
         />
 
-        <main className="services-page__main">
+        <main className="m-0 p-0">
           <section
             ref={catalogRef}
-            className="site-container services-product-section page-section"
+            className={cn(siteContainerClass, pageSectionClass, productSectionClass)}
             id="services-detail"
           >
             <motion.div
-              className="services-product-section__header"
+              className="mb-2.5"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
               variants={reveal(0, !!reducedMotion)}
             >
-              <p className="services-v2-section-label">
-                <span className="services-v2-section-label__slash">/</span>
+              <p className={cn(sectionLabelClass, 'mt-[clamp(2rem,4vw,3rem)]')}>
+                <span className={sectionLabelSlashClass}>/</span>
                 <span>Каталог</span>
               </p>
-              <h2 className="services-v2-section-title">Услуги и цены</h2>
+              <h2 className={cn(sectionTitleClass, 'mb-0')}>Услуги и цены</h2>
             </motion.div>
 
             <ServicesCatalog
@@ -109,60 +132,57 @@ const Services = () => {
           </section>
 
           <section
-            className="site-container services-v2-process page-section"
+            className={cn(siteContainerClass, pageSectionClass, processSectionClass)}
             id="services-process"
           >
             <motion.div
-              className="services-v2-process__header"
+              className="mb-[clamp(2rem,4vw,3rem)] flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={reveal(0, !!reducedMotion)}
             >
               <div>
-                <p className="services-v2-section-label">Подход</p>
-                <h2 className="services-v2-section-title">Как мы работаем</h2>
-                <p className="services-v2-process__intro">
+                <p className={sectionLabelClass}>Подход</p>
+                <h2 className={sectionTitleClass}>Как мы работаем</h2>
+                <p className={processIntroClass}>
                   Проектируем решение вместе с вами: объясняем логику, показываем каждый шаг
                   и собираем систему, а не набор разрозненных инструментов.
                 </p>
               </div>
-              <Link to="/process" className="btn-link-arrow text-foreground shrink-0">
+              <Link to="/process" className={cn(btnLinkArrowClass, 'shrink-0 text-foreground')}>
                 Полный процесс
               </Link>
             </motion.div>
 
-            <div className="services-v2-process__grid">
+            <div className="grid grid-cols-1 gap-[clamp(1rem,2vw,1.25rem)] md:grid-cols-3">
               {processPoints.map((point, index) => (
                 <motion.article
                   key={point.step}
-                  className="services-v2-process__card"
+                  className={processCardClass}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
                   variants={reveal(index * 0.06, !!reducedMotion)}
                 >
-                  <span className="services-v2-process__step">{point.step}</span>
-                  <h3 className="services-v2-process__card-title">{point.title}</h3>
-                  <p className="services-v2-process__card-text">{point.text}</p>
+                  <span className={processStepClass}>{point.step}</span>
+                  <h3 className={processCardTitleClass}>{point.title}</h3>
+                  <p className={processCardTextClass}>{point.text}</p>
                 </motion.article>
               ))}
             </div>
           </section>
 
-          <section
-            className="site-container pb-20 md:pb-28 page-section"
-            id="services-cta"
-          >
+          <section className={cn(siteContainerClass, pageSectionClass, 'pb-20 md:pb-28')} id="services-cta">
             <motion.div
-              className="services-page-cta"
+              className={pageCtaClass}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={reveal(0, !!reducedMotion)}
             >
-              <h2 className="services-page-cta__title">Готовы собрать систему под ваш бизнес?</h2>
-              <p className="services-page-cta__text">
+              <h2 className={pageCtaTitleClass}>Готовы собрать систему под ваш бизнес?</h2>
+              <p className={pageCtaTextClass}>
                 Оставьте заявку — на бесплатной консультации разберём задачу,
                 предложим архитектуру и назовём сроки без обязательств.
               </p>

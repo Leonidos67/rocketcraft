@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Building, Home } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface BusinessSolution {
   name: string;
@@ -89,7 +90,7 @@ const BusinessSolutionsModal = ({ isOpen, onClose }: BusinessSolutionsModalProps
         
         <div className="flex w-full min-h-full">
           {/* Left sidebar - Tabs */}
-          <div className="w-86 border-r border-border bg-card flex-shrink-0 flex flex-col">
+          <div className="w-80 shrink-0 border-r border-border bg-card flex flex-col">
             <div className="p-6">
               {/* <h2 className="text-xl font-bold mb-4">Решения для бизнеса</h2> */}
               <nav className="space-y-2">
@@ -100,11 +101,12 @@ const BusinessSolutionsModal = ({ isOpen, onClose }: BusinessSolutionsModalProps
                     <button
                       key={index}
                       onClick={() => setActiveTab(solution.name)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left ${
+                      className={cn(
+                        'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left',
                         isActive
                           ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                      }`}
+                          : 'text-foreground hover:bg-accent hover:text-accent-foreground',
+                      )}
                     >
                       <Icon className="w-5 h-5 flex-shrink-0" />
                       <span className="text-sm">{solution.name}</span>

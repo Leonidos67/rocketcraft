@@ -8,6 +8,29 @@ import StudioPageHero from '@/components/StudioPageHero';
 import PageSectionNav from '@/components/PageSectionNav';
 import { teamPageSections } from '@/data/pageSections/team';
 import { pageReveal } from '@/lib/pageMotion';
+import {
+  heroIntroClass,
+  pageCtaClass,
+  pageCtaTextClass,
+  pageCtaTitleClass,
+  processCardClass,
+  processCardTextClass,
+  processCardTitleClass,
+  processIntroClass,
+  processSectionClass,
+  processStepClass,
+  productSectionClass,
+  sectionLabelClass,
+  sectionLabelSlashClass,
+  sectionTitleClass,
+} from '@/lib/studioPageStyles';
+import {
+  pageSectionClass,
+  siteCanvasServicesClass,
+  siteContainerClass,
+  siteSectionClass,
+} from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 
 const values = [
   {
@@ -35,8 +58,8 @@ const Team = () => {
   }, []);
 
   return (
-    <div className="site-canvas site-canvas--services min-h-screen">
-      <div className="site-section services-page">
+    <div className={cn(siteCanvasServicesClass, 'min-h-screen')}>
+      <div className={siteSectionClass}>
         <Header />
         <PageLoader />
 
@@ -46,9 +69,9 @@ const Team = () => {
           reducedMotion={!!reducedMotion}
         />
 
-        <main className="services-page__main">
+        <main className="m-0 p-0">
           <section
-            className="site-container services-product-section page-section"
+            className={cn(siteContainerClass, pageSectionClass, productSectionClass)}
             id="team-about"
           >
             <motion.div
@@ -57,12 +80,12 @@ const Team = () => {
               viewport={{ once: true, margin: '-40px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <p className="services-v2-section-label">
-                <span className="services-v2-section-label__slash">/</span>
+              <p className={cn(sectionLabelClass, 'mt-[clamp(2rem,4vw,3rem)]')}>
+                <span className={sectionLabelSlashClass}>/</span>
                 <span>О нас</span>
               </p>
-              <h2 className="services-v2-section-title">Люди за Agyra</h2>
-              <p className="services-v2-hero__intro">
+              <h2 className={sectionTitleClass}>Люди за Agyra</h2>
+              <p className={heroIntroClass}>
                 Мы — команда аналитиков, инженеров и продуктовых специалистов. Строим
                 автоматизацию и ИИ-инструменты, которые реально экономят время и масштабируют
                 бизнес без хаоса.
@@ -71,57 +94,54 @@ const Team = () => {
           </section>
 
           <section
-            className="site-container services-v2-process page-section"
+            className={cn(siteContainerClass, pageSectionClass, processSectionClass)}
             id="team-values"
           >
             <motion.div
-              className="services-v2-process__header"
+              className="mb-[clamp(2rem,4vw,3rem)] flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={pageReveal(0, !!reducedMotion)}
             >
               <div>
-                <p className="services-v2-section-label">Ценности</p>
-                <h2 className="services-v2-section-title">Как мы работаем внутри</h2>
-                <p className="services-v2-process__intro">
+                <p className={sectionLabelClass}>Ценности</p>
+                <h2 className={sectionTitleClass}>Как мы работаем внутри</h2>
+                <p className={processIntroClass}>
                   Те же принципы, с которыми мы заходим в проекты клиентов — честность,
                   структура и измеримый результат.
                 </p>
               </div>
             </motion.div>
 
-            <div className="services-v2-process__grid">
+            <div className="grid grid-cols-1 gap-[clamp(1rem,2vw,1.25rem)] md:grid-cols-3">
               {values.map((item, index) => (
                 <motion.article
                   key={item.step}
-                  className="services-v2-process__card"
+                  className={processCardClass}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
                   variants={pageReveal(index * 0.06, !!reducedMotion)}
                 >
-                  <span className="services-v2-process__step">{item.step}</span>
-                  <h3 className="services-v2-process__card-title">{item.title}</h3>
-                  <p className="services-v2-process__card-text">{item.text}</p>
+                  <span className={processStepClass}>{item.step}</span>
+                  <h3 className={processCardTitleClass}>{item.title}</h3>
+                  <p className={processCardTextClass}>{item.text}</p>
                 </motion.article>
               ))}
             </div>
           </section>
 
-          <section
-            className="site-container pb-20 md:pb-28 page-section"
-            id="team-cta"
-          >
+          <section className={cn(siteContainerClass, pageSectionClass, 'pb-20 md:pb-28')} id="team-cta">
             <motion.div
-              className="services-page-cta"
+              className={pageCtaClass}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <h2 className="services-page-cta__title">Хотите познакомиться ближе?</h2>
-              <p className="services-page-cta__text">
+              <h2 className={pageCtaTitleClass}>Хотите познакомиться ближе?</h2>
+              <p className={pageCtaTextClass}>
                 Расскажем, кто будет вести ваш проект, и подберём команду под задачу на
                 бесплатной консультации.
               </p>

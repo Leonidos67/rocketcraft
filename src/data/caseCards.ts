@@ -22,7 +22,7 @@ export interface CaseTestimonial {
 }
 
 export const caseFilters: CaseFilter[] = [
-  { id: 'all', label: 'Все услуги' },
+  { id: 'all', label: 'Все' },
   { id: 'automation', label: 'Автоматизация' },
   { id: 'bots', label: 'Боты' },
   { id: 'integrations', label: 'Интеграции' },

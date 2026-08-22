@@ -1,6 +1,15 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MutableRefObject,
+} from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { PlusIcon, type PlusIconHandle } from '@/components/ui/plus';
+import { XIcon, type XIconHandle } from '@/components/ui/x-icon';
 import { cn } from '@/lib/utils';
 
 interface IndicatorRect {
@@ -22,95 +31,91 @@ const emptyIndicator: IndicatorRect = {
 interface HeaderDesktopNavProps {
   isInverse: boolean;
   isStuck: boolean;
-  isLearnMoreOpen: boolean;
+  isServicesOpen: boolean;
+  servicesAnchorRef?: MutableRefObject<HTMLButtonElement | null>;
   onOpenSolutions: () => void;
-  onToggleLearnMore: () => void;
+  onOpenRoi: () => void;
+  onToggleServices: () => void;
   onCloseMobileMenu: () => void;
 }
 
 type NavItem =
   | { id: string; label: string; kind: 'action'; onClick: () => void }
   | { id: string; label: string; kind: 'link'; to: string }
-  | { id: string; label: string; kind: 'external'; href: string }
-  | { id: string; label: string; kind: 'more' };
+  | { id: string; label: string; kind: 'services' }
+  | { id: string; label: string; kind: 'external'; href: string };
 
-const MORE_INDEX = 5;
+const SERVICES_INDEX = 0;
+const PROCESS_INDEX = 1;
+const READY_INDEX = 2;
+const ROI_INDEX = 3;
 
-const dropdownItems = [
-  { id: 'team', label: 'Команда', to: '/team' },
-  { id: 'roi', label: 'Калькулятор ROI', to: '/roi-calc' },
-] as const;
+const iconWrapClass = (isInverse: boolean) =>
+  cn(
+    'inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full transition-colors duration-200',
+    isInverse ? 'bg-primary-foreground/12' : 'bg-foreground/[0.06]',
+    'group-hover/services-btn:bg-white'
+  );
+
+const plusColorClass = (isOpen: boolean) =>
+  cn('group-hover/services-btn:text-foreground', isOpen && 'text-foreground');
+
+const submenuOpenBorderClass =
+  'border border-[hsl(var(--accent-bg-button))] bg-transparent shadow-none';
 
 const HeaderDesktopNav = ({
   isInverse,
   isStuck,
-  isLearnMoreOpen,
-  onOpenSolutions,
-  onToggleLearnMore,
+  isServicesOpen,
+  servicesAnchorRef,
+  onToggleServices,
+  onOpenRoi,
   onCloseMobileMenu,
 }: HeaderDesktopNavProps) => {
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
-  const dropdownItemRefs = useRef<(HTMLElement | null)[]>([]);
+  const servicesPlusRef = useRef<PlusIconHandle>(null);
+  const servicesXRef = useRef<XIconHandle>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [hoveredDropdownIndex, setHoveredDropdownIndex] = useState<number | null>(null);
   const [indicator, setIndicator] = useState<IndicatorRect>(emptyIndicator);
-  const [dropdownIndicator, setDropdownIndicator] = useState<IndicatorRect>(emptyIndicator);
 
   const items: NavItem[] = useMemo(
     () => [
-      { id: 'solutions', label: 'Решения', kind: 'action', onClick: onOpenSolutions },
-      { id: 'services', label: 'Услуги', kind: 'link', to: '/services' },
-      { id: 'cases', label: 'Кейсы', kind: 'link', to: '/cases' },
+      { id: 'services', label: 'Услуги', kind: 'services' },
       { id: 'process', label: 'Процесс', kind: 'link', to: '/process' },
-      { id: 'blog', label: 'Блог', kind: 'external', href: 'https://blog.agyra.ru' },
-      { id: 'more', label: 'Ещё', kind: 'more' },
+      { id: 'ready', label: 'Готовые решения', kind: 'link', to: '/product-preview' },
+      { id: 'roi', label: 'Калькулятор ROI', kind: 'action', onClick: onOpenRoi },
+      // { id: 'cases', label: 'Кейсы', kind: 'link', to: '/cases' },
     ],
-    [onOpenSolutions]
+    [onOpenRoi]
   );
 
   const activeIndex = useMemo(() => {
     const path = location.pathname;
-    if (path === '/services' || path.startsWith('/services/')) return 1;
-    if (path === '/cases' || path.startsWith('/cases/')) return 2;
-    if (path === '/process') return 3;
-    if (path === '/team' || path === '/roi-calc') return MORE_INDEX;
-    if (isLearnMoreOpen) return MORE_INDEX;
+    if (path === '/services' || path.startsWith('/services/')) return SERVICES_INDEX;
+    if (path === '/process') return PROCESS_INDEX;
+    if (path === '/roi-calc') return ROI_INDEX;
+    if (path === '/product-preview') return READY_INDEX;
+    if (isServicesOpen) return SERVICES_INDEX;
     return -1;
-  }, [location.pathname, isLearnMoreOpen]);
+  }, [location.pathname, isServicesOpen]);
 
-  const activeDropdownIndex = useMemo(() => {
-    if (location.pathname === '/team') return 0;
-    if (location.pathname === '/roi-calc') return 1;
-    return -1;
-  }, [location.pathname]);
-
-  const isDropdownHovered = hoveredDropdownIndex !== null;
-  const mainTargetIndex = isDropdownHovered
-    ? null
+  const mainTargetIndex = isServicesOpen
+    ? hoveredIndex
     : hoveredIndex ?? (activeIndex >= 0 ? activeIndex : null);
 
-  const dropdownTargetIndex = isLearnMoreOpen
-    ? hoveredDropdownIndex ?? (activeDropdownIndex >= 0 ? activeDropdownIndex : null)
-    : null;
-
   const measureIndicator = useCallback(
-    (
-      container: HTMLElement | null,
-      item: HTMLElement | null,
-      setter: (rect: IndicatorRect) => void
-    ) => {
+    (container: HTMLElement | null, item: HTMLElement | null) => {
       if (!container || !item) {
-        setter(emptyIndicator);
+        setIndicator(emptyIndicator);
         return;
       }
 
       const containerRect = container.getBoundingClientRect();
       const itemRect = item.getBoundingClientRect();
 
-      setter({
+      setIndicator({
         left: itemRect.left - containerRect.left,
         width: itemRect.width,
         top: itemRect.top - containerRect.top,
@@ -122,82 +127,72 @@ const HeaderDesktopNav = ({
   );
 
   const moveMainIndicator = useCallback(() => {
-    const item = mainTargetIndex !== null ? itemRefs.current[mainTargetIndex] : null;
-    measureIndicator(navRef.current, item, setIndicator);
-  }, [mainTargetIndex, measureIndicator]);
+    if (isServicesOpen && hoveredIndex === null) {
+      setIndicator(emptyIndicator);
+      return;
+    }
 
-  const moveDropdownIndicator = useCallback(() => {
-    const item =
-      dropdownTargetIndex !== null ? dropdownItemRefs.current[dropdownTargetIndex] : null;
-    measureIndicator(dropdownRef.current, item, setDropdownIndicator);
-  }, [dropdownTargetIndex, measureIndicator]);
+    const item = mainTargetIndex !== null ? itemRefs.current[mainTargetIndex] : null;
+    measureIndicator(navRef.current, item);
+  }, [mainTargetIndex, measureIndicator, isServicesOpen, hoveredIndex]);
 
   useLayoutEffect(() => {
     moveMainIndicator();
-  }, [moveMainIndicator, location.pathname, isLearnMoreOpen, isStuck]);
-
-  useLayoutEffect(() => {
-    moveDropdownIndicator();
-  }, [moveDropdownIndicator, location.pathname, isLearnMoreOpen, isStuck]);
+  }, [moveMainIndicator, location.pathname, isServicesOpen, isStuck]);
 
   useEffect(() => {
-    const handleResize = () => {
-      moveMainIndicator();
-      moveDropdownIndicator();
-    };
+    const handleResize = () => moveMainIndicator();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [moveMainIndicator, moveDropdownIndicator]);
+  }, [moveMainIndicator]);
+
+  useEffect(() => {
+    if (isServicesOpen) {
+      servicesXRef.current?.startAnimation();
+    } else {
+      servicesPlusRef.current?.stopAnimation();
+    }
+  }, [isServicesOpen]);
 
   const setItemRef = (index: number) => (el: HTMLElement | null) => {
     itemRefs.current[index] = el;
   };
 
-  const setDropdownItemRef = (index: number) => (el: HTMLElement | null) => {
-    dropdownItemRefs.current[index] = el;
+  const setServicesButtonRef = (el: HTMLButtonElement | null) => {
+    setItemRef(SERVICES_INDEX)(el);
+    if (servicesAnchorRef) servicesAnchorRef.current = el;
   };
 
   const isHighlighted = (index: number) => {
-    if (isDropdownHovered) return false;
+    if (isServicesOpen && index === SERVICES_INDEX) return false;
     return hoveredIndex === index || (hoveredIndex === null && activeIndex === index);
   };
 
-  const isDropdownHighlighted = (index: number) =>
-    hoveredDropdownIndex === index ||
-    (hoveredDropdownIndex === null && activeDropdownIndex === index);
-
   const linkClass = (index: number) =>
     cn(
-      'nav-link relative z-[1]',
-      isInverse && 'nav-link--inverse',
-      isHighlighted(index) && 'nav-link--highlighted'
+      'relative z-[1] inline-flex items-center bg-transparent px-[1.125rem] py-2.5 text-sm font-semibold leading-none no-underline transition-[color,box-shadow,border-color] duration-200 rounded-full border border-transparent',
+      isInverse ? 'text-primary-foreground/82' : 'text-foreground/72',
+      isHighlighted(index) && (isInverse ? 'text-primary-foreground' : 'text-foreground')
     );
 
   const hoverHandlers = (index: number) => ({
-    onMouseEnter: () => {
-      setHoveredDropdownIndex(null);
-      setHoveredIndex(index);
-    },
+    onMouseEnter: () => setHoveredIndex(index),
   });
-
-  const handleNavMouseLeave = () => {
-    setHoveredIndex(null);
-    setHoveredDropdownIndex(null);
-  };
 
   return (
     <nav
       ref={navRef}
       className={cn(
-        'header-nav hidden xl:flex items-center',
-        isStuck && 'header-nav--stuck',
-        isStuck && isInverse && 'header-nav--stuck-inverse'
+        'absolute left-1/2 z-[130] hidden -translate-x-1/2 items-center gap-0.5 xl:flex',
+        isStuck &&
+          'fixed top-[var(--page-header-top-gap)] z-[130] rounded-full bg-background/80 px-1.5 py-0.5 backdrop-blur-[10px] transition-[background-color,border-color,box-shadow] duration-300',
+        isStuck && isInverse && 'border-primary bg-primary shadow-[0_8px_24px_hsl(0_0%_0%/0.12)]'
       )}
-      onMouseLeave={handleNavMouseLeave}
+      onMouseLeave={() => setHoveredIndex(null)}
     >
       <span
         aria-hidden="true"
-        className="nav-indicator"
+        className="pointer-events-none absolute left-0 top-0 z-0 rounded-full border-none bg-[hsl(var(--accent-bg-button))] transition-[transform,width,height,opacity] duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,width,height]"
         style={{
           transform: `translate3d(${indicator.left}px, ${indicator.top}px, 0)`,
           width: indicator.width,
@@ -237,75 +232,62 @@ const HeaderDesktopNav = ({
           );
         }
 
-        if (item.kind === 'external') {
+        if (item.kind === 'services') {
           return (
-            <a
+            <button
               key={item.id}
-              ref={setItemRef(index)}
-              href={item.href}
-              className={linkClass(index)}
-              {...hoverHandlers(index)}
+              ref={setServicesButtonRef}
+              type="button"
+              data-services-menu
+              className={cn(
+                linkClass(index),
+                'group/services-btn gap-1.5',
+                isServicesOpen && submenuOpenBorderClass
+              )}
+              onClick={onToggleServices}
+              onMouseEnter={() => {
+                setHoveredIndex(SERVICES_INDEX);
+                if (isServicesOpen) servicesXRef.current?.startAnimation();
+                else servicesPlusRef.current?.startAnimation();
+              }}
+              onMouseLeave={() => {
+                if (!isServicesOpen) servicesPlusRef.current?.stopAnimation();
+              }}
+              aria-expanded={isServicesOpen}
+              aria-haspopup="dialog"
             >
               {item.label}
-            </a>
+              <span className={iconWrapClass(isInverse)} aria-hidden="true">
+                {isServicesOpen ? (
+                  <XIcon
+                    ref={servicesXRef}
+                    size={10}
+                    duration={0.45}
+                    className={plusColorClass(isServicesOpen)}
+                  />
+                ) : (
+                  <PlusIcon
+                    ref={servicesPlusRef}
+                    size={10}
+                    duration={0.45}
+                    className={plusColorClass(isServicesOpen)}
+                  />
+                )}
+              </span>
+            </button>
           );
         }
 
         return (
-          <div
+          <a
             key={item.id}
-            className="relative"
-            data-learn-more
-            onMouseEnter={() => {
-              setHoveredDropdownIndex(null);
-              setHoveredIndex(MORE_INDEX);
-            }}
+            ref={setItemRef(index)}
+            href={item.href}
+            className={linkClass(index)}
+            {...hoverHandlers(index)}
           >
-            <button
-              ref={setItemRef(index)}
-              type="button"
-              className={cn(linkClass(index), 'inline-flex items-center gap-1.5')}
-              onClick={onToggleLearnMore}
-            >
-              {item.label}
-              <ChevronDown
-                className={cn('w-4 h-4 transition-transform duration-200', isLearnMoreOpen && 'rotate-180')}
-              />
-            </button>
-            {isLearnMoreOpen && (
-              <div
-                ref={dropdownRef}
-                className="nav-dropdown absolute top-full right-0 mt-2 w-52 z-50"
-                onMouseLeave={() => setHoveredDropdownIndex(null)}
-              >
-                <span
-                  aria-hidden="true"
-                  className="nav-indicator"
-                  style={{
-                    transform: `translate3d(${dropdownIndicator.left}px, ${dropdownIndicator.top}px, 0)`,
-                    width: dropdownIndicator.width,
-                    height: dropdownIndicator.height,
-                    opacity: dropdownIndicator.opacity,
-                  }}
-                />
-                {dropdownItems.map((dropdownItem, dropdownIndex) => (
-                  <Link
-                    key={dropdownItem.id}
-                    ref={setDropdownItemRef(dropdownIndex)}
-                    to={dropdownItem.to}
-                    className={cn(
-                      'nav-dropdown-item relative z-[1]',
-                      isDropdownHighlighted(dropdownIndex) && 'nav-dropdown-item--highlighted'
-                    )}
-                    onClick={onCloseMobileMenu}
-                    onMouseEnter={() => setHoveredDropdownIndex(dropdownIndex)}
-                  >
-                    {dropdownItem.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+            {item.label}
+          </a>
         );
       })}
     </nav>

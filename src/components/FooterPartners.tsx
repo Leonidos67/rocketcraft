@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { siteSectionClass, pageSectionClass } from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 
 interface PartnerLogo {
   id: string;
@@ -134,21 +136,33 @@ const gridLayout: GridSlot[] = [
 
 const FooterPartners = () => (
   <section
-    className="site-section site-footer-partners"
+    id="footer-partners"
+    className={cn(
+      siteSectionClass,
+      pageSectionClass,
+      'bg-[hsl(263_67%_83%)] text-foreground',
+      'px-8 py-10 md:px-14 md:py-[clamp(2.5rem,5vw,4.5rem)]'
+    )}
     aria-labelledby="footer-partners-title"
   >
-    <header className="site-footer-partners__header">
-      <h2 id="footer-partners-title" className="site-footer-partners__title">
+    <header className="mx-auto mb-10 max-w-[52rem] text-center md:mb-[clamp(2.5rem,5vw,4rem)]">
+      <h2
+        id="footer-partners-title"
+        className="mb-5 flex flex-col gap-[0.15em] text-[clamp(2rem,4.5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground"
+      >
         <span>Нам доверяют</span>
         <span>ведущие компании и партнёры</span>
       </h2>
-      <p className="site-footer-partners__lead">
+      <p className="mx-auto max-w-[38rem] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-[1.65] text-neutral-500">
         За годы работы мы выстроили партнёрства с сильными брендами — это даёт
         клиентам надёжный сервис и проверенные решения.
       </p>
     </header>
 
-    <div className="site-footer-partners__grid" role="list">
+    <div
+      className="relative grid grid-cols-2 border border-black/10 bg-background md:grid-cols-4"
+      role="list"
+    >
       {gridLayout.map((slot, index) => {
         const partner =
           slot.partnerIndex !== null ? partnerLogos[slot.partnerIndex] : null;
@@ -157,19 +171,21 @@ const FooterPartners = () => (
           <div
             key={`slot-${index}`}
             role="listitem"
-            className={[
-              'site-footer-partners__cell',
-              slot.highlight && 'site-footer-partners__cell--highlight',
-              !partner && 'site-footer-partners__cell--empty',
-            ]
-              .filter(Boolean)
-              .join(' ')}
+            className={cn(
+              'relative z-[1] flex min-h-[clamp(5.5rem,12vw,8.5rem)] items-center justify-center border-b border-r border-black/10 bg-[hsl(263_67%_83%)] p-5',
+              slot.highlight && 'bg-[hsl(263_67%_83%)]',
+              !partner && 'hidden md:flex'
+            )}
             aria-hidden={!partner}
           >
             {partner && (
-              <div className="site-footer-partners__logo">
-                <span className="site-footer-partners__logo-icon">{partner.icon}</span>
-                <span className="site-footer-partners__logo-name">{partner.name}</span>
+              <div className="inline-flex items-center gap-[0.65rem] text-neutral-800">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center [&_svg]:h-full [&_svg]:w-full">
+                  {partner.icon}
+                </span>
+                <span className="whitespace-nowrap text-[clamp(0.9375rem,1.1vw,1.125rem)] font-semibold leading-[1.2] tracking-[-0.01em]">
+                  {partner.name}
+                </span>
               </div>
             )}
           </div>

@@ -19,7 +19,37 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { roiPageSections } from '@/data/pageSections/roi';
 import { pageReveal } from '@/lib/pageMotion';
+import {
+  heroIntroClass,
+  oiHeadingClass,
+  pageCtaClass,
+  pageCtaTextClass,
+  pageCtaTitleClass,
+  processSectionClass,
+  productSectionClass,
+  sectionLabelClass,
+  sectionLabelSlashClass,
+  sectionTitleClass,
+} from '@/lib/studioPageStyles';
+import {
+  btnLinkArrowClass,
+  pageSectionClass,
+  siteCanvasServicesClass,
+  siteContainerClass,
+  siteSectionClass,
+} from '@/lib/layoutStyles';
 import { cn } from '@/lib/utils';
+
+const compactBtnIconSizeStyle = {
+  '--btn-icon-size': '2.75rem',
+} as React.CSSProperties;
+
+const compactPrimaryBtnClass = cn(
+  'inline-flex items-center justify-center shrink-0 cursor-pointer border-none',
+  'h-[var(--btn-icon-size)] px-5',
+  'bg-primary text-primary-foreground rounded-full',
+  'text-sm font-semibold leading-none',
+);
 
 const IMPLEMENTATION_COST = 250000;
 
@@ -100,8 +130,8 @@ const RoiCalculator = () => {
   };
 
   return (
-    <div className="site-canvas site-canvas--services min-h-screen">
-      <div className="site-section services-page">
+    <div className={cn(siteCanvasServicesClass, 'min-h-screen')}>
+      <div className={siteSectionClass}>
         <Header />
         <PageLoader />
 
@@ -111,9 +141,9 @@ const RoiCalculator = () => {
           reducedMotion={!!reducedMotion}
         />
 
-        <main className="services-page__main">
+        <main className="m-0 p-0">
           <section
-            className="site-container services-product-section page-section"
+            className={cn(siteContainerClass, pageSectionClass, productSectionClass)}
             id="roi-calculator"
           >
             <motion.div
@@ -122,30 +152,32 @@ const RoiCalculator = () => {
               viewport={{ once: true, margin: '-40px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <p className="services-v2-section-label">
-                <span className="services-v2-section-label__slash">/</span>
+              <p className={cn(sectionLabelClass, 'mt-[clamp(2rem,4vw,3rem)]')}>
+                <span className={sectionLabelSlashClass}>/</span>
                 <span>Расчёт</span>
               </p>
-              <h2 className="services-v2-section-title">Параметры вашего бизнеса</h2>
-              <p className="services-v2-hero__intro">
+              <h2 className={sectionTitleClass}>Параметры вашего бизнеса</h2>
+              <p className={heroIntroClass}>
                 Введите данные и узнайте, сколько вы сэкономите через 1, 3 и 12 месяцев после
                 внедрения.
               </p>
             </motion.div>
 
             <motion.div
-              className="studio-roi-panel"
+              className="mt-[clamp(2rem,4vw,2.5rem)] flex flex-col gap-6 rounded-[1.25rem] border border-border bg-card p-[clamp(1.25rem,3vw,2rem)]"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
               variants={pageReveal(0.06, !!reducedMotion)}
             >
-              <div className="studio-roi-field">
-                <Label className="studio-roi-field__label">Сфера бизнеса</Label>
+              <div className="flex flex-col gap-[0.65rem]">
+                <Label className="text-[0.9375rem] font-semibold text-foreground">
+                  Сфера бизнеса
+                </Label>
                 <select
                   value={businessType}
                   onChange={(e) => setBusinessType(e.target.value)}
-                  className="studio-roi-select"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-[inherit] text-[0.9375rem] text-foreground outline-none focus:border-primary focus:shadow-[0_0_0_2px_hsl(var(--primary)_/_0.15)]"
                 >
                   {businessTypes.map((type) => (
                     <option key={type.value} value={type.value}>
@@ -155,12 +187,14 @@ const RoiCalculator = () => {
                 </select>
               </div>
 
-              <div className="studio-roi-field">
-                <div className="studio-roi-field__head">
-                  <Label className="studio-roi-field__label">
+              <div className="flex flex-col gap-[0.65rem]">
+                <div className="flex items-start justify-between gap-4">
+                  <Label className="text-[0.9375rem] font-semibold text-foreground">
                     Количество сотрудников (рутинные задачи)
                   </Label>
-                  <span className="studio-roi-field__value">{employees} чел</span>
+                  <span className="shrink-0 rounded-full bg-[hsl(217_100%_86%_/_0.45)] px-[0.65rem] py-1 text-sm font-bold text-foreground">
+                    {employees} чел
+                  </span>
                 </div>
                 <Slider
                   value={[employees]}
@@ -172,12 +206,14 @@ const RoiCalculator = () => {
                 />
               </div>
 
-              <div className="studio-roi-field">
-                <div className="studio-roi-field__head">
-                  <Label className="studio-roi-field__label">
+              <div className="flex flex-col gap-[0.65rem]">
+                <div className="flex items-start justify-between gap-4">
+                  <Label className="text-[0.9375rem] font-semibold text-foreground">
                     Средняя зарплата сотрудника (в месяц)
                   </Label>
-                  <span className="studio-roi-field__value">{formatNumber(salary)} ₽</span>
+                  <span className="shrink-0 rounded-full bg-[hsl(217_100%_86%_/_0.45)] px-[0.65rem] py-1 text-sm font-bold text-foreground">
+                    {formatNumber(salary)} ₽
+                  </span>
                 </div>
                 <Slider
                   value={[salary]}
@@ -189,12 +225,14 @@ const RoiCalculator = () => {
                 />
               </div>
 
-              <div className="studio-roi-field">
-                <div className="studio-roi-field__head">
-                  <Label className="studio-roi-field__label">
+              <div className="flex flex-col gap-[0.65rem]">
+                <div className="flex items-start justify-between gap-4">
+                  <Label className="text-[0.9375rem] font-semibold text-foreground">
                     Часов в день на рутину (на одного сотрудника)
                   </Label>
-                  <span className="studio-roi-field__value">{routineHours} ч</span>
+                  <span className="shrink-0 rounded-full bg-[hsl(217_100%_86%_/_0.45)] px-[0.65rem] py-1 text-sm font-bold text-foreground">
+                    {routineHours} ч
+                  </span>
                 </div>
                 <Slider
                   value={[routineHours]}
@@ -206,19 +244,21 @@ const RoiCalculator = () => {
                 />
               </div>
 
-              <div className="studio-roi-field">
-                <Label className="studio-roi-field__label">
+              <div className="flex flex-col gap-[0.65rem]">
+                <Label className="text-[0.9375rem] font-semibold text-foreground">
                   Какие задачи хотите автоматизировать?
                 </Label>
-                <ul className="studio-roi-tasks">
+                <ul className="m-0 flex list-none flex-col gap-[0.35rem] p-0">
                   {tasks.map((task) => (
                     <li key={task.id}>
-                      <label className="studio-roi-task">
+                      <label className="flex cursor-pointer items-start gap-[0.65rem] rounded-xl px-3 py-[0.65rem] transition-colors hover:bg-[hsl(217_100%_86%_/_0.35)]">
                         <Checkbox
                           checked={selectedTasks.includes(task.id)}
                           onCheckedChange={() => handleTaskToggle(task.id)}
                         />
-                        <span>{task.label}</span>
+                        <span className="text-sm leading-[1.45] text-foreground/90">
+                          {task.label}
+                        </span>
                       </label>
                     </li>
                   ))}
@@ -227,41 +267,51 @@ const RoiCalculator = () => {
 
               <button
                 type="button"
-                className="btn-sm-primary-wrap btn-sm-primary-wrap--compact studio-roi-submit"
+                className={cn(compactPrimaryBtnClass, 'self-start')}
+                style={compactBtnIconSizeStyle}
                 onClick={calculateROI}
               >
-                <span className="btn-sm-primary__label">Рассчитать ROI</span>
+                Рассчитать ROI
               </button>
             </motion.div>
 
             {showResults && (
               <motion.div
                 id="roi-results"
-                className="studio-roi-results page-section"
+                className={cn(pageSectionClass, 'mt-[clamp(2rem,4vw,3rem)]')}
                 initial="hidden"
                 animate="visible"
                 variants={pageReveal(0, !!reducedMotion)}
               >
-                <h3 className="studio-roi-results__title">Результаты расчёта</h3>
-                <div className="studio-roi-results__grid">
-                  <article className="studio-roi-result studio-roi-result--loss">
-                    <AlertCircle className="studio-roi-result__icon" aria-hidden="true" />
-                    <span className="studio-roi-result__label">Вы теряете каждый год</span>
-                    <span className="studio-roi-result__value">
+                <h3
+                  className={cn(
+                    oiHeadingClass,
+                    'mb-5 text-[clamp(1.25rem,2.5vw,1.75rem)]'
+                  )}
+                >
+                  Результаты расчёта
+                </h3>
+                <div className="grid grid-cols-1 gap-[0.85rem] min-[40em]:grid-cols-2 min-[64em]:grid-cols-4">
+                  <article className="flex flex-col gap-[0.35rem] rounded-2xl border border-[hsl(0_70%_50%_/_0.2)] bg-[hsl(0_70%_50%_/_0.06)] p-[1.1rem_1.15rem]">
+                    <AlertCircle className="h-[1.35rem] w-[1.35rem] text-foreground/55" aria-hidden="true" />
+                    <span className="text-[0.8125rem] text-muted-foreground">
+                      Вы теряете каждый год
+                    </span>
+                    <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-bold leading-[1.15] text-foreground">
                       {formatNumber(results.annualLoss)} ₽
                     </span>
                   </article>
-                  <article className="studio-roi-result studio-roi-result--gain">
-                    <CheckCircle className="studio-roi-result__icon" aria-hidden="true" />
-                    <span className="studio-roi-result__label">ИИ сэкономит вам</span>
-                    <span className="studio-roi-result__value">
+                  <article className="flex flex-col gap-[0.35rem] rounded-2xl border border-primary/25 bg-primary/[0.08] p-[1.1rem_1.15rem]">
+                    <CheckCircle className="h-[1.35rem] w-[1.35rem] text-foreground/55" aria-hidden="true" />
+                    <span className="text-[0.8125rem] text-muted-foreground">ИИ сэкономит вам</span>
+                    <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-bold leading-[1.15] text-foreground">
                       {formatNumber(results.annualSavings)} ₽
                     </span>
                   </article>
-                  <article className="studio-roi-result">
-                    <Clock className="studio-roi-result__icon" aria-hidden="true" />
-                    <span className="studio-roi-result__label">Окупаемость</span>
-                    <span className="studio-roi-result__value">
+                  <article className="flex flex-col gap-[0.35rem] rounded-2xl border border-border bg-background p-[1.1rem_1.15rem]">
+                    <Clock className="h-[1.35rem] w-[1.35rem] text-foreground/55" aria-hidden="true" />
+                    <span className="text-[0.8125rem] text-muted-foreground">Окупаемость</span>
+                    <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-bold leading-[1.15] text-foreground">
                       {results.paybackMonths < 1
                         ? 'менее месяца'
                         : `${results.paybackMonths} мес`}
@@ -269,16 +319,20 @@ const RoiCalculator = () => {
                   </article>
                   <article
                     className={cn(
-                      'studio-roi-result',
-                      results.roi >= 0 ? 'studio-roi-result--gain' : 'studio-roi-result--loss'
+                      'flex flex-col gap-[0.35rem] rounded-2xl p-[1.1rem_1.15rem]',
+                      results.roi >= 0
+                        ? 'border border-primary/25 bg-primary/[0.08]'
+                        : 'border border-[hsl(0_70%_50%_/_0.2)] bg-[hsl(0_70%_50%_/_0.06)]'
                     )}
                   >
-                    <TrendingUp className="studio-roi-result__icon" aria-hidden="true" />
-                    <span className="studio-roi-result__label">Рентабельность</span>
-                    <span className="studio-roi-result__value">{results.roi}%</span>
+                    <TrendingUp className="h-[1.35rem] w-[1.35rem] text-foreground/55" aria-hidden="true" />
+                    <span className="text-[0.8125rem] text-muted-foreground">Рентабельность</span>
+                    <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-bold leading-[1.15] text-foreground">
+                      {results.roi}%
+                    </span>
                   </article>
                 </div>
-                <p className="studio-roi-results__summary">
+                <p className="mt-5 rounded-[0.9rem] border border-border bg-card p-[1.1rem_1.15rem] text-[0.9375rem] leading-[1.55] text-muted-foreground">
                   При стоимости внедрения {formatNumber(IMPLEMENTATION_COST)} ₽ инвестиции
                   окупятся за{' '}
                   {results.paybackMonths < 1
@@ -291,7 +345,7 @@ const RoiCalculator = () => {
           </section>
 
           <section
-            className="site-container services-v2-process page-section"
+            className={cn(siteContainerClass, pageSectionClass, processSectionClass)}
             id="roi-case"
           >
             <motion.div
@@ -300,65 +354,71 @@ const RoiCalculator = () => {
               viewport={{ once: true }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <p className="services-v2-section-label">
-                <span className="services-v2-section-label__slash">/</span>
+              <p className={sectionLabelClass}>
+                <span className={sectionLabelSlashClass}>/</span>
                 <span>Кейс</span>
               </p>
-              <h2 className="services-v2-section-title">Как это работает на практике</h2>
+              <h2 className={sectionTitleClass}>Как это работает на практике</h2>
             </motion.div>
 
             <motion.article
-              className="studio-case-card"
+              className="mt-[clamp(1.5rem,3vw,2rem)] grid grid-cols-1 overflow-hidden rounded-[1.25rem] border border-border bg-card min-[48em]:grid-cols-[minmax(10rem,14rem)_1fr]"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
               variants={pageReveal(0.06, !!reducedMotion)}
             >
-              <div className="studio-case-card__visual">
-                <Users className="studio-case-card__icon" aria-hidden="true" />
+              <div className="flex items-center justify-center bg-primary p-8 text-primary-foreground">
+                <Users className="h-16 w-16" aria-hidden="true" />
               </div>
-              <div className="studio-case-card__body">
-                <span className="studio-case-card__badge">Реальный кейс</span>
-                <h3 className="studio-case-card__title">
+              <div className="p-[clamp(1.25rem,3vw,2rem)]">
+                <span className="mb-3 inline-block rounded-full bg-primary/[0.12] px-[0.65rem] py-1 text-[0.6875rem] font-bold uppercase tracking-[0.04em] text-foreground">
+                  Реальный кейс
+                </span>
+                <h3
+                  className={cn(
+                    oiHeadingClass,
+                    'mb-4 text-[clamp(1.125rem,2vw,1.5rem)]'
+                  )}
+                >
                   Внедрили чат-бота и CRM для компании N
                 </h3>
-                <div className="studio-case-card__stats">
+                <div className="mb-4 grid grid-cols-2 gap-4">
                   <div>
-                    <span className="studio-case-card__stat-value">60%</span>
-                    <span className="studio-case-card__stat-label">
+                    <span className="mb-1 block text-2xl font-bold leading-[1.1]">60%</span>
+                    <span className="text-[0.8125rem] leading-[1.35] text-muted-foreground">
                       Ускорение обработки заявок
                     </span>
                   </div>
                   <div>
-                    <span className="studio-case-card__stat-value">1.2 млн ₽</span>
-                    <span className="studio-case-card__stat-label">Экономия ФОТ в год</span>
+                    <span className="mb-1 block text-2xl font-bold leading-[1.1]">1.2 млн ₽</span>
+                    <span className="text-[0.8125rem] leading-[1.35] text-muted-foreground">
+                      Экономия ФОТ в год
+                    </span>
                   </div>
                 </div>
-                <p className="studio-case-card__text">
+                <p className="mb-5 text-[0.9375rem] leading-[1.55] text-muted-foreground">
                   Автоматизация первичных ответов и интеграция с CRM сократила время ответа
                   клиентам с 2 часов до 15 минут и высвободила 3 менеджеров для работы с
                   горячими лидами.
                 </p>
-                <Link to="/cases" className="btn-link-arrow text-foreground">
+                <Link to="/cases" className={cn(btnLinkArrowClass, 'text-foreground')}>
                   Все кейсы
                 </Link>
               </div>
             </motion.article>
           </section>
 
-          <section
-            className="site-container pb-20 md:pb-28 page-section"
-            id="roi-cta"
-          >
+          <section className={cn(siteContainerClass, pageSectionClass, 'pb-20 md:pb-28')} id="roi-cta">
             <motion.div
-              className="services-page-cta"
+              className={pageCtaClass}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <h2 className="services-page-cta__title">Хотите такой же результат?</h2>
-              <p className="services-page-cta__text">
+              <h2 className={pageCtaTitleClass}>Хотите такой же результат?</h2>
+              <p className={pageCtaTextClass}>
                 Закажите бесплатный аудит бизнес-процессов — найдём точки для автоматизации и
                 посчитаем ROI под вашу задачу.
               </p>

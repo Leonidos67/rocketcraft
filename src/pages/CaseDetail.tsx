@@ -25,9 +25,10 @@ const CaseDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <PageLoader />
-      </div>
+      <>
+        <PageLoader waitForContent={false} minDuration={300} />
+        <div className="min-h-screen" aria-hidden="true" />
+      </>
     );
   }
 
@@ -47,7 +48,7 @@ const CaseDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
-      <PageLoader />
+      <PageLoader waitForContent />
       <main className="pt-20 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Back button */}

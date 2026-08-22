@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { renderToString } from "react-dom/server"
+import { registerPageLoadAsset } from "@/lib/pageLoadRegistry"
 
 interface Icon {
   x: number
@@ -47,36 +48,39 @@ export function IconCloud({ icons, images }: IconCloudProps) {
     const items = icons || images || []
     imagesLoadedRef.current = new Array(items.length).fill(false)
 
-    const newIconCanvases = items.map((item, index) => {
-      const offscreen = document.createElement("canvas")
-      offscreen.width = 40
-      offscreen.height = 40
-      const offCtx = offscreen.getContext("2d")
+    const loadPromises = items.map((item, index) =>
+      new Promise<HTMLCanvasElement>((resolve) => {
+        const offscreen = document.createElement("canvas")
+        offscreen.width = 40
+        offscreen.height = 40
+        const offCtx = offscreen.getContext("2d")
 
-      if (offCtx) {
+        if (!offCtx) {
+          resolve(offscreen)
+          return
+        }
+
+        const markLoaded = () => {
+          imagesLoadedRef.current[index] = true
+          resolve(offscreen)
+        }
+
         if (images) {
-          // Handle image URLs directly
           const img = new Image()
           img.src = items[index] as string
           img.onload = () => {
             offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
-
-            // Create circular clipping path
             offCtx.beginPath()
             offCtx.arc(20, 20, 20, 0, Math.PI * 2)
             offCtx.closePath()
             offCtx.clip()
-
-            // Draw the image
             offCtx.drawImage(img, 0, 0, 40, 40)
-
-            imagesLoadedRef.current[index] = true
+            markLoaded()
           }
-          img.onerror = (e) => {
-            // Silent error handling
+          img.onerror = () => {
+            markLoaded()
           }
         } else {
-          // Handle SVG icons
           offCtx.scale(0.4, 0.4)
           const svgString = renderToString(item as React.ReactElement)
           const img = new Image()
@@ -84,17 +88,21 @@ export function IconCloud({ icons, images }: IconCloudProps) {
           img.onload = () => {
             offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
             offCtx.drawImage(img, 0, 0)
-            imagesLoadedRef.current[index] = true
+            markLoaded()
           }
-          img.onerror = (e) => {
-            // Silent error handling
+          img.onerror = () => {
+            markLoaded()
           }
         }
-      }
-      return offscreen
+      })
+    )
+
+    const unregister = registerPageLoadAsset(Promise.all(loadPromises).then(() => undefined))
+    void Promise.all(loadPromises).then((canvases) => {
+      iconCanvasesRef.current = canvases
     })
 
-    iconCanvasesRef.current = newIconCanvases
+    return unregister
   }, [icons, images])
 
   // Generate initial icon positions on a sphere

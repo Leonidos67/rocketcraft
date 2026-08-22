@@ -11,6 +11,23 @@ import PageSectionNav from '@/components/PageSectionNav';
 import Beams from '@/components/Beams';
 import { processPageSections } from '@/data/pageSections/process';
 import { pageReveal } from '@/lib/pageMotion';
+import {
+  oiHeadingClass,
+  pageCtaClass,
+  pageCtaTextClass,
+  pageCtaTitleClass,
+  processIntroClass,
+  sectionLabelClass,
+  sectionLabelSlashClass,
+  sectionTitleClass,
+} from '@/lib/studioPageStyles';
+import {
+  pageSectionClass,
+  siteCanvasServicesClass,
+  siteContainerClass,
+  siteSectionClass,
+} from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 
 const steps: ProcessStepItem[] = [
   {
@@ -63,36 +80,36 @@ const Process = () => {
   }, []);
 
   return (
-    <div className="site-canvas site-canvas--services min-h-screen">
-      <div className="site-section services-page process-page">
+    <div className={cn(siteCanvasServicesClass, 'min-h-screen')}>
+      <div className={siteSectionClass}>
         <Header />
         <PageLoader />
 
         <div
-          className="services-viewport-fold process-hero-fold page-hero-fold"
+          className="shrink-0 h-[var(--services-viewport-fold-height)] overflow-hidden scroll-mt-0"
           id="process-intro"
         >
           <motion.section
-            className="services-hero process-hero"
+            className="relative m-0 h-full w-full overflow-hidden p-0"
             initial="hidden"
             animate="visible"
             variants={pageReveal(0, !!reducedMotion)}
           >
-            <div className="site-container services-hero__copy process-hero__copy text-left">
-              <div className="process-hero__copy-inner">
-                <h1 className="services-hero__title max-w-6xl">
+            <div className={cn(siteContainerClass, 'absolute inset-x-0 top-0 z-[1] flex h-1/2 min-h-0 flex-col justify-end pb-0 text-left')}>
+              <div className="mb-[clamp(1rem,2.5vw,1.75rem)] flex w-full max-w-[42rem] flex-col items-start gap-[clamp(0.85rem,2vw,1.25rem)]">
+                <h1
+                  className={cn(
+                    oiHeadingClass,
+                    'm-0 mb-0 max-w-6xl text-[clamp(1.75rem,3.333vw,4rem)] leading-[1.1] text-foreground'
+                  )}
+                >
                   Мы выстроили систему автоматизации
                 </h1>
-                {/* <p className="process-hero__lead">
-                  Agyra приносит ясность, а не хаос — объединяем диагностику, проектирование
-                  и внедрение в одну адаптивную систему, которая растёт вместе с бизнесом.
-                </p> */}
-                {/* <PrimaryButton to="/contacts">Обсудить проект</PrimaryButton> */}
               </div>
             </div>
 
-            <div className="process-hero__beams">
-              <div className="process-hero__beams-inner">
+            <div className="absolute inset-x-0 bottom-0 z-0 h-1/2 min-h-0 overflow-hidden">
+              <div className="h-full w-full [&_canvas]:block [&_canvas]:!h-full [&_canvas]:!w-full">
                 <Beams
                   beamWidth={3}
                   beamHeight={30}
@@ -108,9 +125,9 @@ const Process = () => {
           </motion.section>
         </div>
 
-        <main className="process-page__main">
+        <main className="m-0 p-0">
           <section
-            className="site-container process-steps-section page-section"
+            className={cn(siteContainerClass, pageSectionClass, 'mb-[clamp(4rem,8vw,7rem)] pt-[clamp(2.5rem,5vw,4rem)]')}
             id="process-steps"
           >
             <motion.div
@@ -119,12 +136,12 @@ const Process = () => {
               viewport={{ once: true, margin: '-40px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <p className="services-v2-section-label">
-                <span className="services-v2-section-label__slash">/</span>
+              <p className={sectionLabelClass}>
+                <span className={sectionLabelSlashClass}>/</span>
                 <span>Этапы</span>
               </p>
-              <h2 className="services-v2-section-title">Наш процесс работы</h2>
-              <p className="services-v2-process__intro">
+              <h2 className={cn(sectionTitleClass, 'mb-0')}>Наш процесс работы</h2>
+              <p className={cn(processIntroClass, 'mb-[clamp(1.5rem,3vw,2.5rem)]')}>
                 Пять последовательных этапов — от диагностики до масштабирования. Каждый шаг
                 прозрачен: вы понимаете, что делаем, зачем и какой результат получите.
               </p>
@@ -140,20 +157,17 @@ const Process = () => {
             </motion.div>
           </section>
 
-          <section
-            className="site-container pb-20 md:pb-28 page-section"
-            id="process-cta"
-          >
+          <section className={cn(siteContainerClass, pageSectionClass, 'pb-20 md:pb-28')} id="process-cta">
             <motion.div
-              className="services-page-cta"
+              className={pageCtaClass}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={pageReveal(0, !!reducedMotion)}
             >
-              <h2 className="services-page-cta__title">Готовы автоматизировать свой бизнес?</h2>
-              <p className="services-page-cta__text">
-                Запишитесь на бесплатную демо-сессию. За 30 минут покажем, как автоматизация
+              <h2 className={pageCtaTitleClass}>Готовы автоматизировать свой бизнес?</h2>
+              <p className={pageCtaTextClass}>
+                Запишитесь на бесплатную демо-сессию. За 15 минут покажем, как автоматизация
                 решит ваши задачи, и составим индивидуальный план.
               </p>
               <PrimaryButton to="/contacts">Оставить заявку</PrimaryButton>

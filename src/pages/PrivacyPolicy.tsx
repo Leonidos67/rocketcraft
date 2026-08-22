@@ -514,14 +514,14 @@ const PrivacyPolicy = () => {
       
       <main className="pt-40 pb-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
               Политика конфиденциальности
             </h1>
             
             <div className="prose prose-lg max-w-none">
               <section id="general-provisions" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">1. Общие положения</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">1. Общие положения</h2>
                 <p className="text-muted-foreground mb-4">
                   Настоящая политика обработки персональных данных составлена в соответствии с требованиями 
                   Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок 
@@ -531,7 +531,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="personal-data" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">2. Оператор может обрабатывать следующие персональные данные Пользователя</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">2. Оператор может обрабатывать следующие персональные данные Пользователя</h2>
                 <ul className="list-disc pl-6 text-muted-foreground mb-4 space-y-2">
                   <li>Фамилия, имя, отчество</li>
                   <li>Номер телефона</li>
@@ -543,7 +543,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="processing-purposes" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">3. Цели обработки персональных данных</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">3. Цели обработки персональных данных</h2>
                 <ul className="list-disc pl-6 text-muted-foreground mb-4 space-y-2">
                   <li>Информирование Пользователя посредством отправки электронных писем</li>
                   <li>Заключение, исполнение и прекращение гражданско-правовых договоров</li>
@@ -552,7 +552,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="legal-basis" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">4. Правовые основания обработки персональных данных</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">4. Правовые основания обработки персональных данных</h2>
                 <ul className="list-disc pl-6 text-muted-foreground mb-4 space-y-2">
                   <li>Федеральный закон "Об информации, информационных технологиях и о защите информации"</li>
                   <li>Федеральный закон "О персональных данных"</li>
@@ -561,7 +561,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="processing-principles" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">5. Принципы обработки персональных данных</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">5. Принципы обработки персональных данных</h2>
                 <ul className="list-disc pl-6 text-muted-foreground mb-4 space-y-2">
                   <li>Обработка персональных данных осуществляется на законной и справедливой основе</li>
                   <li>Обработка персональных данных ограничивается достижением конкретных, заранее определенных и законных целей</li>
@@ -570,7 +570,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="processing-conditions" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">6. Условия обработки персональных данных</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">6. Условия обработки персональных данных</h2>
                 <p className="text-muted-foreground mb-4">
                   Обработка персональных данных осуществляется с согласия субъекта персональных данных на обработку 
                   его персональных данных, а также без такового в случаях, предусмотренных законодательством.
@@ -578,7 +578,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="data-storage" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">7. Порядок сбора, хранения, передачи и других видов обработки персональных данных</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">7. Порядок сбора, хранения, передачи и других видов обработки персональных данных</h2>
                 <p className="text-muted-foreground mb-4">
                   Безопасность персональных данных, которые обрабатываются Оператором, обеспечивается путем реализации 
                   правовых, организационных и технических мер, необходимых для выполнения в полном объеме требований 
@@ -587,7 +587,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section id="final-provisions" className="mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">8. Заключительные положения</h2>
+                <h2 className="text-3xl font-semibold text-foreground mb-4">8. Заключительные положения</h2>
                 <ul className="list-disc pl-6 text-muted-foreground mb-4 space-y-2">
                   <li>Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных</li>
                   <li>В данном документе будут отражены любые изменения политики обработки персональных данных Оператором</li>

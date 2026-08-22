@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import FooterPartners from '@/components/FooterPartners';
 import FooterFaq from '@/components/FooterFaq';
+import { siteContainerClass } from '@/lib/layoutStyles';
+import { cn } from '@/lib/utils';
 
 interface FooterServiceCard {
   label: string;
@@ -48,33 +50,52 @@ const serviceCards: FooterServiceCard[] = [
   },
 ];
 
+const cardIconClassName =
+  'absolute top-[clamp(1rem,2vw,1.5rem)] right-[clamp(1rem,2vw,1.5rem)] z-[1] h-[clamp(1.75rem,2.5vw,2.25rem)] w-[clamp(1.75rem,2.5vw,2.25rem)] object-contain text-white opacity-95 transition-colors duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:text-black';
+
+const cardHoverClasses = [
+  'hover:border-transparent hover:bg-sky-400/80',
+  'hover:border-transparent hover:bg-violet-400/80',
+  'hover:border-transparent hover:bg-emerald-400/80',
+  'hover:border-transparent hover:bg-amber-400/80',
+  'hover:border-transparent hover:bg-rose-400/80',
+] as const;
+
+const cardEdgeClasses = [
+  'rounded-tl-none rounded-bl-none border-l-0',
+  '',
+  '',
+  '',
+  'rounded-tr-none rounded-br-none border-r-0',
+] as const;
+
 const footerSvgIcons = {
   automation: () => (
-  <svg
-    className="site-footer__card-icon"
-    width="492"
-    height="512"
-    viewBox="0 0 492 512"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <g fill="currentColor" fillOpacity="1">
-      <path d="M 126 186 L 246 186 L 246 186 L 246 286 A 100 100 0 0 1 146 386 L 146 386 A 100 100 0 0 1 26 286 L 26 286 A 100 100 0 0 1 126 186 Z" />
-      <path d="M 46 266 L 246 266 L 246 266 L 246 466 A 20 20 0 0 1 226 486 L 46 486 A 20 20 0 0 1 26 466 L 26 286 A 20 20 0 0 1 46 266 Z" />
-      <path d="M 346 136 L 366 136 A 100 100 0 0 1 466 236 L 466 236 A 100 100 0 0 1 366 336 L 246 336 L 246 336 L 246 236 A 100 100 0 0 1 346 136 Z" />
-      <path d="M 266 26 L 446 26 A 20 20 0 0 1 466 46 L 466 226 A 20 20 0 0 1 446 246 L 246 246 L 246 246 L 246 46 A 20 20 0 0 1 266 26 Z" />
-      <path d="M 246 456 C 246 366 270 336 366 336 H 246 Z" />
-      <path d="M 246 266 C 246 251 250 246 266 246 H 246 Z" />
-      <path d="M 246 356 C 246 341 250 336 266 336 H 246 Z" />
-      <path d="M 246 66 C 246 156 222 186 126 186 H 246 Z" />
-      <path d="M 246 246 C 246 261 242 266 226 266 H 246 Z" />
-      <path d="M 246 166 C 246 181 242 186 226 186 H 246 Z" />
-    </g>
-  </svg>
+    <svg
+      className={cardIconClassName}
+      width="492"
+      height="512"
+      viewBox="0 0 492 512"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <g fill="currentColor" fillOpacity="1">
+        <path d="M 126 186 L 246 186 L 246 186 L 246 286 A 100 100 0 0 1 146 386 L 146 386 A 100 100 0 0 1 26 286 L 26 286 A 100 100 0 0 1 126 186 Z" />
+        <path d="M 46 266 L 246 266 L 246 266 L 246 466 A 20 20 0 0 1 226 486 L 46 486 A 20 20 0 0 1 26 466 L 26 286 A 20 20 0 0 1 46 266 Z" />
+        <path d="M 346 136 L 366 136 A 100 100 0 0 1 466 236 L 466 236 A 100 100 0 0 1 366 336 L 246 336 L 246 336 L 246 236 A 100 100 0 0 1 346 136 Z" />
+        <path d="M 266 26 L 446 26 A 20 20 0 0 1 466 46 L 466 226 A 20 20 0 0 1 446 246 L 246 246 L 246 246 L 246 46 A 20 20 0 0 1 266 26 Z" />
+        <path d="M 246 456 C 246 366 270 336 366 336 H 246 Z" />
+        <path d="M 246 266 C 246 251 250 246 266 246 H 246 Z" />
+        <path d="M 246 356 C 246 341 250 336 266 336 H 246 Z" />
+        <path d="M 246 66 C 246 156 222 186 126 186 H 246 Z" />
+        <path d="M 246 246 C 246 261 242 266 226 266 H 246 Z" />
+        <path d="M 246 166 C 246 181 242 186 226 186 H 246 Z" />
+      </g>
+    </svg>
   ),
   bots: () => (
     <svg
-      className="site-footer__card-icon"
+      className={cardIconClassName}
       width="952"
       height="602"
       viewBox="0 0 952 602"
@@ -91,7 +112,7 @@ const footerSvgIcons = {
   ),
   integrations: () => (
     <svg
-      className="site-footer__card-icon"
+      className={cardIconClassName}
       width="502"
       height="502"
       viewBox="0 0 502 502"
@@ -108,7 +129,7 @@ const footerSvgIcons = {
   ),
   analytics: () => (
     <svg
-      className="site-footer__card-icon"
+      className={cardIconClassName}
       width="332"
       height="412"
       viewBox="0 0 332 412"
@@ -128,7 +149,7 @@ const footerSvgIcons = {
   ),
   crm: () => (
     <svg
-      className="site-footer__card-icon"
+      className={cardIconClassName}
       width="502"
       height="352"
       viewBox="0 0 502 352"
@@ -149,63 +170,91 @@ const footerSvgIcons = {
 } as const;
 
 const navLinks = [
-  { label: 'Кейсы', to: '/cases' },
+  // { label: 'Кейсы', to: '/cases' },
   { label: 'Услуги', to: '/services' },
   { label: 'Процесс', to: '/process' },
-  { label: 'Команда', to: '/team' },
-  { label: 'Блог', href: 'https://blog.agyra.ru' },
+  // { label: 'Команда', to: '/team' },
+  // { label: 'Блог', href: 'https://blog.agyra.ru' },
   { label: 'Контакты', to: '/contacts' },
 ];
 
 const Footer = () => {
   return (
-    <footer className="site-footer">
-      <div className="site-container site-footer__panels">
-        <FooterPartners />
-        <FooterFaq />
-      </div>
+    <>
+      {/* <FooterPartners /> */}
+      <FooterFaq />
 
-      <div className="site-footer__core">
-        <div className="site-footer__cards-wrap">
-          <ul className="site-footer__cards" role="list">
-            {serviceCards.map((card) => (
-              <li key={card.label}>
-                <Link to={card.to} className="site-footer__card">
-                  <span className="site-footer__card-bg-letter" aria-hidden="true">
+      <footer
+        className={cn(
+          'flex flex-col gap-[var(--site-frame-gap)] overflow-hidden rounded-[var(--site-section-radius)] bg-black text-white',
+          '[&_a]:text-inherit [&_a]:no-underline'
+        )}
+      >
+
+        <div className="bg-black pb-[clamp(1.5rem,3vw,2rem)] text-white">
+        <div className="mb-[clamp(3rem,6vw,5rem)] w-full max-w-none p-0">
+          <ul className="m-0 flex list-none flex-wrap gap-0 p-0" role="list">
+            {serviceCards.map((card, index) => (
+              <li
+                key={card.label}
+                className="box-border m-0 w-1/2 p-0 md:w-1/3 xl:w-1/5"
+              >
+                <Link
+                  to={card.to}
+                  className={cn(
+                    'group relative box-border flex w-full min-h-[clamp(9rem,18vw,13.5rem)] flex-col justify-end overflow-hidden rounded-2xl border border-white/90 bg-black p-[clamp(1.25rem,2.2vw,1.75rem)] transition-[background-color,border-color] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]',
+                    cardEdgeClasses[index],
+                    cardHoverClasses[index]
+                  )}
+                >
+                  <span
+                    className="pointer-events-none absolute inset-y-0 left-0 z-0 flex translate-x-[-0.06em] select-none items-end font-sans text-[clamp(6.5rem,14vw,11.5rem)] font-bold leading-[0.82] tracking-[-0.04em] text-white/[0.26] [text-shadow:0_2px_24px_rgb(0_0_0/0.45)]"
+                    aria-hidden="true"
+                  >
                     {card.bgLetter}
                   </span>
                   {footerSvgIcons[card.iconSvg]()}
-                  <span className="site-footer__card-label">{card.label}</span>
+                  <span className="relative z-[1] max-w-[12ch] text-[clamp(1.125rem,1.6vw,1.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]">
+                    {card.label}
+                  </span>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div className="site-footer__shell">
-          <div className="site-footer__main">
-            <div className="site-footer__aside">
-              <p className="site-footer__aside-label">Agyra is powered by IX.Studio</p>
+        <div className={siteContainerClass}>
+          <div className="grid grid-cols-1 gap-8 pb-10 md:grid-cols-[1fr_1fr_1.2fr] md:items-start md:gap-12 md:pb-16">
+            <div>
+              <p className="mb-2 text-sm leading-normal text-white/[0.72]">
+                Agyra is powered by IX.Studio
+              </p>
               <a
                 href="https://ixora-studio.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="site-footer__aside-link"
+                className="inline-flex items-center gap-1.5 text-[clamp(1.125rem,1.5vw,1.5rem)] font-semibold leading-[1.2] transition-opacity duration-200 hover:opacity-75"
               >
                 IXORA STUDIO
-                <ArrowUpRight className="site-footer__aside-arrow" aria-hidden="true" />
+                <ArrowUpRight className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden="true" />
               </a>
             </div>
 
-            <nav className="site-footer__nav" aria-label="Навигация в подвале">
-              <ul role="list">
+            <nav aria-label="Навигация в подвале">
+              <ul className="m-0 flex list-none flex-col gap-2.5 p-0" role="list">
                 {navLinks.map((link) => (
                   <li key={link.label}>
                     {'href' in link ? (
-                      <a href={link.href} className="site-footer__nav-link">
+                      <a
+                        href={link.href}
+                        className="text-[clamp(1.125rem,1.5vw,1.5rem)] font-semibold leading-[1.2] transition-opacity duration-200 hover:opacity-75"
+                      >
                         {link.label}
                       </a>
                     ) : (
-                      <Link to={link.to} className="site-footer__nav-link">
+                      <Link
+                        to={link.to}
+                        className="text-[clamp(1.125rem,1.5vw,1.5rem)] font-semibold leading-[1.2] transition-opacity duration-200 hover:opacity-75"
+                      >
                         {link.label}
                       </Link>
                     )}
@@ -214,25 +263,25 @@ const Footer = () => {
               </ul>
             </nav>
 
-            <div className="site-footer__contact">
-              {/* <a href="mailto:hello@agyra.ru" className="site-footer__contact-line">
-                hello@agyra.ru
-              </a> */}
-              <a href="tel:+79303811111" className="site-footer__contact-line">
+            <div>
+              <a
+                href="tel:+79303811111"
+                className="mb-1.5 block text-[clamp(1.125rem,1.5vw,1.5rem)] font-semibold leading-[1.3] transition-opacity duration-200 hover:opacity-75"
+              >
                 +7 (930) 381-11-11
               </a>
-              <address className="site-footer__address">
+              <address className="mb-6 mt-5 flex flex-col gap-0.5 text-[0.9375rem] not-italic leading-normal text-white/[0.78]">
                 <span>Agyra</span>
                 <span>Автоматизация и ИИ для бизнеса</span>
                 <span>Россия</span>
               </address>
 
-              <div className="site-footer__socials">
+              <div className="flex flex-wrap gap-2.5">
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="site-footer__social"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[hsl(217_100%_86%/0.9)] bg-[hsl(217_100%_86%/0.9)] text-black transition-[transform,background-color,color] duration-200 hover:scale-105 hover:bg-transparent hover:text-white [&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]"
                   aria-label="Instagram"
                 >
                   <Instagram aria-hidden="true" />
@@ -241,16 +290,16 @@ const Footer = () => {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="site-footer__social"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[hsl(217_100%_86%/0.9)] bg-[hsl(217_100%_86%/0.9)] text-black transition-[transform,background-color,color] duration-200 hover:scale-105 hover:bg-transparent hover:text-white [&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]"
                   aria-label="LinkedIn"
                 >
                   <Linkedin aria-hidden="true" />
                 </a>
                 <a
-                  href="https://t.me"
+                  href="https://t.me/agyraru"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="site-footer__social"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[hsl(217_100%_86%/0.9)] bg-[hsl(217_100%_86%/0.9)] text-black transition-[transform,background-color,color] duration-200 hover:scale-105 hover:bg-transparent hover:text-white [&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]"
                   aria-label="Telegram"
                 >
                   <Send aria-hidden="true" />
@@ -258,24 +307,25 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="site-footer__bottom">
-            <div className="site-footer__legal">
-              <Link to="/privacy-policy" className="site-footer__legal-link">
+          <div className="flex flex-col gap-4 border-t border-white/15 pt-6 text-[0.8125rem] leading-normal text-white/[0.62] lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+            <div className="flex flex-wrap gap-x-5 gap-y-3">
+              <Link to="/privacy-policy" className="transition-colors duration-200 hover:text-white">
                 Политика конфиденциальности
               </Link>
-              <Link to="/privacy-policy" className="site-footer__legal-link">
+              <Link to="/privacy-policy" className="transition-colors duration-200 hover:text-white">
                 Условия использования
               </Link>
             </div>
 
-            <div className="site-footer__credits">
+            <div className="flex flex-wrap gap-x-5 gap-y-3">
               <span>Дизайн: Ixora Studio</span>
               <span>© {new Date().getFullYear()} Agyra</span>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
+        </div>
+      </footer>
+    </>
   );
 };
 
