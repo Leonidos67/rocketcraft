@@ -2,6 +2,27 @@ export type SaasThemeMode = 'light' | 'dark';
 
 export type SaasAccentId = 'blue' | 'violet' | 'orange' | 'mint';
 
+export type PreviewSectionId = 'saas' | 'bots';
+
+export interface PreviewSection {
+  id: PreviewSectionId;
+  label: string;
+  description: string;
+}
+
+export const previewSections: PreviewSection[] = [
+  {
+    id: 'saas',
+    label: 'SaaS',
+    description: 'Кабинеты и веб-приложения под ваш бренд',
+  },
+  {
+    id: 'bots',
+    label: 'Боты',
+    description: 'Шаблоны Telegram-ботов с живым диалогом',
+  },
+];
+
 export interface SaasAccentOption {
   id: SaasAccentId;
   label: string;
@@ -30,6 +51,12 @@ export const saasHowItWorks = [
   'Оставляете заявку — адаптируем под ваш бизнес за 2–4 недели',
 ] as const;
 
+export const botHowItWorks = [
+  'Вы вводите бренд — он появляется в шапке бота',
+  'Проходите сценарий как клиент: кнопки и ответы бота',
+  'Оставляете заявку — настраиваем тексты, кнопки и интеграции под вас',
+] as const;
+
 export const saasMvpIncludes = [
   '3–5 основных экранов',
   'Адаптация под ваш бренд',
@@ -38,8 +65,17 @@ export const saasMvpIncludes = [
   '1 мес. поддержки после запуска',
 ] as const;
 
+export const botMvpIncludes = [
+  'Сценарий диалога и кнопки',
+  'Адаптация текстов под ваш бренд',
+  'Приём заявок в Telegram / CRM',
+  'Напоминания (для ботов записи)',
+  '2 недели поддержки после запуска',
+] as const;
+
 export interface SaasPreviewItem {
   id: string;
+  section: PreviewSectionId;
   title: string;
   category: string;
   description: string;
@@ -64,6 +100,7 @@ export interface SaasPreviewItem {
 export const saasPreviewCatalog: SaasPreviewItem[] = [
   {
     id: 'booking',
+    section: 'saas',
     title: 'Запись',
     category: 'Салон',
     description: 'Онлайн-запись к мастерам для бьюти и SPA.',
@@ -87,6 +124,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
   },
   {
     id: 'finance',
+    section: 'saas',
     title: 'Фин. учет',
     category: 'Финансы',
     description: 'Выручка, показатели и финансовый контроль под вашим брендом.',
@@ -114,6 +152,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
   },
   {
     id: 'crm',
+    section: 'saas',
     title: 'CRM',
     category: 'Продажи',
     description: 'Воронка продаж и управление сделками для менеджеров.',
@@ -194,6 +233,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
   },
   {
     id: 'support',
+    section: 'saas',
     title: 'Чат',
     category: 'Сервис',
     description: 'Виджет на сайте + кабинет всех обращений.',
@@ -219,6 +259,108 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
       { id: 'ai', label: 'ИИ', page: 'ai' },
     ],
   },
+  {
+    id: 'bot-booking',
+    section: 'bots',
+    title: 'Бот записи',
+    category: 'Telegram',
+    description: 'Клиент выбирает услугу, мастера и слот прямо в Telegram.',
+    longDescription:
+      'Шаблон Telegram-бота для салонов и студий: услуга → мастер → время → подтверждение. Напоминания перед визитом, перенос и отмена в том же чате. Бренд в названии бота — ваш.',
+    audience: 'салонов, барбершопов, клиник и студий с записью',
+    whatsInside: [
+      'Сценарий записи с кнопками',
+      'Выбор услуги, мастера и слота',
+      'Подтверждение и напоминание',
+      'Сброс сценария для повторной записи',
+    ],
+    howItWorks: [...botHowItWorks],
+    mvpTitle: 'Что включено в MVP бота',
+    mvpIncludes: [...botMvpIncludes],
+    appLabel: 'TG Booking',
+    previewBg: '#0e1621',
+    theme: 'dark',
+    tags: ['Telegram', 'Запись'],
+    priceFrom: 'от 25 000 ₽',
+    priceNote: 'MVP за 1–2 недели',
+    livePath: '/saas/bot-booking',
+    demoPages: [
+      {
+        id: 'chat',
+        label: 'Диалог',
+        page: 'chat',
+        caption: 'Нажимайте кнопки бота — сценарий записи проходит как у живого клиента.',
+      },
+    ],
+  },
+  {
+    id: 'bot-faq',
+    section: 'bots',
+    title: 'FAQ-бот',
+    category: 'Telegram',
+    description: 'Ответы на частые вопросы 24/7 и перевод на менеджера.',
+    longDescription:
+      'Бот поддержки: часы работы, цены, адрес и эскалация на человека. Снимает нагрузку с администратора и не теряет обращения ночью и в выходные.',
+    audience: 'локального бизнеса, клиник, магазинов и сервисов с типовыми вопросами',
+    whatsInside: [
+      'Меню частых вопросов',
+      'Готовые ответы с возвратом в меню',
+      'Кнопка «Связаться с менеджером»',
+      'Лёгкая адаптация текстов под бренд',
+    ],
+    howItWorks: [...botHowItWorks],
+    mvpTitle: 'Что включено в MVP бота',
+    mvpIncludes: [...botMvpIncludes],
+    appLabel: 'TG FAQ',
+    previewBg: '#122018',
+    theme: 'dark',
+    tags: ['Telegram', 'Поддержка'],
+    priceFrom: 'от 20 000 ₽',
+    priceNote: 'MVP за 5–10 дней',
+    livePath: '/saas/bot-faq',
+    demoPages: [
+      {
+        id: 'chat',
+        label: 'Диалог',
+        page: 'chat',
+        caption: 'Пройдите меню FAQ: ответы и эскалация на менеджера.',
+      },
+    ],
+  },
+  {
+    id: 'bot-leads',
+    section: 'bots',
+    title: 'Бот заявок',
+    category: 'Telegram',
+    description: 'Короткий квиз: задача → бюджет → заявка на звонок.',
+    longDescription:
+      'Квиз-бот для сбора лидов: клиент выбирает задачу и бюджет, оставляет контакт. Заявка уходит менеджеру. Удобно для сайтов, рекламы и прогрева в Telegram.',
+    audience: 'агентств, студий и компаний, которым нужны лиды из Telegram',
+    whatsInside: [
+      'Квиз из 2–3 шагов',
+      'Ветки под сайт / бот / CRM',
+      'Кнопка «Перезвоните»',
+      'Готовый каркас под ваш оффер',
+    ],
+    howItWorks: [...botHowItWorks],
+    mvpTitle: 'Что включено в MVP бота',
+    mvpIncludes: [...botMvpIncludes],
+    appLabel: 'TG Leads',
+    previewBg: '#1a1210',
+    theme: 'dark',
+    tags: ['Telegram', 'Лиды'],
+    priceFrom: 'от 22 000 ₽',
+    priceNote: 'MVP за 1–2 недели',
+    livePath: '/saas/bot-leads',
+    demoPages: [
+      {
+        id: 'chat',
+        label: 'Диалог',
+        page: 'chat',
+        caption: 'Пройдите квиз до заявки — так клиент оставляет контакт в боте.',
+      },
+    ],
+  },
 ];
 
 export const getSaasPreviewItem = (id: string): SaasPreviewItem | undefined =>
@@ -226,3 +368,6 @@ export const getSaasPreviewItem = (id: string): SaasPreviewItem | undefined =>
 
 export const isSaasPreviewId = (id: string): boolean =>
   saasPreviewCatalog.some((item) => item.id === id);
+
+export const getPreviewItemsBySection = (section: PreviewSectionId) =>
+  saasPreviewCatalog.filter((item) => item.section === section);

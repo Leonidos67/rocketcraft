@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import {
   BarChart3,
@@ -20,6 +20,8 @@ import CrmDashboardPrototype from '@/pages/saas/CrmDashboardPrototype';
 import CrmSalesPrototype from '@/pages/saas/CrmSalesPrototype';
 import SalonBookingPrototype from '@/pages/saas/SalonBookingPrototype';
 import SupportPrototype from '@/pages/saas/SupportPrototype';
+import TelegramBotPrototype from '@/pages/bots/TelegramBotPrototype';
+import { isTelegramBotDemoId } from '@/data/telegramBotDemos';
 
 const tickets = [
   {
@@ -99,6 +101,10 @@ const SaasPrototypeApp = () => {
   );
 
   const activeTicket = tickets.find((ticket) => ticket.id === activeTicketId) ?? tickets[0];
+
+  if (isTelegramBotDemoId(saasId)) {
+    return <TelegramBotPrototype />;
+  }
 
   if (saasId === 'booking') {
     return (

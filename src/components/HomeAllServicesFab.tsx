@@ -27,8 +27,8 @@ const fabTextClass = cn(
 
 const HomeAllServicesFab = () => (
   <div className={fabShellClass}>
-    <Link to="/services" className={fabLinkClass}>
-      <span className={fabTextClass}>Все работы</span>
+    <Link to="/services/websites" className={fabLinkClass}>
+      <span className={fabTextClass}>Сайты</span>
     </Link>
   </div>
 );

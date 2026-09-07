@@ -22,9 +22,10 @@ import { Globe } from '@/components/ui/globe';
 import DottedMapSection from '@/components/ui/dotted-map-section';
 import HomeAllServicesFab from '@/components/HomeAllServicesFab';
 import PageLoader from '@/components/PageLoader';
-import { footerPageSections } from '@/data/pageSections/footer';
+import { homePageSections } from '@/data/pageSections/home';
 import {
   btnSmSecondaryClass,
+  pageSectionClass,
   siteCanvasClass,
   siteContainerClass,
   siteSectionClass,
@@ -164,18 +165,14 @@ const sections = [
   },
 ];
 
-const heroBaseText = 'Ваш бизнес, который ';
+const heroBaseText = 'Сайты для локального бизнеса, которые ';
 const heroTexts = [
-  'не требует контроля',
-  'привлекает клиентов сам',
-  'продаёт, пока вы отдыхаете',
-  'не теряет заявки и заказы',
-  'экономит время и деньги',
-  'растёт без хаоса и рутины',
-  'работает чётко, как система',
-  'работает на автопилоте',
-  'впечатляет клиентов сервисом',
-  // 'объединяет все процессы в одном месте',
+  'приводят клиентов из поиска',
+  'принимают запись онлайн',
+  'работают вместо визитки в Instagram',
+  'собирают заявки 24/7',
+  'окупаются с первых записей',
+  'запускаются за 2–3 недели',
 ];
 
 const Index = () => {
@@ -351,7 +348,9 @@ const Index = () => {
         {/* Hero + карта */}
         <div className="relative">
         <section
+          id="home-hero"
           className={cn(
+            pageSectionClass,
             'relative box-border flex flex-col justify-end pb-[clamp(1.5rem,4vw,6rem)] max-md:pb-5',
             heroHeightClass,
           )}
@@ -360,7 +359,7 @@ const Index = () => {
             <div className="max-w-5xl">
               <h1 className={cn(heroTextClass, 'text-left mb-[clamp(1rem,2.5vw,2rem)] max-md:mb-3')}>
                 <span className="block">
-                  Автоматизируем ваш бизнес, который
+                  Сайты для локального бизнеса, которые
                 </span>
                 <span className={cn('mt-2 block', heroTextClass)}>
                   {displayedText}
@@ -374,28 +373,28 @@ const Index = () => {
                   'text-left mb-[clamp(1.25rem,3vw,2.5rem)] max-md:mb-[1.125rem]',
                 )}
               >
-                Telegram-боты, CRM, интеграции и рассылки под ключ.
-                Увеличьте поток клиентов и упростите процессы.
+                Визитка, лендинг или сайт с онлайн-записью для салонов, клиник и кафе.
+                Запуск обычно за 2–3 недели — от 25 000 ₽.
               </p>
 
               <div className={heroActionsClass}>
-                <PrimaryButton to="/services" className={heroPrimaryButtonClass}>
-                  К услугам
+                <PrimaryButton to="/services/websites" className={heroPrimaryButtonClass}>
+                  Смотреть сайты
                 </PrimaryButton>
-                <Link to="/cases" className={heroBtnSmSecondaryClass}>
-                  Наши работы
+                <Link to="/product-preview" className={heroBtnSmSecondaryClass}>
+                  Демо записи
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        <div className="relative">
+        <div id="home-map" className={cn('relative', pageSectionClass)}>
           <DottedMapSection />
           <HomeAllServicesFab />
         </div>
 
-        <ServiceStackSection />
+        <ServiceStackSection id="home-services" className={pageSectionClass} />
         </div>
       </div>
 
@@ -574,21 +573,22 @@ const Index = () => {
         </section> */}
 
         {/* CTA Section */}
-        <section className={cn(siteSectionClass, 'py-20')}>
+        <section id="home-cta" className={cn(siteSectionClass, pageSectionClass, 'py-20')}>
           <div className={siteContainerClass}>
             <div className="p-10 md:p-16 bg-sm-grey-light rounded-3xl border border-border text-center">
               <h2 className={textCtaTitleClass}>
-                Начните автоматизацию уже сегодня
+                Получите расчёт сайта для вашей точки
               </h2>
               <p className={textCtaDescriptionClass}>
-                Запустите свой первый бот за 48 часов и увидите результаты уже на следующей неделе
+                Напишите нишу и город — предложим пакет, срок и ориентир по цене.
+                Или сразу посмотрите демо онлайн-записи.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <PrimaryButton to="/contacts">
-                  Начать бесплатно
+                  Получить расчёт
                 </PrimaryButton>
-                <Link to="/services" className={btnSmSecondaryClass}>
-                  Смотреть услуги
+                <Link to="/product-preview" className={btnSmSecondaryClass}>
+                  Демо записи
                 </Link>
               </div>
             </div>
@@ -596,7 +596,7 @@ const Index = () => {
         </section>
 
         <Footer />
-        <PageSectionNav sections={footerPageSections} reducedMotion={!!reducedMotion} />
+        <PageSectionNav sections={homePageSections} reducedMotion={!!reducedMotion} />
     </div>
   );
 };

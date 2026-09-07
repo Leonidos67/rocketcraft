@@ -196,7 +196,34 @@ const DeviceMockup = ({
             </div>
           )}
 
-          {!['booking', 'finance', 'crm', 'support'].includes(item.id) && (
+          {item.section === 'bots' && (
+            <div className="flex min-h-0 flex-1 flex-col gap-1.5">
+              <div className="mb-1 flex items-center gap-1.5">
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#2AABEE] text-[0.5rem]">
+                  ✈
+                </div>
+                <div className={cn('h-1.5 w-16 rounded-full', surfaceStrong)} />
+              </div>
+              <div className="flex justify-start">
+                <div className="max-w-[82%] rounded-2xl rounded-bl-md bg-[#182533] px-2 py-1.5">
+                  <div className="mb-1 h-1.5 w-20 rounded-full bg-white/25" />
+                  <div className="h-1.5 w-12 rounded-full bg-white/15" />
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div className="max-w-[70%] rounded-2xl rounded-br-md bg-[#2b5278] px-2 py-1.5">
+                  <div className="h-1.5 w-14 rounded-full bg-white/35" />
+                </div>
+              </div>
+              <div className="mt-auto grid grid-cols-2 gap-1">
+                <div className="h-5 rounded-lg bg-[#2b3a4a]" />
+                <div className="h-5 rounded-lg bg-[#2b3a4a]" />
+              </div>
+            </div>
+          )}
+
+          {!['booking', 'finance', 'crm', 'support'].includes(item.id) &&
+            item.section !== 'bots' && (
             <div className="grid min-h-0 flex-1 grid-cols-2 gap-1.5">
               {[64, 42, 52, 36].map((h, index) => (
                 <div

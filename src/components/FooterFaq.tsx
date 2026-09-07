@@ -4,10 +4,10 @@ import { siteSectionClass, pageSectionClass } from '@/lib/layoutStyles';
 import { cn } from '@/lib/utils';
 
 const footerStats = [
-  { value: '5+', label: 'Направлений услуг' },
-  { value: '>10', label: 'Реализованных кейса' },
-  { value: '~7', label: 'Дней до запуска' },
-  { value: '100%', label: 'Довольных клиентов' },
+  { value: '3', label: 'Пакета сайтов' },
+  { value: 'от 25к', label: 'Старт визитки' },
+  { value: '2–3', label: 'Недели до запуска' },
+  { value: '24/7', label: 'Заявки с сайта' },
 ];
 
 const FooterFaq = () => {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, Pencil, X } from 'lucide-react';
 import GradualBlur from '@/components/ui/GradualBlur';
 import { SaasPreviewCard } from '@/components/SaasPreviewCard';
-import { saasPreviewCatalog } from '@/data/saasPreviewCatalog';
+import { saasPreviewCatalog, previewSections, type PreviewSectionId } from '@/data/saasPreviewCatalog';
 import {
   readProductPreviewCompany,
   saveProductPreviewCompany,
@@ -14,6 +14,16 @@ import {
   sendTelegramLead,
 } from '@/lib/telegramLead';
 import { cn } from '@/lib/utils';
+
+type CatalogSectionFilter = 'all' | PreviewSectionId;
+
+const catalogFilters: { id: CatalogSectionFilter; label: string; description: string }[] = [
+  {
+    id: 'all',
+    label: 'Все',
+  },
+  ...previewSections,
+];
 
 const emptyCompany: ProductPreviewCompany = {
   companyName: '',
@@ -60,6 +70,7 @@ const ProductPreview = () => {
   const [step, setStep] = useState<'form' | 'catalog'>('form');
   const [form, setForm] = useState<ProductPreviewCompany>(emptyCompany);
   const [error, setError] = useState('');
+  const [section, setSection] = useState<CatalogSectionFilter>('all');
 
   useEffect(() => {
     document.title = 'Превью вашего продукта — Agyra';
@@ -135,7 +146,7 @@ const ProductPreview = () => {
               className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border-none bg-white/70 px-3 text-sm font-medium text-black/55 transition-colors hover:bg-white hover:text-black"
             >
               <Pencil className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Изменить</span>
+              <span className="hidden sm:inline">Изменить данные</span>
             </button>
           )}
           <Link
@@ -152,10 +163,10 @@ const ProductPreview = () => {
         {step === 'form' ? (
           <section className="mx-auto flex min-h-full w-full max-w-md flex-col justify-center py-8">
             <h1 className="m-0 mb-2 text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold leading-[1.15] tracking-[-0.03em] sm:mb-3">
-              Ваш продукт в наших SaaS
+              Ваш продукт в наших решениях
             </h1>
             <p className="m-0 mb-6 text-sm leading-relaxed text-black/50 sm:mb-8 sm:text-[0.9375rem]">
-              Введите название вашего бренда — оно появится в интерфейсе. Так вы увидите, как будет выглядеть ваш продукт.
+              Введите название бренда — оно появится в SaaS и Telegram-ботах. Так вы увидите, как будет выглядеть ваш продукт.
             </p>
 
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
@@ -219,6 +230,44 @@ const ProductPreview = () => {
               <CatalogLaunchVideo />
             </div>
 
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <div className="inline-flex w-fit flex-wrap justify-center gap-1 rounded-full bg-white p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                {catalogFilters.map((entry) => {
+                  const active = section === entry.id;
+                  const count =
+                    entry.id === 'all'
+                      ? saasPreviewCatalog.length
+                      : saasPreviewCatalog.filter((item) => item.section === entry.id).length;
+                  return (
+                    <button
+                      key={entry.id}
+                      type="button"
+                      onClick={() => setSection(entry.id)}
+                      className={cn(
+                        'inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full border-none px-3 text-xs font-semibold transition-colors',
+                        active
+                          ? 'bg-black/[0.08] text-black'
+                          : 'bg-transparent text-black/55 hover:text-black',
+                      )}
+                    >
+                      {entry.label}
+                      <span
+                        className={cn(
+                          'rounded-full px-1.5 py-0 text-[0.625rem] font-medium leading-4',
+                          active ? 'bg-black/[0.08] text-black/55' : 'text-black/40',
+                        )}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="m-0 text-center text-sm text-black/45">
+                {catalogFilters.find((entry) => entry.id === section)?.description}
+              </p>
+            </div>
+
             <div
               className={cn(
                 'flex items-stretch gap-3 overflow-x-auto',
@@ -226,18 +275,20 @@ const ProductPreview = () => {
                 '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
               )}
             >
-              {saasPreviewCatalog.map((item) => (
-                <div
-                  key={item.id}
-                  className="w-[min(78vw,22rem)] shrink-0 snap-center sm:w-auto sm:min-w-0"
-                >
-                  <SaasPreviewCard
-                    item={item}
-                    productName={form.productName}
-                    onOpen={() => navigate(`/product-preview/${item.id}`)}
-                  />
-                </div>
-              ))}
+              {saasPreviewCatalog
+                .filter((item) => section === 'all' || item.section === section)
+                .map((item) => (
+                  <div
+                    key={item.id}
+                    className="w-[min(78vw,22rem)] shrink-0 snap-center sm:w-auto sm:min-w-0"
+                  >
+                    <SaasPreviewCard
+                      item={item}
+                      productName={form.productName}
+                      onOpen={() => navigate(`/product-preview/${item.id}`)}
+                    />
+                  </div>
+                ))}
             </div>
           </section>
         )}

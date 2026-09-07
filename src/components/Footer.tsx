@@ -13,11 +13,17 @@ import { cn } from '@/lib/utils';
 interface FooterServiceCard {
   label: string;
   to: string;
-  iconSvg: 'automation' | 'bots' | 'integrations' | 'analytics' | 'crm';
+  iconSvg: 'websites' | 'automation' | 'bots' | 'integrations' | 'crm';
   bgLetter: string;
 }
 
 const serviceCards: FooterServiceCard[] = [
+  {
+    label: 'Сайты',
+    to: '/services/websites',
+    iconSvg: 'websites',
+    bgLetter: 'S',
+  },
   {
     label: 'Автоматизация',
     to: '/services/automation',
@@ -37,16 +43,10 @@ const serviceCards: FooterServiceCard[] = [
     bgLetter: 'Y',
   },
   {
-    label: 'AI и аналитика',
-    to: '/services/ai',
-    iconSvg: 'analytics',
-    bgLetter: 'R',
-  },
-  {
     label: 'CRM',
     to: '/services/crm',
     iconSvg: 'crm',
-    bgLetter: 'A',
+    bgLetter: 'C',
   },
 ];
 
@@ -70,6 +70,32 @@ const cardEdgeClasses = [
 ] as const;
 
 const footerSvgIcons = {
+  websites: () => (
+    <svg
+      className={cardIconClassName}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect
+        x="3"
+        y="4"
+        width="18"
+        height="14"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="currentColor"
+        fillOpacity="0.2"
+      />
+      <path d="M3 9h18" stroke="currentColor" strokeWidth="2" />
+      <circle cx="7" cy="6.5" r="0.9" fill="currentColor" />
+      <circle cx="10" cy="6.5" r="0.9" fill="currentColor" />
+    </svg>
+  ),
   automation: () => (
     <svg
       className={cardIconClassName}
@@ -170,11 +196,9 @@ const footerSvgIcons = {
 } as const;
 
 const navLinks = [
-  // { label: 'Кейсы', to: '/cases' },
+  { label: 'Сайты', to: '/services/websites' },
   { label: 'Услуги', to: '/services' },
   { label: 'Процесс', to: '/process' },
-  // { label: 'Команда', to: '/team' },
-  // { label: 'Блог', href: 'https://blog.agyra.ru' },
   { label: 'Контакты', to: '/contacts' },
 ];
 
@@ -272,7 +296,7 @@ const Footer = () => {
               </a>
               <address className="mb-6 mt-5 flex flex-col gap-0.5 text-[0.9375rem] not-italic leading-normal text-white/[0.78]">
                 <span>Agyra</span>
-                <span>Автоматизация и ИИ для бизнеса</span>
+                <span>Сайты и автоматизация для бизнеса</span>
                 <span>Россия</span>
               </address>
 

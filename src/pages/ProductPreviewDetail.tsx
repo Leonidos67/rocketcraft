@@ -9,12 +9,15 @@ import LeadRequestPopover from '@/components/LeadRequestPopover';
 import {
   getSaasPreviewItem,
   saasAccentOptions,
+  botHowItWorks,
+  botMvpIncludes,
   saasHowItWorks,
   saasMvpIncludes,
   saasPreviewCatalog,
   type SaasAccentId,
   type SaasPreviewItem,
   type SaasThemeMode,
+  type PreviewSectionId,
 } from '@/data/saasPreviewCatalog';
 import { readProductPreviewCompany } from '@/lib/productPreviewCompany';
 import { cn } from '@/lib/utils';
@@ -27,39 +30,65 @@ type SectionDef = {
   label: string;
 };
 
-const SaasDemoPreview = ({ src, title }: { src: string; title: string }) => {
+const SaasDemoPreview = ({
+  src,
+  title,
+  phone = false,
+}: {
+  src: string;
+  title: string;
+  phone?: boolean;
+}) => {
   const shellRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const frameW = DESKTOP_FRAME_W;
+  const frameH = DESKTOP_FRAME_H;
 
   useEffect(() => {
+    if (phone) return;
     const shell = shellRef.current;
     if (!shell) return;
 
     const update = () => {
       const width = shell.clientWidth;
-      if (width > 0) setScale(width / DESKTOP_FRAME_W);
+      if (width > 0) setScale(width / frameW);
     };
 
     update();
     const observer = new ResizeObserver(update);
     observer.observe(shell);
     return () => observer.disconnect();
-  }, []);
+  }, [frameW, phone]);
+
+  if (phone) {
+    return (
+      <div
+        className="mx-auto aspect-[433/882] w-full max-w-[22.5rem] overflow-hidden bg-transparent"
+      >
+        <iframe
+          key={src}
+          title={title}
+          src={src}
+          className="h-full w-full border-0 bg-transparent"
+        />
+      </div>
+    );
+  }
 
   return (
     <div
       ref={shellRef}
       className="w-full overflow-hidden rounded-[1.25rem] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:rounded-[1.5rem]"
     >
-      <div className="relative w-full" style={{ height: DESKTOP_FRAME_H * scale }}>
+      <div className="relative w-full" style={{ height: frameH * scale }}>
         <iframe
           key={src}
           title={title}
           src={src}
           className="absolute left-0 top-0 border-0"
           style={{
-            width: DESKTOP_FRAME_W,
-            height: DESKTOP_FRAME_H,
+            width: frameW,
+            height: frameH,
             transform: `scale(${scale})`,
             transformOrigin: 'top left',
           }}
@@ -214,10 +243,15 @@ const ProductPreviewDetail = () => {
   const demoTitle = `${brand} ${item.title}`;
   const activeDemoPage = item.demoPages.find((page) => page.page === demoPage);
   const demoCaption = activeDemoPage?.caption;
-  const howItWorks = item.howItWorks ?? [...saasHowItWorks];
-  const mvpIncludes = item.mvpIncludes ?? [...saasMvpIncludes];
-  const mvpTitle = item.mvpTitle ?? 'Что включено в MVP';
+  const howItWorks =
+    item.howItWorks ??
+    [...(item.section === 'bots' ? botHowItWorks : saasHowItWorks)];
+  const mvpIncludes =
+    item.mvpIncludes ??
+    [...(item.section === 'bots' ? botMvpIncludes : saasMvpIncludes)];
+  const mvpTitle = item.mvpTitle ?? (item.section === 'bots' ? 'Что включено в MVP бота' : 'Что включено в MVP');
   const accentColor = saasAccentOptions.find((option) => option.id === accent)?.color ?? '#111111';
+  const isBot = item.section === 'bots';
 
   return (
     <div
@@ -312,8 +346,13 @@ const ProductPreviewDetail = () => {
               </nav>
 
               <section id="overview" className="scroll-mt-4 space-y-3">
-                <div className="overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4">
-                  <SaasDemoPreview src={iframeSrc} title={demoTitle} />
+                <div
+                  className={cn(
+                    'w-full overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4',
+                    isBot && 'max-w-3xl',
+                  )}
+                >
+                  <SaasDemoPreview src={iframeSrc} title={demoTitle} phone={isBot} />
                 </div>
                 {demoCaption && (
                   <p className="m-0 text-sm leading-relaxed text-black/50">{demoCaption}</p>
@@ -415,7 +454,7 @@ const ProductPreviewDetail = () => {
             </div>
           </div>
 
-          <RelatedSaasSection currentId={item.id} brand={brand} />
+          <RelatedSaasSection currentId={item.id} sectionId={item.section} brand={brand} />
         </article>
       </main>
 
@@ -548,65 +587,69 @@ function ControlsBlock({
         </div>
       </div>
 
-      <div>
-        <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-[0.06em] text-black/40">
-          Тема
-        </p>
-        <div className="flex flex-wrap rounded-3xl bg-black/[0.05] p-1">
-          <button
-            type="button"
-            onClick={() => setTheme('light')}
-            className={cn(
-              'inline-flex h-8 cursor-pointer items-center justify-center gap-1 rounded-3xl border-none px-3.5 text-sm font-medium transition-colors',
-              theme === 'light'
-                ? 'bg-black/[0.08] text-black'
-                : 'bg-transparent text-black/60 hover:text-black',
-            )}
-          >
-            <Sun className="h-4 w-4" />
-            Светлая
-          </button>
-          <button
-            type="button"
-            onClick={() => setTheme('dark')}
-            className={cn(
-              'inline-flex h-8 cursor-pointer items-center justify-center gap-1 rounded-3xl border-none px-3.5 text-sm font-medium transition-colors',
-              theme === 'dark'
-                ? 'bg-black/[0.08] text-black'
-                : 'bg-transparent text-black/60 hover:text-black',
-            )}
-          >
-            <Moon className="h-4 w-4" />
-            Тёмная
-          </button>
-        </div>
-      </div>
-
-      <div>
-        <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-[0.06em] text-black/40">
-          Цвет акцента
-        </p>
-        <div className="flex flex-wrap gap-1 rounded-3xl bg-black/[0.05] p-1">
-          {saasAccentOptions.map((option) => {
-            const active = accent === option.id;
-            return (
+      {item.section !== 'bots' && (
+        <>
+          <div>
+            <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-[0.06em] text-black/40">
+              Тема
+            </p>
+            <div className="flex flex-wrap rounded-3xl bg-black/[0.05] p-1">
               <button
-                key={option.id}
                 type="button"
-                onClick={() => setAccent(option.id)}
-                aria-label={option.label}
-                aria-pressed={active}
+                onClick={() => setTheme('light')}
                 className={cn(
-                  'inline-flex h-8 cursor-pointer items-center justify-center rounded-3xl border-none px-3.5 transition-colors',
-                  active ? 'bg-black/[0.08]' : 'bg-transparent hover:bg-black/[0.04]',
+                  'inline-flex h-8 cursor-pointer items-center justify-center gap-1 rounded-3xl border-none px-3.5 text-sm font-medium transition-colors',
+                  theme === 'light'
+                    ? 'bg-black/[0.08] text-black'
+                    : 'bg-transparent text-black/60 hover:text-black',
                 )}
               >
-                <span className="h-5 w-5 rounded-full" style={{ backgroundColor: option.color }} />
+                <Sun className="h-4 w-4" />
+                Светлая
               </button>
-            );
-          })}
-        </div>
-      </div>
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={cn(
+                  'inline-flex h-8 cursor-pointer items-center justify-center gap-1 rounded-3xl border-none px-3.5 text-sm font-medium transition-colors',
+                  theme === 'dark'
+                    ? 'bg-black/[0.08] text-black'
+                    : 'bg-transparent text-black/60 hover:text-black',
+                )}
+              >
+                <Moon className="h-4 w-4" />
+                Тёмная
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-[0.06em] text-black/40">
+              Цвет акцента
+            </p>
+            <div className="flex flex-wrap gap-1 rounded-3xl bg-black/[0.05] p-1">
+              {saasAccentOptions.map((option) => {
+                const active = accent === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setAccent(option.id)}
+                    aria-label={option.label}
+                    aria-pressed={active}
+                    className={cn(
+                      'inline-flex h-8 cursor-pointer items-center justify-center rounded-3xl border-none px-3.5 transition-colors',
+                      active ? 'bg-black/[0.08]' : 'bg-transparent hover:bg-black/[0.04]',
+                    )}
+                  >
+                    <span className="h-5 w-5 rounded-full" style={{ backgroundColor: option.color }} />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -839,9 +882,19 @@ function LiveDemoActions({
   );
 }
 
-function RelatedSaasSection({ currentId, brand }: { currentId: string; brand: string }) {
+function RelatedSaasSection({
+  currentId,
+  sectionId,
+  brand,
+}: {
+  currentId: string;
+  sectionId: PreviewSectionId;
+  brand: string;
+}) {
   const navigate = useNavigate();
-  const related = saasPreviewCatalog.filter((entry) => entry.id !== currentId).slice(0, 3);
+  const related = saasPreviewCatalog
+    .filter((entry) => entry.id !== currentId && entry.section === sectionId)
+    .slice(0, 3);
   if (related.length === 0) return null;
 
   return (

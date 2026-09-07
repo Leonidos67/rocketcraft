@@ -20,15 +20,17 @@ const SECTION_SHELL = cn(
 interface ServiceStackSectionProps {
   cards?: ServiceStackCard[];
   className?: string;
+  id?: string;
   useWindowScroll?: boolean;
 }
 
 const ServiceStackSection = ({
   cards = serviceStackCards,
   className = '',
+  id,
   useWindowScroll = true,
 }: ServiceStackSectionProps) => (
-  <div className={cn(SECTION_SHELL, className)}>
+  <div id={id} className={cn(SECTION_SHELL, className)}>
     <ScrollStack useWindowScroll={useWindowScroll}>
       {cards.map((card) => (
         <ScrollStackItem

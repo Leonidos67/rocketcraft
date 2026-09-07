@@ -12,6 +12,15 @@ export interface ServiceGuideOffer {
   number: string;
   title: string;
   text: string;
+  priceFrom?: number;
+  timeline?: string;
+  features?: string[];
+}
+
+export interface ServiceGuideProof {
+  niche: string;
+  title: string;
+  text: string;
 }
 
 export interface ServiceGuideHeroTile {
@@ -43,65 +52,112 @@ export interface ServiceGuideData {
   approachItems: ServiceGuideApproachItem[];
   offersTitle: string;
   offers: ServiceGuideOffer[];
+  proofsTitle?: string;
+  proofsIntro?: string;
+  proofs?: ServiceGuideProof[];
   ctaTitle: string;
   ctaText: string;
+  ctaPrimaryLabel?: string;
+  ctaPrimaryTo?: string;
+  ctaSecondaryLabel?: string;
+  ctaSecondaryTo?: string;
   pageSections: PageSectionNavItem[];
 }
 
 const baseSections = (slug: string): PageSectionNavItem[] =>
   withFooterPageSections([
     { id: `${slug}-approach`, label: 'Подход' },
-    { id: `${slug}-offers`, label: 'Что делаем' },
+    { id: `${slug}-offers`, label: 'Пакеты' },
     { id: `${slug}-cta`, label: 'Заявка' },
   ]);
+
+const websitesSections: PageSectionNavItem[] = withFooterPageSections([
+  { id: 'websites-approach', label: 'Подход' },
+  { id: 'websites-offers', label: 'Пакеты' },
+  { id: 'websites-proofs', label: 'Примеры' },
+  { id: 'websites-cta', label: 'Расчёт' },
+]);
 
 export const serviceGuides: Record<ServiceGuideSlug, ServiceGuideData> = {
   websites: {
     slug: 'websites',
-    documentTitle: 'Разработка сайтов — RocketCraft',
-    heroTitle: 'Разработка сайтов',
-    approachTitle: 'Сайты, которые работают на бизнес',
+    documentTitle: 'Разработка сайтов для локального бизнеса — Agyra',
+    heroTitle: 'Сайты для локального бизнеса',
+    approachTitle: 'Канал заявок рядом с вашей точкой',
     approachIntro:
-      'Делаем не просто красивые страницы — проектируем цифровые продукты под задачи: лиды, продажи, имидж и масштабирование.',
+      'Делаем сайты для салонов, клиник, кафе и услуг: поиск, карта, форма или онлайн-запись. Без агентства и «разработки на полгода» — обычно 2–3 недели.',
     approachItems: [
       {
-        title: 'Дизайн со смыслом',
-        text: 'Погружаемся в бренд, аудиторию и конкурентов. Строим визуальную систему, которая узнаётся и легко масштабируется на все носители.',
+        title: 'Под вашу точку',
+        text: 'Услуги, цены, адрес, мессенджер и запись — всё на одной понятной странице. Клиент не теряется в Instagram.',
       },
       {
-        title: 'Разработка под результат',
-        text: 'Верстаем быстро, адаптивно и с учётом SEO. Подключаем аналитику, формы и интеграции — чтобы сайт сразу приносил пользу.',
+        title: 'Быстрый запуск',
+        text: 'Визитка или лендинг — от 1–2 недель. Сайт с онлайн-записью — обычно 3–4 недели под ключ.',
       },
       {
-        title: 'Поддержка и рост',
-        text: 'Не бросаем после релиза: дорабатываем, A/B-тестируем, подключаем автоматизацию и помогаем сайту расти вместе с бизнесом.',
+        title: 'Дальше — рост',
+        text: 'После запуска можно подключить бота, CRM и рекламу. Сайт остаётся основой, автоматизация — следующим шагом.',
       },
     ],
-    offersTitle: 'Что делаем',
+    offersTitle: 'Пакеты',
     offers: [
       {
         number: '01',
-        title: 'Лендинги и промо-страницы',
-        text: 'Одностраничники под запуск продукта, акцию или лид-магнит. Фокус на конверсии, скорости загрузки и понятном пользовательском пути.',
+        title: 'Сайт-визитка',
+        text: 'Несколько страниц: услуги, цены, контакты, форма заявки и WhatsApp. Для точек, которым нужен свой канал в поиске и на картах.',
+        priceFrom: 25000,
+        timeline: '7–14 дней',
+        features: ['Адаптив', 'Форма / WhatsApp', 'Базовое SEO'],
       },
       {
         number: '02',
-        title: 'Корпоративные и многостраничные сайты',
-        text: 'Структурируем контент, выстраиваем навигацию и дизайн-систему. Сайт становится центром digital-присутствия компании.',
+        title: 'Лендинг под лиды',
+        text: 'Одна сильная страница под акцию или услугу: оффер, доказательства, заявка. Удобно для запуска рекламы.',
+        priceFrom: 40000,
+        timeline: '2–3 недели',
+        features: ['Фокус на конверсии', 'Аналитика', 'Готов к рекламе'],
       },
       {
         number: '03',
-        title: 'Интернет-магазины и каталоги',
-        text: 'Каталог, корзина, оплата, личный кабинет — полный цикл e-commerce с интеграцией CRM, складов и маркетинговых инструментов.',
+        title: 'Сайт с онлайн-записью',
+        text: 'Витрина + запись слотов, напоминания клиентам, заявки в мессенджер или CRM. Для салонов, клиник и студий.',
+        priceFrom: 55000,
+        timeline: '3–4 недели',
+        features: ['Онлайн-запись', 'Напоминания', 'Интеграции'],
       },
     ],
-    ctaTitle: 'Обсудить проект',
-    ctaText: 'Расскажите о задаче — предложим формат, сроки и состав команды под ваш бюджет.',
-    pageSections: baseSections('websites'),
+    proofsTitle: 'Примеры',
+    proofsIntro: 'Для каких точек',
+    proofs: [
+      {
+        niche: 'Салон / барбер / клиника',
+        title: 'Запись без переписки в Direct',
+        text: 'Сайт с услугами и онлайн-записью: клиент выбирает слот сам, мастер не теряет заявки в чатах.',
+      },
+      {
+        niche: 'Кафе / ресторан',
+        title: 'Меню и бронь вне соцсетей',
+        text: 'Актуальное меню, адрес, бронь стола или доставка — канал, который принадлежит вам, а не площадке.',
+      },
+      {
+        niche: 'Услуги / магазин',
+        title: 'Заявки из поиска и карт',
+        text: 'Визитка с оффером и формой: клиент находит вас в Яндексе и пишет сразу, без лишних шагов.',
+      },
+    ],
+    ctaTitle: 'Получить расчёт по вашей точке',
+    ctaText:
+      'Напишите нишу и город — предложим пакет, срок и ориентир по цене. Можно сразу посмотреть демо онлайн-записи.',
+    ctaPrimaryLabel: 'Получить расчёт',
+    ctaPrimaryTo: '/contacts',
+    ctaSecondaryLabel: 'Демо онлайн-записи',
+    ctaSecondaryTo: '/product-preview',
+    pageSections: websitesSections,
   },
   automation: {
     slug: 'automation',
-    documentTitle: 'Автоматизация — RocketCraft',
+    documentTitle: 'Автоматизация — Agyra',
     heroTitle: 'Автоматизация',
     approachTitle: 'Освобождаем время команды',
     approachIntro:
@@ -144,7 +200,7 @@ export const serviceGuides: Record<ServiceGuideSlug, ServiceGuideData> = {
   },
   marketing: {
     slug: 'marketing',
-    documentTitle: 'Маркетинг и продвижение — RocketCraft',
+    documentTitle: 'Маркетинг и продвижение — Agyra',
     heroTitle: 'Маркетинг и продвижение',
     heroTiles: [
       { image: 'https://i.ibb.co/XfykT5Ms/image.png', label: 'Telegram Ads' },

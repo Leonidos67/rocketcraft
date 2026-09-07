@@ -14,24 +14,24 @@ import { cn } from '@/lib/utils';
 
 const offers = [
   {
+    title: 'Сайт-визитка',
+    text: 'От 25 000 ₽ · 7–14 дней',
+    to: '/services/websites',
+  },
+  {
+    title: 'Лендинг',
+    text: 'От 40 000 ₽ · 2–3 недели',
+    to: '/services/websites',
+  },
+  {
+    title: 'Сайт с записью',
+    text: 'От 55 000 ₽ · 3–4 недели',
+    to: '/services/websites',
+  },
+  {
     title: 'Автоматизация',
-    text: 'Процессы без ручной рутины',
+    text: 'Боты, CRM и интеграции — после сайта',
     to: '/services/automation',
-  },
-  {
-    title: 'Боты',
-    text: 'Ответ клиенту за секунды',
-    to: '/services/bots',
-  },
-  {
-    title: 'Интеграции',
-    text: 'Системы в одном контуре',
-    to: '/services/integrations',
-  },
-  {
-    title: 'CRM и AI',
-    text: 'Лиды и решения на данных',
-    to: '/services/crm',
   },
 ] as const;
 
@@ -42,7 +42,10 @@ const HomeOffersSection = () => {
   const reduced = !!reducedMotion;
 
   return (
-    <section className={cn(siteSectionClass, 'py-16 sm:py-20')}>
+    <section
+      id="home-offers"
+      className={cn(siteSectionClass, 'scroll-mt-24 py-16 sm:py-20')}
+    >
       <div className={siteContainerClass}>
         <motion.div
           className="mb-8 flex flex-col gap-6 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
@@ -54,14 +57,14 @@ const HomeOffersSection = () => {
           <header className="max-w-md">
             <p className={sectionLabelClass}>
               <span className={sectionLabelSlashClass}>/</span>
-              <span>Направления</span>
+              <span>Оффер</span>
             </p>
             <h2 className="text-[clamp(1.75rem,3.2vw,2.75rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-foreground">
-              Что внедряем
+              Сайты для вашей точки
             </h2>
           </header>
           <p className="max-w-sm text-[0.9375rem] leading-[1.55] text-muted-foreground sm:text-right sm:text-base">
-            От процесса до клиента — собираем систему, которая работает сама.
+            Пакеты с ценой и сроком. Автоматизация — следующим шагом, когда сайт уже приводит заявки.
           </p>
         </motion.div>
 
@@ -82,7 +85,7 @@ const HomeOffersSection = () => {
         >
           {offers.map((offer) => (
             <MotionLink
-              key={offer.to}
+              key={offer.title}
               to={offer.to}
               variants={{
                 hidden: {
