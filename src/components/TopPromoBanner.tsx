@@ -10,13 +10,24 @@ const TopPromoBanner = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [visible, setVisible] = useState(false);
+  const [roiOpen, setRoiOpen] = useState(false);
 
   useEffect(() => {
     setVisible(localStorage.getItem(STORAGE_KEY) !== '1');
   }, []);
 
+  useEffect(() => {
+    const sync = () => setRoiOpen(document.body.hasAttribute('data-roi-open'));
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-roi-open'] });
+    return () => observer.disconnect();
+  }, []);
+
   if (
     !visible ||
+    roiOpen ||
+    location.pathname === '/ai' ||
     location.pathname === PREVIEW_PATH ||
     location.pathname.startsWith(`${PREVIEW_PATH}/`) ||
     location.pathname.startsWith('/saas/')

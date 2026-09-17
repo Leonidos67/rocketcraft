@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 const plans = [
   {
     name: 'Lite',
-    price: '15 000 ₽',
+    price: '15k ₽',
     period: 'единоразово',
     description: 'Базовая автоматизация для старта',
     features: [
@@ -23,7 +23,7 @@ const plans = [
   },
   {
     name: 'Pro',
-    price: '35 000 ₽',
+    price: '35k ₽',
     period: 'единоразово',
     description: 'Полная автоматизация под ключ',
     features: [
@@ -39,7 +39,7 @@ const plans = [
   },
   {
     name: 'Full',
-    price: 'от 60 000 ₽',
+    price: 'от 60k ₽',
     period: 'под проект',
     description: 'Индивидуальное решение',
     features: [

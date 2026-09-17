@@ -39,12 +39,10 @@ const mobileSubmenuLinkClass =
 
 const mobileMenuItems: MobileMenuItem[] = [
   { label: 'Услуги', kind: 'services' },
+  { label: 'Наши работы', to: '/cases' },
   { label: 'Процесс', to: '/process' },
   { label: 'Готовые решения', to: '/product-preview' },
   { label: 'Калькулятор ROI', action: 'roi' as const },
-  // { label: 'Решения для бизнеса' },
-  // { label: 'Кейсы', to: '/cases' },
-  // { label: 'Блог', href: 'https://blog.agyra.ru' },
 ];
 
 

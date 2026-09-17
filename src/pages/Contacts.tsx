@@ -276,11 +276,11 @@ const Contacts = () => {
                     <SelectValue placeholder="Выберите диапазон бюджета" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60 rounded-3xl text-base">
-                    <SelectItem value="under-50k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">До 50 000 ₽</SelectItem>
-                    <SelectItem value="50k-100k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">50 000 - 100 000 ₽</SelectItem>
-                    <SelectItem value="100k-250k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">100 000 - 250 000 ₽</SelectItem>
-                    <SelectItem value="250k-500k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">250 000 - 500 000 ₽</SelectItem>
-                    <SelectItem value="over-500k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">Более 500 000 ₽</SelectItem>
+                    <SelectItem value="under-50k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">До 50k ₽</SelectItem>
+                    <SelectItem value="50k-100k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">50k - 100k ₽</SelectItem>
+                    <SelectItem value="100k-250k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">100k - 250k ₽</SelectItem>
+                    <SelectItem value="250k-500k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">250k - 500k ₽</SelectItem>
+                    <SelectItem value="over-500k" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">Более 500k ₽</SelectItem>
                     <SelectItem value="prefer-not-to-say" className="rounded-xl my-1 focus:bg-gray-100 text-base py-3">Предпочитаю не указывать</SelectItem>
                   </SelectContent>
                 </Select>

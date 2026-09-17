@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const footerStats = [
   { value: '3', label: 'Пакета сайтов' },
-  { value: 'от 25к', label: 'Старт визитки' },
+  { value: 'от 8k', label: 'Старт визитки' },
   { value: '2–3', label: 'Недели до запуска' },
   { value: '24/7', label: 'Заявки с сайта' },
 ];

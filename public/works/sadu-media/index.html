@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sadu Media — Works</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0c0c0c;
+        --text: #f4f4f4;
+        --muted: #9a9a9a;
+        --accent: #00d1c1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        padding: 28px 24px 12px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.03em;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      a.live {
+        display: inline-flex;
+        margin-top: 14px;
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .grid {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px 24px 64px;
+        display: grid;
+        gap: 28px;
+      }
+      figure {
+        margin: 0;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        display: block;
+        background: #1a1a1a;
+      }
+      figcaption {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sadu Media — Works</h1>
+      <p>
+        Экраны страницы Works —
+        <a class="live" href="https://www.sadumedia.com/" target="_blank" rel="noopener"
+          >открыть сайт →</a
+        >
+      </p>
+    </header>
+    <div class="grid">
+      <figure>
+        <img src="screens/works-01-hero.png" alt="Works · hero" />
+        <figcaption>1 · Hero</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/works-02-site.jpg" alt="Works · site block" />
+        <figcaption>2 · Сайт</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/works-03-site.jpg" alt="Works · site block" />
+        <figcaption>3 · Сайт</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/works-04-footer.png" alt="Works · footer" />
+        <figcaption>4 · Футер</figcaption>
+      </figure>
+    </div>
+  </body>
+</html>

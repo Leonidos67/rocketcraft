@@ -5,10 +5,18 @@ import { cn } from '@/lib/utils';
 const DeviceMockup = ({
   item,
   productName,
+  compact = false,
 }: {
   item: SaasPreviewItem;
   productName: string;
+  compact?: boolean;
 }) => {
+  if (item.isCustom) {
+    return (
+      <div className="relative aspect-[4/3] w-full bg-transparent" aria-hidden />
+    );
+  }
+
   const isDark = item.theme === 'dark';
   const surface = isDark ? 'bg-white/10' : 'bg-black/[0.06]';
   const surfaceStrong = isDark ? 'bg-white/16' : 'bg-black/[0.09]';
@@ -16,14 +24,20 @@ const DeviceMockup = ({
 
   return (
     <div
-      className="relative flex aspect-[4/3] w-full items-end justify-center overflow-hidden px-5 pb-0 pt-6 sm:px-7 sm:pt-8"
+      className={cn(
+        'relative flex w-full items-end justify-center overflow-hidden',
+        compact
+          ? 'aspect-[4/3] px-3.5 pb-0 pt-5'
+          : 'aspect-[4/3] px-5 pb-0 pt-6 sm:px-7 sm:pt-8',
+      )}
       style={{ backgroundColor: item.previewBg }}
     >
       <div
         className={cn(
-          'relative flex h-[92%] w-full max-w-[17rem] flex-col overflow-hidden rounded-t-[1.1rem] shadow-[0_-8px_40px_rgba(0,0,0,0.18)]',
+          'relative flex h-[92%] w-full flex-col overflow-hidden rounded-t-[1.1rem] shadow-[0_-8px_40px_rgba(0,0,0,0.18)]',
           'translate-y-[24%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
           'group-hover:translate-y-[0%] group-focus-within:translate-y-[0%]',
+          compact ? 'max-w-[13.5rem]' : 'max-w-[17rem]',
           isDark ? 'bg-[#111]' : 'bg-white',
         )}
       >
@@ -223,7 +237,9 @@ const DeviceMockup = ({
           )}
 
           {!['booking', 'finance', 'crm', 'support'].includes(item.id) &&
-            item.section !== 'bots' && (
+            item.section !== 'bots' &&
+            item.section !== 'sites' &&
+            !item.isCustom && (
             <div className="grid min-h-0 flex-1 grid-cols-2 gap-1.5">
               {[64, 42, 52, 36].map((h, index) => (
                 <div
@@ -232,6 +248,24 @@ const DeviceMockup = ({
                   style={{ height: `${h}%`, minHeight: '1.5rem' }}
                 />
               ))}
+            </div>
+          )}
+
+          {(item.section === 'sites' || item.isCustom) && item.section !== 'bots' && (
+            <div className="flex min-h-0 flex-1 flex-col gap-2">
+              <div className={cn('h-8 w-full rounded-md', surfaceStrong)} />
+              <div className="grid flex-1 grid-cols-3 gap-1.5">
+                <div className={cn('col-span-2 rounded-md', surface)} />
+                <div className="flex flex-col gap-1.5">
+                  <div className={cn('flex-1 rounded-md', surface)} />
+                  <div className={cn('h-6 rounded-md', surfaceStrong)} />
+                </div>
+              </div>
+              {item.isCustom ? (
+                <div className={cn('rounded-md px-2 py-1.5 text-[0.55rem] font-semibold', isDark ? 'bg-white/15 text-white/80' : 'bg-black/[0.06] text-black/55')}>
+                  Custom build
+                </div>
+              ) : null}
             </div>
           )}
         </div>
@@ -244,49 +278,101 @@ export const SaasPreviewCard = ({
   item,
   productName,
   onOpen,
+  compact = false,
 }: {
   item: SaasPreviewItem;
   productName: string;
   onOpen: () => void;
-}) => (
-  <article
-    role="button"
-    tabIndex={0}
-    onClick={onOpen}
-    onKeyDown={(event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        onOpen();
-      }
-    }}
-    className="group relative flex cursor-pointer flex-col overflow-hidden rounded-[1.25rem] bg-white sm:rounded-[1.5rem]"
-  >
-    <DeviceMockup item={item} productName={productName} />
+  compact?: boolean;
+}) => {
+  const hasTilda = Boolean(item.priceFromTilda);
 
-    <div className="relative z-[1] flex flex-col gap-3 bg-white px-4 pb-4 pt-3.5 sm:gap-3.5 sm:px-5 sm:pb-5 sm:pt-4">
-      <div className="flex min-w-0 flex-wrap items-center gap-2">
-        <h3 className="m-0 truncate text-[0.9375rem] font-semibold tracking-[-0.02em] text-black sm:text-base">
-          {productName} {item.title}
-        </h3>
-        {/* <span
-          className="inline-flex items-center rounded-md bg-black/[0.06] px-1.5 py-0.5 text-[0.6875rem] font-medium text-black/55"
-        >
-          #NEW
-        </span> */}
-        {/* {item.priceNote.map((priceNote) => (
-          <span
-            key={priceNote}
-            className="inline-flex items-center rounded-md bg-black/[0.06] px-1.5 py-0.5 text-[0.6875rem] font-medium text-black/55"
+  return (
+    <article
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onOpen();
+        }
+      }}
+      className={cn(
+        'group relative flex cursor-pointer flex-col overflow-hidden bg-white',
+        compact ? 'rounded-[1.1rem]' : 'rounded-[1.25rem] sm:rounded-[1.5rem]',
+      )}
+    >
+      <DeviceMockup item={item} productName={productName} compact={compact} />
+
+      <div
+        className={cn(
+          'relative z-[1] flex flex-col bg-white',
+          compact
+            ? 'gap-2 px-3.5 pb-3.5 pt-3'
+            : 'gap-2.5 px-4 pb-4 pt-3.5 sm:gap-3 sm:px-5 sm:pb-5 sm:pt-4',
+        )}
+      >
+        <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+          <h3
+            className={cn(
+              'm-0 truncate font-semibold tracking-[-0.02em] text-black',
+              compact ? 'text-[0.875rem]' : 'text-[0.9375rem] sm:text-base',
+            )}
           >
-            #NEW
-          </span>
-        ))} */}
-      </div>
+            {item.isCustom ? item.title : `${productName} ${item.title}`}
+          </h3>
+          {item.isCustom ? (
+            <span
+              className={cn(
+                'inline-flex items-center rounded-md bg-black/[0.06] font-medium text-black/55',
+                compact ? 'px-1.5 py-0.5 text-[0.625rem]' : 'px-1.5 py-0.5 text-[0.6875rem]',
+              )}
+            >
+              Custom
+            </span>
+          ) : null}
+          {hasTilda ? (
+            <span
+              className={cn(
+                'inline-flex items-center rounded-md bg-black/[0.06] font-medium text-black/55',
+                compact ? 'px-1.5 py-0.5 text-[0.625rem]' : 'px-1.5 py-0.5 text-[0.6875rem]',
+              )}
+            >
+              Tilda
+            </span>
+          ) : null}
+        </div>
 
-      <span className="inline-flex items-center gap-0.5 text-sm font-medium text-black/55 transition-colors group-hover:text-black">
-        Смотреть
-        <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.25} />
-      </span>
-    </div>
-  </article>
-);
+        <p
+          className={cn(
+            'm-0 line-clamp-2 leading-snug text-black/50',
+            compact ? 'text-[0.75rem]' : 'text-[0.8125rem]',
+          )}
+        >
+          {item.description}
+        </p>
+
+        <div className={cn('flex items-end justify-between gap-2', compact ? 'mt-0.5' : 'mt-0.5 gap-3')}>
+          <div className="min-w-0">
+            <p className={cn('m-0 font-semibold text-black', compact ? 'text-[0.8125rem]' : 'text-sm')}>
+              {item.priceFrom}
+            </p>
+            <p className={cn('m-0 text-black/40', compact ? 'text-[0.625rem]' : 'text-[0.6875rem]')}>
+              {item.priceNote}
+            </p>
+          </div>
+          <span
+            className={cn(
+              'inline-flex shrink-0 items-center gap-0.5 font-medium text-black/55 transition-colors group-hover:text-black',
+              compact ? 'text-[0.8125rem]' : 'text-sm',
+            )}
+          >
+            {item.hasInteractiveDemo === false ? 'Подробнее' : 'Смотреть'}
+            <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.25} />
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+};

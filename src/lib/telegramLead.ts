@@ -102,11 +102,11 @@ const BRIEF_INDUSTRY_LABELS: Record<string, string> = {
 };
 
 const BRIEF_BUDGET_LABELS: Record<string, string> = {
-  'under-50k': 'До 50 000 ₽',
-  '50k-100k': '50 000 - 100 000 ₽',
-  '100k-250k': '100 000 - 250 000 ₽',
-  '250k-500k': '250 000 - 500 000 ₽',
-  'over-500k': 'Более 500 000 ₽',
+  'under-50k': 'До 50k ₽',
+  '50k-100k': '50k - 100k ₽',
+  '100k-250k': '100k - 250k ₽',
+  '250k-500k': '250k - 500k ₽',
+  'over-500k': 'Более 500k ₽',
   'prefer-not-to-say': 'Предпочитаю не указывать',
 };
 
@@ -182,5 +182,42 @@ export const formatProductPreviewLeadMessage = (data: {
   message += `Компания: ${data.companyName}\n`;
   message += `Продукт: ${data.productName}\n`;
   message += `🔗 Страница: /product-preview\n`;
+  return message;
+};
+
+export const formatAiAdvisorLeadMessage = (data: {
+  brand: string;
+  channel: string;
+  productId: string;
+  productIds?: string[];
+  productTitle: string;
+  name: string;
+  phone: string;
+  notes: string;
+}) => {
+  let message = withTimestamp('📋 НОВАЯ ЗАЯВКА (Agyra AI):');
+  if (data.name.trim()) message += `Имя: ${data.name.trim()}\n`;
+  if (data.phone.trim()) message += `Телефон: ${data.phone.trim()}\n`;
+  if (data.brand.trim()) message += `Бренд: ${data.brand.trim()}\n`;
+  if (data.channel.trim()) message += `Канал: ${data.channel.trim()}\n`;
+  const ids =
+    data.productIds?.filter(Boolean).length
+      ? data.productIds.filter(Boolean)
+      : data.productId.trim()
+        ? [data.productId.trim()]
+        : [];
+  if (data.productTitle.trim() || ids.length) {
+    message += `Решение: ${data.productTitle.trim() || ids.join(' + ')}\n`;
+  }
+  if (ids.length > 1) {
+    message += `Пакет (${ids.length}):\n`;
+    ids.forEach((id, index) => {
+      message += `  ${index + 1}. ${id}\n`;
+    });
+  } else if (ids[0]) {
+    message += `ID: ${ids[0]}\n`;
+  }
+  if (data.notes.trim()) message += `Заметки: ${data.notes.trim()}\n`;
+  message += `🔗 Страница: /ai\n`;
   return message;
 };

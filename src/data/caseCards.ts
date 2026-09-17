@@ -5,14 +5,45 @@ export interface CaseFilter {
   label: string;
 }
 
+export interface CaseColorSwatch {
+  hex: string;
+  label?: string;
+}
+
+export interface CaseGalleryItem {
+  src: string;
+  label: string;
+  kind?: 'desktop' | 'mobile' | 'hero';
+}
+
+export interface CaseScores {
+  overall: number;
+  design: number;
+  usability: number;
+  creativity: number;
+  content: number;
+}
+
 export interface CasePortfolioItem {
   id: string;
   title: string;
   industry: string;
+  /** Card / OG preview */
   imageUrl: string;
+  /** Full-bleed hero inside dark viewport block */
+  heroImage: string;
   categories: Exclude<CaseFilterId, 'all'>[];
   serviceTags: string[];
   accent: 'blue' | 'pink' | 'orange' | 'purple' | 'yellow';
+  /** Live demo path or external site */
+  liveUrl?: string;
+  /** External client site */
+  siteUrl?: string;
+  description: string;
+  colors: CaseColorSwatch[];
+  technologies: string[];
+  gallery: CaseGalleryItem[];
+  scores: CaseScores;
 }
 
 export interface CaseTestimonial {
@@ -31,87 +62,98 @@ export const caseFilters: CaseFilter[] = [
 
 export const casePortfolioItems: CasePortfolioItem[] = [
   {
-    id: '1',
-    title: 'Кофейня «Бодрый день»',
-    industry: 'HoReCa',
-    imageUrl: 'https://placehold.co/900x1100/22c55e/ffffff?text=Бодрый+день',
-    categories: ['bots', 'integrations'],
-    serviceTags: ['Telegram-бот', 'CRM-интеграция', 'Уведомления'],
-    accent: 'blue',
+    id: 'intelligence-evolve',
+    title: 'Intelligence Designed To Evolve',
+    industry: 'AI-платформа · лендинг',
+    imageUrl: '/works/intelligence-evolve/assets/poster.webp',
+    heroImage: '/works/intelligence-evolve/assets/poster.webp',
+    categories: ['ai'],
+    serviceTags: ['Лендинг', 'Motion', 'AI brand'],
+    accent: 'purple',
+    liveUrl: '/works/intelligence-evolve/',
+    description:
+      'Лендинг AI-платформы: video-hero, сильная типографика и спокойная продуктовая подача — как у зрелого SaaS-бренда.',
+    colors: [
+      { hex: '#0B0B0F', label: 'Чёрный' },
+      { hex: '#F4F4F5', label: 'Светлый' },
+      { hex: '#CDB7F1', label: 'Сирень' },
+    ],
+    technologies: ['HTML', 'CSS', 'Motion', 'Брендинг', 'Лендинг'],
+    gallery: [
+      {
+        src: '/works/intelligence-evolve/assets/poster.webp',
+        label: 'Обложка · Desktop',
+        kind: 'desktop',
+      },
+      {
+        src: '/works/intelligence-evolve/assets/logo.webp',
+        label: 'Логотип',
+        kind: 'mobile',
+      },
+    ],
+    scores: {
+      overall: 8.2,
+      design: 8.6,
+      usability: 7.8,
+      creativity: 8.4,
+      content: 7.9,
+    },
   },
   {
-    id: '2',
-    title: 'Барбершоп «Стиль»',
-    industry: 'Услуги',
-    imageUrl: 'https://placehold.co/900x1100/3b82f6/ffffff?text=Стиль',
-    categories: ['bots', 'integrations'],
-    serviceTags: ['Онлайн-запись', 'CRM', 'Рассылки'],
-    accent: 'pink',
-  },
-  {
-    id: '3',
-    title: 'Фитнес-клуб «Энергия»',
-    industry: 'Фитнес',
-    imageUrl: 'https://placehold.co/900x1100/f97316/ffffff?text=Энергия',
-    categories: ['automation', 'ai'],
-    serviceTags: ['Абонементы', 'Напоминания', 'Аналитика'],
+    id: 'sadu-media',
+    title: 'Sadu Media',
+    industry: 'Production house · Works',
+    imageUrl: '/works/sadu-media/screens/works-02-site.jpg',
+    heroImage: '/works/sadu-media/screens/works-01-hero.png',
+    categories: [],
+    serviceTags: ['Брендинг', 'Motion site', 'Works'],
     accent: 'orange',
-  },
-  {
-    id: '4',
-    title: 'Сеть магазинов «Маркет+»',
-    industry: 'Ритейл',
-    imageUrl: 'https://placehold.co/900x1100/ec4899/ffffff?text=Маркет%2B',
-    categories: ['integrations', 'automation'],
-    serviceTags: ['Интеграции', 'CRM', 'Склад'],
-    accent: 'purple',
-  },
-  {
-    id: '5',
-    title: 'Онлайн-школа «Прогресс»',
-    industry: 'Образование',
-    imageUrl: 'https://placehold.co/900x1100/cdb7f1/0b1311?text=Прогресс',
-    categories: ['automation', 'bots'],
-    serviceTags: ['Автоматизация заявок', 'Бот поддержки', 'Отчёты'],
-    accent: 'purple',
-  },
-  {
-    id: '6',
-    title: 'Логистика «Быстрый путь»',
-    industry: 'Логистика',
-    imageUrl: 'https://placehold.co/900x1100/f9e283/0b1311?text=Быстрый+путь',
-    categories: ['ai', 'integrations'],
-    serviceTags: ['AI-аналитика', 'Маршруты', 'Интеграции'],
-    accent: 'yellow',
+    liveUrl: '/works/sadu-media/',
+    siteUrl: 'https://www.sadumedia.com/',
+    description:
+      'Продакшн-хаус из Саудовской Аравии: плотная condensed-типографика, кинематографичные кадры и тёмный canvas страницы Works. Контент, который не только выглядит дорого — в нём есть смысл.',
+    colors: [
+      { hex: '#161818', label: 'Чёрный' },
+      { hex: '#ECEEEE', label: 'Светлый' },
+      { hex: '#00a8a0', label: 'Циан' },
+    ],
+    technologies: ['Сторителлинг', 'Motion', 'Brand film', 'Типографика', 'Web'],
+    gallery: [
+      {
+        src: '/works/sadu-media/screens/works-01-hero.png',
+        label: 'Hero',
+        kind: 'hero',
+      },
+      {
+        src: '/works/sadu-media/screens/works-02-site.jpg',
+        label: 'Сайт · блок 1',
+        kind: 'desktop',
+      },
+      {
+        src: '/works/sadu-media/screens/works-03-site.jpg',
+        label: 'Сайт · блок 2',
+        kind: 'desktop',
+      },
+      {
+        src: '/works/sadu-media/screens/works-04-footer.png',
+        label: 'Футер',
+        kind: 'desktop',
+      },
+    ],
+    scores: {
+      overall: 8.1,
+      design: 8.5,
+      usability: 7.6,
+      creativity: 8.7,
+      content: 7.9,
+    },
   },
 ];
 
-export const caseTestimonials: CaseTestimonial[] = [
-  {
-    quote:
-      'За три недели запустили бота для записи — клиенты перестали теряться, администратор наконец дышит. Цифры по новым визитам видим каждый день.',
-    author: 'Анна К.',
-    company: 'Кофейня «Бодрый день»',
-  },
-  {
-    quote:
-      'Раньше мастера сами отвечали в мессенджерах. Сейчас запись идёт автоматически, повторные визиты выросли — и это не маркетинговая фраза, а CRM.',
-    author: 'Дмитрий Л.',
-    company: 'Барбершоп «Стиль»',
-  },
-  {
-    quote:
-      'Напоминания и аналитика посещаемости — то, чего не хватало годами. Руководство наконец видит картину в цифрах, а не в Excel.',
-    author: 'Елена М.',
-    company: 'Фитнес-клуб «Энергия»',
-  },
-  {
-    quote:
-      'Связали склад, CRM и мессенджеры в одну цепочку. Ошибки в заказах почти исчезли, клиенты получают статус без звонков менеджеру.',
-    author: 'Игорь В.',
-    company: 'Сеть «Маркет+»',
-  },
-];
+export const caseTestimonials: CaseTestimonial[] = [];
+
+export const getCasePortfolioItem = (id: string) =>
+  casePortfolioItems.find((item) => item.id === id);
 
 export const filterCases = (filter: CaseFilterId) =>
   filter === 'all'

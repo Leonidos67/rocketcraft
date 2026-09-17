@@ -142,8 +142,8 @@ export const telegramBotDemos: Record<string, TelegramBotDemo> = {
         botText: [
           'Актуальный прайс:',
           '• Консультация — бесплатно',
-          '• Базовый пакет — от 25 000 ₽',
-          '• С записью — от 55 000 ₽',
+          '• Базовый пакет — от 8k ₽',
+          '• С записью — от 15k ₽',
         ],
         keyboard: [
           { id: 'menu', label: '← В меню' },
@@ -203,9 +203,9 @@ export const telegramBotDemos: Record<string, TelegramBotDemo> = {
         id: 'budget',
         botText: ['Ориентир по бюджету?'],
         keyboard: [
-          { id: 'b1', label: 'До 40 000 ₽' },
-          { id: 'b2', label: '40–80 000 ₽' },
-          { id: 'b3', label: 'От 80 000 ₽' },
+          { id: 'b1', label: 'До 40k ₽' },
+          { id: 'b2', label: '40–80k ₽' },
+          { id: 'b3', label: 'От 80k ₽' },
         ],
         next: {
           b1: 'contact',

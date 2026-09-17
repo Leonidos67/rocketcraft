@@ -46,9 +46,10 @@ type NavItem =
   | { id: string; label: string; kind: 'external'; href: string };
 
 const SERVICES_INDEX = 0;
-const PROCESS_INDEX = 1;
-const READY_INDEX = 2;
-const ROI_INDEX = 3;
+const CASES_INDEX = 1;
+const PROCESS_INDEX = 2;
+const READY_INDEX = 3;
+const ROI_INDEX = 4;
 
 const iconWrapClass = (isInverse: boolean) =>
   cn(
@@ -83,10 +84,10 @@ const HeaderDesktopNav = ({
   const items: NavItem[] = useMemo(
     () => [
       { id: 'services', label: 'Услуги', kind: 'services' },
+      { id: 'cases', label: 'Наши работы', kind: 'link', to: '/cases' },
       { id: 'process', label: 'Процесс', kind: 'link', to: '/process' },
       { id: 'ready', label: 'Готовые решения', kind: 'link', to: '/product-preview' },
       { id: 'roi', label: 'Калькулятор ROI', kind: 'action', onClick: onOpenRoi },
-      // { id: 'cases', label: 'Кейсы', kind: 'link', to: '/cases' },
     ],
     [onOpenRoi]
   );
@@ -94,6 +95,7 @@ const HeaderDesktopNav = ({
   const activeIndex = useMemo(() => {
     const path = location.pathname;
     if (path === '/services' || path.startsWith('/services/')) return SERVICES_INDEX;
+    if (path === '/cases' || path.startsWith('/cases/')) return CASES_INDEX;
     if (path === '/process') return PROCESS_INDEX;
     if (path === '/roi-calc') return ROI_INDEX;
     if (path === '/product-preview') return READY_INDEX;

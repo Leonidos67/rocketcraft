@@ -326,11 +326,11 @@ const Beta = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
                 <div className="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-3xl font-bold mb-2">от 25 000 ₽</div>
+                  <div className="text-3xl font-bold mb-2">от 8k ₽</div>
                   <div className="text-white/70">За готовое решение</div>
                 </div>
                 <div className="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="text-3xl font-bold mb-2">от 85 000 ₽</div>
+                  <div className="text-3xl font-bold mb-2">от 85k ₽</div>
                   <div className="text-white/70">За комплекс под ключ</div>
                 </div>
               </div>

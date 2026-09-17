@@ -34,9 +34,9 @@ const catalogGridClass = (viewMode: ViewMode) =>
 
 const PRICE_OPTIONS: { id: PriceRange; label: string }[] = [
   { id: 'all', label: 'Любая цена' },
-  { id: 'budget', label: 'До 40 000 ₽' },
-  { id: 'mid', label: '40 000 – 80 000 ₽' },
-  { id: 'premium', label: 'От 80 000 ₽' },
+  { id: 'budget', label: 'До 40k ₽' },
+  { id: 'mid', label: '40k – 80k ₽' },
+  { id: 'premium', label: 'От 80k ₽' },
 ];
 
 const SORT_OPTIONS: { id: SortBy; label: string }[] = [

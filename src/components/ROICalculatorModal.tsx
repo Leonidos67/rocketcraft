@@ -238,6 +238,14 @@ const ROICalculatorModal = ({ open, onOpenChange }: ROICalculatorModalProps) => 
     if (!open) setCurrentStep(0);
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    document.body.setAttribute('data-roi-open', '1');
+    return () => {
+      document.body.removeAttribute('data-roi-open');
+    };
+  }, [open]);
+
   const updateForm = <K extends keyof RoiFormState>(key: K, value: RoiFormState[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
   };

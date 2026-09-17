@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 const plans = [
   {
     name: 'Lite',
-    price: '15 000₽',
+    price: '15k₽',
     description: 'Идеально для начала автоматизации',
     features: [
       'Telegram-бот для записи',
@@ -16,7 +16,7 @@ const plans = [
   },
   {
     name: 'Pro',
-    price: '35 000₽',
+    price: '35k₽',
     description: 'Полная автоматизация бизнес-процессов',
     features: [
       'Всё из Lite +',
@@ -31,7 +31,7 @@ const plans = [
   },
   {
     name: 'Full',
-    price: 'от 60 000₽',
+    price: 'от 60k₽',
     description: 'Индивидуальное решение под ваш бизнес',
     features: [
       'Всё из Pro +',

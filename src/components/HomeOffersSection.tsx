@@ -15,17 +15,17 @@ import { cn } from '@/lib/utils';
 const offers = [
   {
     title: 'Сайт-визитка',
-    text: 'От 25 000 ₽ · 7–14 дней',
+    text: 'От 8k ₽ · 7–14 дней',
     to: '/services/websites',
   },
   {
     title: 'Лендинг',
-    text: 'От 40 000 ₽ · 2–3 недели',
+    text: 'От 15k ₽ · 2–3 недели',
     to: '/services/websites',
   },
   {
     title: 'Сайт с записью',
-    text: 'От 55 000 ₽ · 3–4 недели',
+    text: 'От 15k ₽ · 2–3 недели',
     to: '/services/websites',
   },
   {

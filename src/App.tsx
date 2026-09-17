@@ -23,6 +23,7 @@ import BusinessSolutionsPage from "./pages/BusinessSolutionsPage";
 import RoiCalculator from "./pages/RoiCalculator";
 import ProductPreview from "./pages/ProductPreview";
 import ProductPreviewDetail from "./pages/ProductPreviewDetail";
+import AiAdvisor from "./pages/AiAdvisor";
 import SaasPrototypeApp from "./pages/saas/SaasPrototypeApp";
 import NotFound from "./pages/NotFound";
 import AppBlog from "./blog/AppBlog";
@@ -82,6 +83,7 @@ const App = () => {
             <Route path="/roi-calc" element={<RoiCalculator />} />
             <Route path="/product-preview" element={<ProductPreview />} />
             <Route path="/product-preview/:saasId" element={<ProductPreviewDetail />} />
+            <Route path="/ai" element={<AiAdvisor />} />
             <Route path="/saas/:saasId" element={<SaasPrototypeApp />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

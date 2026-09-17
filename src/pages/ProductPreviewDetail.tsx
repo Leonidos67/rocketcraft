@@ -4,20 +4,23 @@ import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowUpRight, ChevronRight, CircleHelp, Moon, Phone, QrCode, Sun, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SaasPreviewCard } from '@/components/SaasPreviewCard';
+import { TextWithSamopisInfo } from '@/components/SamopisInfo';
 import LineSidebar from '@/components/ui/LineSidebar';
 import LeadRequestPopover from '@/components/LeadRequestPopover';
 import {
   getSaasPreviewItem,
+  hasPreviewInteractiveDemo,
   saasAccentOptions,
   botHowItWorks,
   botMvpIncludes,
   saasHowItWorks,
   saasMvpIncludes,
+  siteHowItWorks,
+  siteMvpIncludes,
   saasPreviewCatalog,
   type SaasAccentId,
   type SaasPreviewItem,
   type SaasThemeMode,
-  type PreviewSectionId,
 } from '@/data/saasPreviewCatalog';
 import { readProductPreviewCompany } from '@/lib/productPreviewCompany';
 import { cn } from '@/lib/utils';
@@ -62,9 +65,7 @@ const SaasDemoPreview = ({
 
   if (phone) {
     return (
-      <div
-        className="mx-auto aspect-[433/882] w-full max-w-[22.5rem] overflow-hidden bg-transparent"
-      >
+      <div className="mx-auto aspect-[433/882] w-full max-w-[22.5rem] overflow-hidden bg-transparent">
         <iframe
           key={src}
           title={title}
@@ -112,20 +113,26 @@ const ProductPreviewDetail = () => {
   const [demoPage, setDemoPage] = useState(item?.demoPages[0]?.page ?? '');
   const [demoHelpOpen, setDemoHelpOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
+  const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [siteBuild, setSiteBuild] = useState<'custom' | 'tilda'>('custom');
   const mainRef = useRef<HTMLElement>(null);
   const scrollingFromClick = useRef(false);
 
   const sections = useMemo((): SectionDef[] => {
     if (!item) return [];
+    const interactive = hasPreviewInteractiveDemo(item);
     const list: SectionDef[] = [
       { id: 'overview', label: 'Обзор' },
       { id: 'description', label: 'Описание' },
-      { id: 'demo', label: 'Персонализация' },
+      { id: 'solves', label: 'Что делает' },
+    ];
+    if (interactive) list.push({ id: 'demo', label: 'Персонализация' });
+    list.push(
       { id: 'audience', label: 'Для кого' },
       { id: 'inside', label: 'Что внутри' },
       { id: 'how', label: 'Как это работает' },
       { id: 'mvp', label: item.mvpTitle ? 'MVP' : 'Что в MVP' },
-    ];
+    );
     if (item.extras?.length) list.push({ id: 'extras', label: 'Дополнительно' });
     if (item.demoPages.some((page) => page.caption)) {
       list.push({ id: 'screens', label: 'Экраны демо' });
@@ -141,8 +148,18 @@ const ProductPreviewDetail = () => {
       setTheme(item.theme);
       setDemoPage(item.demoPages[0]?.page ?? '');
       setActiveSection(0);
+      setSiteBuild('custom');
     }
   }, [item, brand]);
+
+  useEffect(() => {
+    const root = mainRef.current;
+    if (!root) return;
+    const onScroll = () => setHeaderScrolled(root.scrollTop > 8);
+    onScroll();
+    root.addEventListener('scroll', onScroll, { passive: true });
+    return () => root.removeEventListener('scroll', onScroll);
+  }, [item?.id]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -245,13 +262,32 @@ const ProductPreviewDetail = () => {
   const demoCaption = activeDemoPage?.caption;
   const howItWorks =
     item.howItWorks ??
-    [...(item.section === 'bots' ? botHowItWorks : saasHowItWorks)];
+    [
+      ...(item.section === 'bots'
+        ? botHowItWorks
+        : item.section === 'sites'
+          ? siteHowItWorks
+          : saasHowItWorks),
+    ];
   const mvpIncludes =
     item.mvpIncludes ??
-    [...(item.section === 'bots' ? botMvpIncludes : saasMvpIncludes)];
-  const mvpTitle = item.mvpTitle ?? (item.section === 'bots' ? 'Что включено в MVP бота' : 'Что включено в MVP');
+    [
+      ...(item.section === 'bots'
+        ? botMvpIncludes
+        : item.section === 'sites'
+          ? siteMvpIncludes
+          : saasMvpIncludes),
+    ];
+  const mvpTitle =
+    item.mvpTitle ??
+    (item.section === 'bots'
+      ? 'Что включено в MVP бота'
+      : item.section === 'sites'
+        ? 'Что включено в сайт'
+        : 'Что включено в MVP');
   const accentColor = saasAccentOptions.find((option) => option.id === accent)?.color ?? '#111111';
   const isBot = item.section === 'bots';
+  const interactiveDemo = hasPreviewInteractiveDemo(item);
 
   return (
     <div
@@ -260,23 +296,32 @@ const ProductPreviewDetail = () => {
         'supports-[height:100dvh]:h-[100dvh] supports-[height:100dvh]:max-h-[100dvh]',
       )}
     >
-      <header className="relative z-20 flex shrink-0 items-center justify-between px-5 py-3 sm:px-8 sm:py-4">
-        <Link to="/" className="text-sm font-semibold tracking-tight text-black no-underline">
-          Agyra
-        </Link>
-        <Link
-          to="/product-preview"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-black/40 no-underline transition-colors hover:bg-black/[0.05] hover:text-black"
-          aria-label="К каталогу"
-        >
-          <X className="h-4 w-4" strokeWidth={2.25} />
-        </Link>
-      </header>
-
       <main
         ref={mainRef}
-        className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-4 pb-4 [scrollbar-width:none] sm:px-6 sm:pb-6 lg:px-10 [&::-webkit-scrollbar]:hidden"
+        className="relative z-10 flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
+        <header
+          className={cn(
+            'sticky top-0 z-20 flex shrink-0 items-center justify-between px-5 py-3 sm:px-8 sm:py-4',
+            'transition-[background-color,backdrop-filter,border-color] duration-200',
+            headerScrolled
+              ? 'border-b border-black/[0.04] bg-[#ebebeb]/72 backdrop-blur-xl'
+              : 'border-b border-transparent bg-transparent',
+          )}
+        >
+          <Link to="/" className="text-sm font-semibold tracking-tight text-black no-underline">
+            Agyra
+          </Link>
+          <Link
+            to="/product-preview"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-black/40 no-underline transition-colors hover:bg-black/[0.05] hover:text-black"
+            aria-label="К каталогу"
+          >
+            <X className="h-4 w-4" strokeWidth={2.25} />
+          </Link>
+        </header>
+
+        <div className="flex min-h-0 flex-1 flex-col px-4 pb-4 sm:px-6 sm:pb-6 lg:px-10">
         <article className="mx-auto flex w-full max-w-6xl flex-col gap-5 pb-44 sm:gap-6 sm:pb-12">
           <ProductBreadcrumb brand={brand} title={item.title} />
 
@@ -288,21 +333,77 @@ const ProductPreviewDetail = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex flex-col gap-4">
                 <div>
-                  <p className="m-0 text-xl font-semibold tracking-tight sm:text-2xl">{item.priceFrom}</p>
-                  <p className="m-0 mt-1 text-sm text-black/50">{item.priceNote}</p>
+                  {item.priceFromTilda ? (
+                    <div className="mb-2 inline-flex w-fit items-center rounded-full bg-black/[0.05] p-0.5">
+                      <button
+                        type="button"
+                        aria-pressed={siteBuild === 'custom'}
+                        onClick={() => setSiteBuild('custom')}
+                        className={cn(
+                          'cursor-pointer rounded-full border-none px-3 py-1.5 text-[0.75rem] font-semibold transition-colors',
+                          siteBuild === 'custom'
+                            ? 'bg-white text-black shadow-[0_1px_2px_rgba(0,0,0,0.06)]'
+                            : 'bg-transparent text-black/45 hover:text-black/70',
+                        )}
+                      >
+                        Самопис
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={siteBuild === 'tilda'}
+                        onClick={() => setSiteBuild('tilda')}
+                        className={cn(
+                          'cursor-pointer rounded-full border-none px-3 py-1.5 text-[0.75rem] font-semibold transition-colors',
+                          siteBuild === 'tilda'
+                            ? 'bg-white text-black shadow-[0_1px_2px_rgba(0,0,0,0.06)]'
+                            : 'bg-transparent text-black/45 hover:text-black/70',
+                        )}
+                      >
+                        Tilda
+                      </button>
+                    </div>
+                  ) : item.id === 'site-marketplace' ? (
+                    <TextWithSamopisInfo
+                      text="Только самопис · на Tilda недоступно"
+                      className="m-0 mb-2 text-sm text-black/40"
+                    />
+                  ) : null}
+                  <p className="m-0 text-xl font-semibold tracking-tight sm:text-2xl">
+                    {siteBuild === 'tilda' && item.priceFromTilda
+                      ? `Tilda ${item.priceFromTilda}`
+                      : item.priceFrom}
+                  </p>
+                  {siteBuild === 'tilda' && item.priceNoteTilda ? (
+                    <p className="m-0 mt-1 text-sm text-black/50">{item.priceNoteTilda}</p>
+                  ) : (
+                    <TextWithSamopisInfo
+                      text={item.priceNote}
+                      className="m-0 mt-1 text-sm text-black/50"
+                    />
+                  )}
                 </div>
                 <div className="hidden sm:block">
                   <NeedThisButton onLead={() => setLeadOpen(true)} />
                 </div>
               </div>
               <div className="hidden sm:block">
-                <LiveDemoActions liveHref={liveHref} productLabel={`${brand} ${item.title}`} />
+                {interactiveDemo ? (
+                  <LiveDemoActions liveHref={liveHref} productLabel={`${brand} ${item.title}`} />
+                ) : item.section === 'sites' ? null : (
+                  <Link
+                    to={item.livePath}
+                    className="inline-flex h-11 items-center gap-1.5 rounded-2xl bg-white px-5 text-sm font-semibold text-black no-underline"
+                  >
+                    Оставить заявку
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>
 
           <div className="relative flex gap-6 lg:gap-10">
-            <aside className="sticky top-2 hidden w-[11.5rem] shrink-0 self-start lg:block xl:w-[13rem]">
+            <aside className="sticky top-[4.75rem] hidden w-[11.5rem] shrink-0 self-start lg:block xl:w-[13rem]">
               <LineSidebar
                 items={sidebarItems}
                 accentColor={accentColor}
@@ -345,65 +446,136 @@ const ProductPreviewDetail = () => {
                 ))}
               </nav>
 
-              <section id="overview" className="scroll-mt-4 space-y-3">
-                <div
-                  className={cn(
-                    'w-full overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4',
-                    isBot && 'max-w-3xl',
-                  )}
-                >
-                  <SaasDemoPreview src={iframeSrc} title={demoTitle} phone={isBot} />
-                </div>
-                {demoCaption && (
+              <section id="overview" className="scroll-mt-24 space-y-3">
+                {interactiveDemo ? (
+                  <div
+                    className={cn(
+                      'w-full overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4',
+                      isBot && 'max-w-3xl',
+                    )}
+                  >
+                    <SaasDemoPreview src={iframeSrc} title={demoTitle} phone={isBot} />
+                  </div>
+                ) : item.isCustom || item.section === 'sites' ? null : (
+                  <div className="w-full max-w-3xl overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4">
+                    <div className="mx-auto max-w-md overflow-hidden rounded-[1rem] bg-white">
+                      <SaasPreviewCard
+                        item={item}
+                        productName={brand}
+                        onOpen={() => undefined}
+                      />
+                    </div>
+                  </div>
+                )}
+                {demoCaption && interactiveDemo ? (
                   <p className="m-0 text-sm leading-relaxed text-black/50">{demoCaption}</p>
-                )}
+                ) : null}
+                {!interactiveDemo ? (
+                  <p className="m-0 max-w-3xl text-sm leading-relaxed text-black/50">
+                    {item.isCustom
+                      ? 'Кастомный вариант без готового интерактивного демо — обсудим ТЗ и соберём решение под вас.'
+                      : item.section === 'sites'
+                        ? 'Пример формата сайта. Живое демо собираем под ваш бренд после заявки.'
+                        : 'Пример формата. Живое демо собираем под ваш бренд после заявки.'}
+                  </p>
+                ) : null}
               </section>
 
-              <section id="description" className="scroll-mt-4 max-w-3xl">
-                <p className="m-0 text-[0.9375rem] leading-relaxed text-black/65 sm:text-base">
-                  {item.longDescription}
+              <section id="description" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  Описание
+                </h2>
+                <div className="space-y-3">
+                  {item.longDescription.split(/\n\n+/).map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 48)}
+                      className="m-0 text-[0.975rem] leading-[1.7] text-black/70 sm:text-[1.0625rem]"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </section>
+
+              <section id="solves" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  Что делает это решение
+                </h2>
+                <div className="rounded-[1.25rem] border border-black/[0.05] bg-white/80 px-4 py-4 sm:px-5 sm:py-5">
+                  <div className="space-y-3">
+                    {item.solves.split(/\n\n+/).map((paragraph) => (
+                      <p
+                        key={paragraph.slice(0, 48)}
+                        className="m-0 text-[0.975rem] leading-[1.7] text-black/75 sm:text-[1.0625rem]"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {interactiveDemo ? (
+                <section id="demo" className="scroll-mt-24 max-w-3xl">
+                  <ControlsBlock
+                    item={item}
+                    demoPage={demoPage}
+                    setDemoPage={setDemoPage}
+                    demoHelpOpen={demoHelpOpen}
+                    setDemoHelpOpen={setDemoHelpOpen}
+                    theme={theme}
+                    setTheme={setTheme}
+                    accent={accent}
+                    setAccent={setAccent}
+                  />
+                </section>
+              ) : null}
+
+              <section id="audience" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  Для кого
+                </h2>
+                <p className="m-0 text-[0.975rem] leading-[1.7] text-black/70 sm:text-[1.0625rem]">
+                  Это решение рассчитано на {item.audience}. Если узнаёте свой формат
+                  бизнеса — демо покажет, как продукт будет выглядеть уже под вашим брендом
+                  и сценарием работы с клиентами.
                 </p>
-                {item.description !== item.longDescription && (
-                  <p className="m-0 mt-3 text-sm leading-relaxed text-black/50">{item.description}</p>
-                )}
               </section>
 
-              <section id="demo" className="scroll-mt-4 max-w-3xl">
-                <ControlsBlock
-                  item={item}
-                  demoPage={demoPage}
-                  setDemoPage={setDemoPage}
-                  demoHelpOpen={demoHelpOpen}
-                  setDemoHelpOpen={setDemoHelpOpen}
-                  theme={theme}
-                  setTheme={setTheme}
-                  accent={accent}
-                  setAccent={setAccent}
-                />
-              </section>
-
-              <section id="audience" className="scroll-mt-4 max-w-3xl">
-                <p className="m-0 text-sm leading-relaxed text-black/55 sm:text-[0.9375rem]">
-                  Подходит для: {item.audience}
+              <section id="inside" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  Что внутри
+                </h2>
+                <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
+                  В демо собраны ключевые экраны и сценарии, из которых складывается рабочий
+                  продукт. Ниже — что именно вы увидите и сможете адаптировать под себя.
                 </p>
-              </section>
-
-              <section id="inside" className="scroll-mt-4 max-w-3xl">
-                <ul className="m-0 list-none space-y-1.5 p-0">
+                <ul className="m-0 list-none space-y-2 p-0">
                   {item.whatsInside.map((entry) => (
-                    <li key={entry} className="flex gap-2 text-sm leading-snug text-black/60">
-                      <span className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-black/35" aria-hidden />
+                    <li
+                      key={entry}
+                      className="flex gap-2.5 rounded-xl bg-white/60 px-3.5 py-2.5 text-sm leading-snug text-black/65"
+                    >
+                      <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-black/30" aria-hidden />
                       <span>{entry}</span>
                     </li>
                   ))}
                 </ul>
               </section>
 
-              <section id="how" className="scroll-mt-4 max-w-3xl">
-                <div className="rounded-2xl bg-[#eff6ff] px-3.5 py-3 text-sm leading-relaxed text-[#1d4ed8]">
-                  <ol className="m-0 list-none space-y-1.5 p-0 text-[#1e40af]/0.92]">
+              <section id="how" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  Как это работает
+                </h2>
+                <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
+                  Путь от знакомства с демо до запуска на вашем домене — короткий и понятный.
+                  Вы смотрите сценарий, фиксируете требования, мы адаптируем продукт и
+                  передаём готовое решение.
+                </p>
+                <div className="rounded-2xl bg-[#eff6ff] px-3.5 py-3.5 text-sm leading-relaxed text-[#1d4ed8]">
+                  <ol className="m-0 list-none space-y-2 p-0 text-[#1e40af]/0.92]">
                     {howItWorks.map((step, index) => (
-                      <li key={step} className="flex gap-2">
+                      <li key={step} className="flex gap-2.5">
                         <span className="shrink-0 font-semibold tabular-nums">{index + 1}.</span>
                         <span>{step}</span>
                       </li>
@@ -412,12 +584,21 @@ const ProductPreviewDetail = () => {
                 </div>
               </section>
 
-              <section id="mvp" className="scroll-mt-4 max-w-3xl">
-                <p className="m-0 mb-2 text-sm font-medium text-black/45">{mvpTitle}</p>
-                <ul className="m-0 list-none space-y-1.5 p-0">
+              <section id="mvp" className="scroll-mt-24 max-w-3xl space-y-4">
+                <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                  {mvpTitle}
+                </h2>
+                <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
+                  В базовый запуск входит всё необходимое, чтобы начать пользоваться
+                  решением на реальных клиентах: экраны, логика, бренд и поддержка на старте.
+                </p>
+                <ul className="m-0 list-none space-y-2 p-0">
                   {mvpIncludes.map((entry) => (
-                    <li key={entry} className="flex gap-2 text-sm leading-snug text-black/60">
-                      <span className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-black/35" aria-hidden />
+                    <li
+                      key={entry}
+                      className="flex gap-2.5 rounded-xl bg-white/60 px-3.5 py-2.5 text-sm leading-snug text-black/65"
+                    >
+                      <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-black/30" aria-hidden />
                       <span>{entry}</span>
                     </li>
                   ))}
@@ -425,11 +606,21 @@ const ProductPreviewDetail = () => {
               </section>
 
               {item.extras && item.extras.length > 0 && (
-                <section id="extras" className="scroll-mt-4 max-w-3xl">
-                  <ul className="m-0 list-none space-y-1.5 p-0">
+                <section id="extras" className="scroll-mt-24 max-w-3xl space-y-4">
+                  <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                    Дополнительно
+                  </h2>
+                  <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
+                    Если нужны расширения сверх MVP — их можно подключить отдельно, когда
+                    станет ясно, какие сценарии дают наибольший эффект.
+                  </p>
+                  <ul className="m-0 list-none space-y-2 p-0">
                     {item.extras.map((entry) => (
-                      <li key={entry} className="flex gap-2 text-sm leading-snug text-black/60">
-                        <span className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-black/35" aria-hidden />
+                      <li
+                        key={entry}
+                        className="flex gap-2.5 rounded-xl bg-white/60 px-3.5 py-2.5 text-sm leading-snug text-black/65"
+                      >
+                        <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-black/30" aria-hidden />
                         <span>{entry}</span>
                       </li>
                     ))}
@@ -438,14 +629,24 @@ const ProductPreviewDetail = () => {
               )}
 
               {item.demoPages.some((page) => page.caption) && (
-                <section id="screens" className="scroll-mt-4 max-w-3xl">
+                <section id="screens" className="scroll-mt-24 max-w-3xl space-y-4">
+                  <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                    Экраны демо
+                  </h2>
+                  <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
+                    Каждый экран в демо отвечает за свой кусок процесса. Переключайте вкладки
+                    выше и смотрите, как выглядит работа в продукте.
+                  </p>
                   <ul className="m-0 list-none space-y-2.5 p-0">
                     {item.demoPages.map((page) => (
-                      <li key={page.id} className="text-sm leading-snug text-black/60">
+                      <li
+                        key={page.id}
+                        className="rounded-xl bg-white/60 px-3.5 py-2.5 text-sm leading-snug text-black/60"
+                      >
                         <span className="font-semibold text-black/80">{page.label}</span>
-                        {page.caption && (
+                        {page.caption ? (
                           <span className="mt-0.5 block text-black/55">{page.caption}</span>
-                        )}
+                        ) : null}
                       </li>
                     ))}
                   </ul>
@@ -454,21 +655,34 @@ const ProductPreviewDetail = () => {
             </div>
           </div>
 
-          <RelatedSaasSection currentId={item.id} sectionId={item.section} brand={brand} />
+          <RelatedSaasSection currentId={item.id} brand={brand} sectionId={item.section} />
         </article>
+        </div>
       </main>
 
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 sm:hidden">
         <div className="pointer-events-auto bg-gradient-to-t from-[#ebebeb] via-[#ebebeb]/95 to-transparent pt-10">
           <div className="flex flex-col gap-2">
-            <div className="px-4">
-              <LiveDemoActions
-                liveHref={liveHref}
-                productLabel={`${brand} ${item.title}`}
-                qrPlacement="top"
-                showPhone
-              />
-            </div>
+            {interactiveDemo ? (
+              <div className="px-4">
+                <LiveDemoActions
+                  liveHref={liveHref}
+                  productLabel={`${brand} ${item.title}`}
+                  qrPlacement="top"
+                  showPhone
+                />
+              </div>
+            ) : item.section === 'sites' ? null : (
+              <div className="px-4">
+                <Link
+                  to={item.livePath}
+                  className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-2xl bg-white px-5 text-sm font-semibold text-black no-underline shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+                >
+                  Оставить заявку
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
             <NeedThisButton
               onLead={() => setLeadOpen(true)}
               className="mt-0 h-auto min-h-12 w-full justify-center rounded-none rounded-t-2xl pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-none"
@@ -587,7 +801,7 @@ function ControlsBlock({
         </div>
       </div>
 
-      {item.section !== 'bots' && (
+      {item.section === 'saas' ? (
         <>
           <div>
             <p className="m-0 mb-2 text-xs font-semibold uppercase tracking-[0.06em] text-black/40">
@@ -649,7 +863,7 @@ function ControlsBlock({
             </div>
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -884,16 +1098,16 @@ function LiveDemoActions({
 
 function RelatedSaasSection({
   currentId,
-  sectionId,
   brand,
+  sectionId,
 }: {
   currentId: string;
-  sectionId: PreviewSectionId;
   brand: string;
+  sectionId: SaasPreviewItem['section'];
 }) {
   const navigate = useNavigate();
   const related = saasPreviewCatalog
-    .filter((entry) => entry.id !== currentId && entry.section === sectionId)
+    .filter((entry) => entry.id !== currentId && entry.section === sectionId && !entry.isCustom)
     .slice(0, 3);
   if (related.length === 0) return null;
 
