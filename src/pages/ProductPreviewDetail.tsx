@@ -4,6 +4,16 @@ import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowUpRight, ChevronRight, CircleHelp, Moon, Phone, QrCode, Sun, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SaasPreviewCard } from '@/components/SaasPreviewCard';
+import {
+  NfcConfigurator,
+  NfcPhysicalCard,
+  nfcActionLabel,
+  nfcColorLabel,
+  nfcShapeLabel,
+  type NfcCardColor,
+  type NfcCardShape,
+  type NfcTapAction,
+} from '@/components/NfcCardPreview';
 import { TextWithSamopisInfo } from '@/components/SamopisInfo';
 import LineSidebar from '@/components/ui/LineSidebar';
 import LeadRequestPopover from '@/components/LeadRequestPopover';
@@ -17,6 +27,8 @@ import {
   saasMvpIncludes,
   siteHowItWorks,
   siteMvpIncludes,
+  nfcHowItWorks,
+  nfcMvpIncludes,
   saasPreviewCatalog,
   type SaasAccentId,
   type SaasPreviewItem,
@@ -115,6 +127,9 @@ const ProductPreviewDetail = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [siteBuild, setSiteBuild] = useState<'custom' | 'tilda'>('custom');
+  const [nfcColor, setNfcColor] = useState<NfcCardColor>('black');
+  const [nfcShape, setNfcShape] = useState<NfcCardShape>('rect');
+  const [nfcAction, setNfcAction] = useState<NfcTapAction>('whatsapp');
   const mainRef = useRef<HTMLElement>(null);
   const scrollingFromClick = useRef(false);
 
@@ -127,6 +142,7 @@ const ProductPreviewDetail = () => {
       { id: 'solves', label: 'Что делает' },
     ];
     if (interactive) list.push({ id: 'demo', label: 'Персонализация' });
+    else if (item.section === 'nfc') list.push({ id: 'demo', label: 'Персонализация' });
     list.push(
       { id: 'audience', label: 'Для кого' },
       { id: 'inside', label: 'Что внутри' },
@@ -149,6 +165,9 @@ const ProductPreviewDetail = () => {
       setDemoPage(item.demoPages[0]?.page ?? '');
       setActiveSection(0);
       setSiteBuild('custom');
+      setNfcColor('black');
+      setNfcShape('rect');
+      setNfcAction('whatsapp');
     }
   }, [item, brand]);
 
@@ -267,7 +286,9 @@ const ProductPreviewDetail = () => {
         ? botHowItWorks
         : item.section === 'sites'
           ? siteHowItWorks
-          : saasHowItWorks),
+          : item.section === 'nfc'
+            ? nfcHowItWorks
+            : saasHowItWorks),
     ];
   const mvpIncludes =
     item.mvpIncludes ??
@@ -276,7 +297,9 @@ const ProductPreviewDetail = () => {
         ? botMvpIncludes
         : item.section === 'sites'
           ? siteMvpIncludes
-          : saasMvpIncludes),
+          : item.section === 'nfc'
+            ? nfcMvpIncludes
+            : saasMvpIncludes),
     ];
   const mvpTitle =
     item.mvpTitle ??
@@ -284,9 +307,12 @@ const ProductPreviewDetail = () => {
       ? 'Что включено в MVP бота'
       : item.section === 'sites'
         ? 'Что включено в сайт'
-        : 'Что включено в MVP');
+        : item.section === 'nfc'
+          ? 'Что включено'
+          : 'Что включено в MVP');
   const accentColor = saasAccentOptions.find((option) => option.id === accent)?.color ?? '#111111';
   const isBot = item.section === 'bots';
+  const isNfc = item.section === 'nfc';
   const interactiveDemo = hasPreviewInteractiveDemo(item);
 
   return (
@@ -389,7 +415,7 @@ const ProductPreviewDetail = () => {
               <div className="hidden sm:block">
                 {interactiveDemo ? (
                   <LiveDemoActions liveHref={liveHref} productLabel={`${brand} ${item.title}`} />
-                ) : item.section === 'sites' ? null : (
+                ) : item.section === 'sites' || isNfc ? null : (
                   <Link
                     to={item.livePath}
                     className="inline-flex h-11 items-center gap-1.5 rounded-2xl bg-white px-5 text-sm font-semibold text-black no-underline"
@@ -447,7 +473,18 @@ const ProductPreviewDetail = () => {
               </nav>
 
               <section id="overview" className="scroll-mt-24 space-y-3">
-                {interactiveDemo ? (
+                {isNfc ? (
+                  <div className="w-full overflow-hidden rounded-[1.25rem] bg-[#ece7df] px-4 py-10 sm:rounded-[1.5rem] sm:px-8 sm:py-14">
+                    <div className="flex min-h-[14rem] items-center justify-center sm:min-h-[16rem]">
+                      <NfcPhysicalCard
+                        color={nfcColor}
+                        shape={nfcShape}
+                        brand={brand}
+                        action={nfcAction}
+                      />
+                    </div>
+                  </div>
+                ) : interactiveDemo ? (
                   <div
                     className={cn(
                       'w-full overflow-hidden rounded-[1.25rem] bg-black/[0.04] p-2 sm:rounded-[1.5rem] sm:p-3 lg:p-4',
@@ -474,6 +511,8 @@ const ProductPreviewDetail = () => {
                   <p className="m-0 max-w-3xl text-sm leading-relaxed text-black/50">
                     {item.isCustom
                       ? 'Кастомный вариант без готового интерактивного демо — обсудим ТЗ и соберём решение под вас.'
+                      : isNfc
+                        ? 'Выберите цвет, форму и действие — так будет выглядеть карточка с вашим брендом.'
                       : item.section === 'sites'
                         ? 'Пример формата сайта. Живое демо собираем под ваш бренд после заявки.'
                         : 'Пример формата. Живое демо собираем под ваш бренд после заявки.'}
@@ -529,6 +568,20 @@ const ProductPreviewDetail = () => {
                     setAccent={setAccent}
                   />
                 </section>
+              ) : isNfc ? (
+                <section id="demo" className="scroll-mt-24 max-w-3xl space-y-4">
+                  <h2 className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-black/35">
+                    Персонализация
+                  </h2>
+                  <NfcConfigurator
+                    color={nfcColor}
+                    shape={nfcShape}
+                    action={nfcAction}
+                    onColor={setNfcColor}
+                    onShape={setNfcShape}
+                    onAction={setNfcAction}
+                  />
+                </section>
               ) : null}
 
               <section id="audience" className="scroll-mt-24 max-w-3xl space-y-4">
@@ -537,8 +590,9 @@ const ProductPreviewDetail = () => {
                 </h2>
                 <p className="m-0 text-[0.975rem] leading-[1.7] text-black/70 sm:text-[1.0625rem]">
                   Это решение рассчитано на {item.audience}. Если узнаёте свой формат
-                  бизнеса — демо покажет, как продукт будет выглядеть уже под вашим брендом
-                  и сценарием работы с клиентами.
+                  бизнеса — {isNfc
+                    ? 'ниже можно выбрать цвет, форму и действие карточки под ваш бренд.'
+                    : 'демо покажет, как продукт будет выглядеть уже под вашим брендом и сценарием работы с клиентами.'}
                 </p>
               </section>
 
@@ -547,8 +601,9 @@ const ProductPreviewDetail = () => {
                   Что внутри
                 </h2>
                 <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
-                  В демо собраны ключевые экраны и сценарии, из которых складывается рабочий
-                  продукт. Ниже — что именно вы увидите и сможете адаптировать под себя.
+                  {isNfc
+                    ? 'В карточке собраны форма, цвет и действие при касании — всё, что нужно согласовать перед печатью.'
+                    : 'В демо собраны ключевые экраны и сценарии, из которых складывается рабочий продукт. Ниже — что именно вы увидите и сможете адаптировать под себя.'}
                 </p>
                 <ul className="m-0 list-none space-y-2 p-0">
                   {item.whatsInside.map((entry) => (
@@ -568,9 +623,9 @@ const ProductPreviewDetail = () => {
                   Как это работает
                 </h2>
                 <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
-                  Путь от знакомства с демо до запуска на вашем домене — короткий и понятный.
-                  Вы смотрите сценарий, фиксируете требования, мы адаптируем продукт и
-                  передаём готовое решение.
+                  {isNfc
+                    ? 'От выбора макета до готового тиража — короткий цикл: согласовали карточку, напечатали, запрограммировали чипы.'
+                    : 'Путь от знакомства с демо до запуска на вашем домене — короткий и понятный. Вы смотрите сценарий, фиксируете требования, мы адаптируем продукт и передаём готовое решение.'}
                 </p>
                 <div className="rounded-2xl bg-[#eff6ff] px-3.5 py-3.5 text-sm leading-relaxed text-[#1d4ed8]">
                   <ol className="m-0 list-none space-y-2 p-0 text-[#1e40af]/0.92]">
@@ -589,8 +644,9 @@ const ProductPreviewDetail = () => {
                   {mvpTitle}
                 </h2>
                 <p className="m-0 text-[0.975rem] leading-[1.7] text-black/65 sm:text-[1.0625rem]">
-                  В базовый запуск входит всё необходимое, чтобы начать пользоваться
-                  решением на реальных клиентах: экраны, логика, бренд и поддержка на старте.
+                  {isNfc
+                    ? 'В стартовый комплект входит тираж, печать бренда, одно действие при касании и страница перехода.'
+                    : 'В базовый запуск входит всё необходимое, чтобы начать пользоваться решением на реальных клиентах: экраны, логика, бренд и поддержка на старте.'}
                 </p>
                 <ul className="m-0 list-none space-y-2 p-0">
                   {mvpIncludes.map((entry) => (
@@ -672,7 +728,7 @@ const ProductPreviewDetail = () => {
                   showPhone
                 />
               </div>
-            ) : item.section === 'sites' ? null : (
+            ) : item.section === 'sites' || isNfc ? null : (
               <div className="px-4">
                 <Link
                   to={item.livePath}
@@ -699,6 +755,9 @@ const ProductPreviewDetail = () => {
           id: item.id,
           title: item.title,
           brand,
+          note: isNfc
+            ? `${nfcColorLabel(nfcColor)} · ${nfcShapeLabel(nfcShape)} · ${nfcActionLabel(nfcAction)}`
+            : undefined,
         }}
       />
     </div>

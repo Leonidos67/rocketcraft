@@ -27,6 +27,7 @@ export type LeadSaasExample = {
   id: string;
   title: string;
   brand?: string;
+  note?: string;
 };
 
 interface LeadRequestFormProps {

@@ -302,6 +302,7 @@ field: channel (реже productId)
 - заявки в мессенджере → bot-leads; FAQ → bot-faq; запись в TG → bot-booking
 - CRM / сделки → crm; запись в кабинете → booking; чат с сайта → support; финансы → finance
 - нестандарт → custom-saas / custom-bot / custom-site
+- NFC / карточка касания / пластиковая визитка / метка / sticker / tap to WhatsApp → nfc-card
 
 # ФОРМАТ ВИДИМОГО ТЕКСТА (первый ответ)
 **Понял задачу:** 1 фраза своими словами (по факту запроса, без выдумок).

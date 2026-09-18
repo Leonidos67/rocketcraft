@@ -35,6 +35,7 @@ export const formatHeaderLeadMessage = (data: {
     id: string;
     title: string;
     brand?: string;
+    note?: string;
   };
 }) => {
   let message = withTimestamp('📋 НОВАЯ ЗАЯВКА (шапка):');
@@ -47,6 +48,9 @@ export const formatHeaderLeadMessage = (data: {
       .join(' ');
     message += `\n💻 Пример SaaS: ${productName || data.saasExample.title}`;
     message += `\n🆔 ID продукта: ${data.saasExample.id}`;
+    if (data.saasExample.note) {
+      message += `\n🎛 Вариант: ${data.saasExample.note}`;
+    }
     message += `\n🔗 Страница: /product-preview/${data.saasExample.id}\n`;
   }
   return message;

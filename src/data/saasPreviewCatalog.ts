@@ -2,7 +2,7 @@ export type SaasThemeMode = 'light' | 'dark';
 
 export type SaasAccentId = 'blue' | 'violet' | 'orange' | 'mint';
 
-export type PreviewSectionId = 'saas' | 'bots' | 'sites';
+export type PreviewSectionId = 'saas' | 'bots' | 'sites' | 'nfc';
 
 export interface PreviewSection {
   id: PreviewSectionId;
@@ -25,6 +25,11 @@ export const previewSections: PreviewSection[] = [
     id: 'sites',
     label: 'Сайты',
     description: 'Лендинги, визитки, магазины и сайты под заявки',
+  },
+  {
+    id: 'nfc',
+    label: 'NFC',
+    description: 'Карточки быстрого действия: открыть сайт, оставить отзыв и другое',
   },
 ];
 
@@ -90,6 +95,20 @@ export const siteMvpIncludes = [
   'Базовое SEO и аналитика',
   'Размещение на вашем домене',
   '2 недели правок после запуска',
+] as const;
+
+export const nfcHowItWorks = [
+  'Выбираете цвет, форму и действие при касании',
+  'Согласовываем макет с вашим брендом и ссылкой',
+  'Печатаем тираж, программируем чипы и отдаём готовые карточки',
+] as const;
+
+export const nfcMvpIncludes = [
+  '10 NFC-карточек выбранной формы и цвета',
+  'Печать логотипа / названия бренда',
+  'Одно действие при касании (WhatsApp, сайт, визитка или Telegram)',
+  'Короткая страница перехода под бренд',
+  'Программирование чипов и проверка',
 ] as const;
 
 export interface SaasPreviewItem {
@@ -272,7 +291,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Sales'],
     priceFrom: 'от 20k ₽',
-    priceNote: 'MVP за 3–4 недели',
+    priceNote: 'MVP за 5–7 дней',
     livePath: '/saas/crm',
     demoPages: [
       {
@@ -334,7 +353,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Widget'],
     priceFrom: 'от 10k ₽',
-    priceNote: 'MVP до 5-7 дней',
+    priceNote: 'MVP за 5–7 дней',
     livePath: '/saas/support',
     demoPages: [
       { id: 'chats', label: 'Чаты / заявки', page: 'chats' },
@@ -377,7 +396,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'dark',
     tags: ['Custom', 'Telegram'],
     priceFrom: 'от 45k ₽',
-    priceNote: 'MVP за 2–4 недели',
+    priceNote: 'MVP за 5–7 дней',
     livePath: '/contacts',
     demoPages: [],
   },
@@ -407,7 +426,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'dark',
     tags: ['Telegram', 'Запись'],
     priceFrom: 'от 25k ₽',
-    priceNote: 'MVP за 1–2 недели',
+    priceNote: 'MVP за 5–7 дней',
     livePath: '/saas/bot-booking',
     demoPages: [
       {
@@ -444,7 +463,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'dark',
     tags: ['Telegram', 'Поддержка'],
     priceFrom: 'от 20k ₽',
-    priceNote: 'MVP за 5–10 дней',
+    priceNote: 'MVP за 5–7 дней',
     livePath: '/saas/bot-faq',
     demoPages: [
       {
@@ -481,7 +500,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'dark',
     tags: ['Telegram', 'Лиды'],
     priceFrom: 'от 22k ₽',
-    priceNote: 'MVP за 1–2 недели',
+    priceNote: 'MVP за 3–5 дней',
     livePath: '/saas/bot-leads',
     demoPages: [
       {
@@ -527,7 +546,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Custom', 'Website'],
     priceFrom: 'от 90k ₽',
-    priceNote: 'от 4–8 недель',
+    priceNote: 'от 1 недели',
     livePath: '/services/websites',
     demoPages: [],
   },
@@ -558,9 +577,9 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'Лиды'],
     priceFrom: 'от 15k ₽',
-    priceNote: 'самопис · 2–3 недели',
+    priceNote: 'самопис · 2–5 дней',
     priceFromTilda: 'от 10k ₽',
-    priceNoteTilda: 'Tilda · 1–2 недели',
+    priceNoteTilda: 'Tilda · 1–3 дня',
     livePath: '/services/websites',
     demoPages: [],
   },
@@ -591,9 +610,9 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'Визитка'],
     priceFrom: 'от 8k ₽',
-    priceNote: 'самопис · 7–14 дней',
+    priceNote: 'самопис · 5–7 дней',
     priceFromTilda: 'от 5k ₽',
-    priceNoteTilda: 'Tilda · 5–10 дней',
+    priceNoteTilda: 'Tilda · 1–3 дня',
     livePath: '/services/websites',
     demoPages: [],
   },
@@ -627,7 +646,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'Shop'],
     priceFrom: 'от 40k ₽',
-    priceNote: 'самопис · 3–5 недель',
+    priceNote: 'самопис · 1–3 недель',
     priceFromTilda: 'от 10k ₽',
     priceNoteTilda: 'Tilda · 2–3 недели',
     livePath: '/services/websites',
@@ -664,7 +683,7 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'Marketplace'],
     priceFrom: 'от 120k ₽',
-    priceNote: 'самопис · от 6–10 недель',
+    priceNote: 'самопис · от 3–4 недель',
     livePath: '/services/websites',
     demoPages: [],
   },
@@ -695,9 +714,9 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'Запись'],
     priceFrom: 'от 15k ₽',
-    priceNote: 'самопис · 2–3 недели',
+    priceNote: 'самопис · 5–7 дней',
     priceFromTilda: 'от 5k ₽',
-    priceNoteTilda: 'Tilda · 1–2 недели',
+    priceNoteTilda: 'Tilda · 1–3 дня',
     livePath: '/services/websites',
     demoPages: [],
   },
@@ -728,10 +747,46 @@ export const saasPreviewCatalog: SaasPreviewItem[] = [
     theme: 'light',
     tags: ['Website', 'B2B'],
     priceFrom: 'от 35k ₽',
-    priceNote: 'самопис · 3–5 недель',
+    priceNote: 'самопис · 5–7 дней',
     priceFromTilda: 'от 15k ₽',
-    priceNoteTilda: 'Tilda · 2–3 недели',
+    priceNoteTilda: 'Tilda · 2–3 дня',
     livePath: '/services/websites',
+    demoPages: [],
+  },
+  {
+    id: 'nfc-card',
+    section: 'nfc',
+    hasInteractiveDemo: false,
+    title: 'NFC-карточка',
+    category: 'NFC',
+    description:
+      'Карточка быстрого действия: клиент подносит телефон — открывается WhatsApp, сайт, визитка или Telegram.',
+    longDescription:
+      'NFC-карточка — пластиковая метка с чипом. Клиент подносит смартфон: без приложения открывается нужное действие — чат, сайт, контакт или Telegram.\n\nФорма на выбор: классический прямоугольник как визитка или круглый стикер. Цвет — чёрный или белый, с вашим названием на лицевой стороне.\n\nПодходит офлайн-точкам, где контакт теряется в бумаге и QR на стойке. Карточку дают в руки, клеят на стол или носят как бейдж — действие всегда одно и то же.',
+    solves:
+      'Бумажная визитка и мелкий QR легко теряются, а клиент не сохраняет контакт. NFC-карточка делает шаг за человека: одно касание — и открывается чат, сайт или визитка в телефоне. Гость не ищет номер и не фотографирует QR. Владелец точки получает стабильный канал связи с брендом на пластике, который можно раздавать и обновлять по ссылке без перепечатки чипа.',
+    audience: 'салонов, кафе, шоурумов, экспертов и команд, которые работают офлайн и хотят быстрый контакт',
+    whatsInside: [
+      'Чёрная или белая карта',
+      'Прямоугольник или круг',
+      'Действие: WhatsApp / сайт / визитка / Telegram',
+      'Страница перехода под бренд',
+    ],
+    howItWorks: [...nfcHowItWorks],
+    mvpTitle: 'Что включено',
+    mvpIncludes: [...nfcMvpIncludes],
+    extras: [
+      'Дополнительный тираж от 10 шт.',
+      'Несколько действий через меню на странице',
+      'Металлическая карта',
+    ],
+    appLabel: 'NFC',
+    previewBg: '#ece7df',
+    theme: 'light',
+    tags: ['NFC', 'Визитка', 'Офлайн'],
+    priceFrom: 'от 4.5k ₽',
+    priceNote: 'от 10 шт. · 2–3 дня',
+    livePath: '/contacts',
     demoPages: [],
   },
 ];

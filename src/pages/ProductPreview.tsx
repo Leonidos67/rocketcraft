@@ -32,7 +32,7 @@ const catalogFilters: { id: CatalogSectionFilter; label: string; description: st
   {
     id: 'all',
     label: 'Все',
-    description: 'SaaS, боты, сайты — и кастом под ваш процесс',
+    description: 'SaaS, боты, сайты и NFC — и кастом под ваш процесс',
   },
   ...previewSections,
 ];
@@ -291,7 +291,7 @@ const ProductPreview = () => {
               Ваш продукт в наших решениях
             </h1>
             <p className="m-0 mb-6 text-sm leading-relaxed text-black/50 sm:mb-8 sm:text-[0.9375rem]">
-              Введите название бренда — оно появится в SaaS, ботах и сайтах. AI подскажет, что лучше заказать.
+              Введите название бренда — оно появится в SaaS, ботах, сайтах и NFC. AI подскажет, что лучше заказать.
             </p>
 
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>

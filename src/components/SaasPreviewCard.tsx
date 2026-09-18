@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react';
 import type { SaasPreviewItem } from '@/data/saasPreviewCatalog';
+import { NfcCatalogMockup } from '@/components/NfcCardPreview';
 import { cn } from '@/lib/utils';
 
 const DeviceMockup = ({
@@ -15,6 +16,10 @@ const DeviceMockup = ({
     return (
       <div className="relative aspect-[4/3] w-full bg-transparent" aria-hidden />
     );
+  }
+
+  if (item.section === 'nfc') {
+    return <NfcCatalogMockup productName={productName} compact={compact} />;
   }
 
   const isDark = item.theme === 'dark';
