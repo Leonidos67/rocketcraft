@@ -475,7 +475,11 @@ const ProductPreview = () => {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 16 }}
                           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                          className="flex h-8 w-fit items-center gap-1"
+                          className={cn(
+                            'flex h-8 items-center gap-1',
+                            'min-w-0 max-w-full overflow-x-auto',
+                            '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                          )}
                         >
                           {catalogFilters.map((entry) => {
                             const active = section === entry.id;
@@ -490,7 +494,7 @@ const ProductPreview = () => {
                                 type="button"
                                 onClick={() => setSection(entry.id)}
                                 className={cn(
-                                  'inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full border-none px-3 text-xs font-semibold leading-none transition-colors',
+                                  'inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-full border-none px-3 text-xs font-semibold leading-none transition-colors',
                                   active
                                     ? 'bg-black/[0.08] text-black'
                                     : 'bg-transparent text-black/55 hover:text-black',
@@ -529,23 +533,19 @@ const ProductPreview = () => {
 
             <div
               className={cn(
-                'flex items-stretch gap-3 overflow-x-auto',
-                'snap-x snap-mandatory sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:overflow-visible lg:gap-5',
-                '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                'grid grid-cols-1 gap-3',
+                'sm:grid-cols-3 sm:items-start sm:gap-4 lg:gap-5',
               )}
             >
               {visibleItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="w-[min(78vw,22rem)] shrink-0 snap-center sm:w-auto sm:min-w-0"
-                  >
-                    <SaasPreviewCard
-                      item={item}
-                      productName={form.productName}
-                      onOpen={() => navigate(`/product-preview/${item.id}`)}
-                    />
-                  </div>
-                ))}
+                <div key={item.id} className="w-full min-w-0">
+                  <SaasPreviewCard
+                    item={item}
+                    productName={form.productName}
+                    onOpen={() => navigate(`/product-preview/${item.id}`)}
+                  />
+                </div>
+              ))}
             </div>
           </section>
         )}
